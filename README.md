@@ -8,29 +8,49 @@ Membres : Paul Vernin, Axel Perrin, Marc Henry-Félix
 
 ## Lecture du fichier
 
-### Prérequis :
+Prérequis : - 
 
-### Entrée :
+Entrée : `argv`
 
-### Sortie :
+Sortie : `uint8_t[]` (tableaux contenant les pixels (data))
+
+Description : Fonction qui récupérer les paramètres lus en stdin puis s'occupe de récuperer les informations du header de l'image et du data
 
 ## Conversion RGB vers YCbCr
 
-### Prérequis : Lecture du fichier
+Prérequis : Lecture du fichier
 
-### Entrée :
+Entrée : `uint8_t[]`
 
-### Sortie :
+Sortie : `uint8_t[]`
 
-## 2. Découpage de l'image en MCUs
+## Découpage de l'image en MCUs
 
-### Prérequis : Conversion RGB vers YCbCr
+Prérequis : Conversion RGB vers YCbCr
 
-### Entrée :
+Entrée : `uint8_t[]`
 
-### Sortie :
+Sortie : (liste chainée de matrice (une matrice correspond à un MCU))
 
-## Sous-échantillonnage de l'image 
+## Sous-échantillonnage de l'image
+
+Prérequis : Découpage de l'image en MCUs
+
+Entrée :
+
+Sortie :
+
+## Transformation DCT
+
+Prérequis : ...
+
+Entrée : liste de MCU (uint8_t)
+
+Sortie : liste de MCU (int8_t)
+
+## Quantification et zig-zag
+
+Prérequis : Transformation DCT
 
 # Structures de données choisies
 
