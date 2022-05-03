@@ -73,9 +73,23 @@ Sortie : `void`
 
 Description : Fait la DCT sur les MCUs un à un.
 
-## Quantification et zig-zag
+## Zig-zag
 
 Prérequis : Transformation DCT
+
+Entrée : `*MCU[]`
+
+Sortie : `void`
+
+Description
+
+## Quantification
+
+## Codage différentiel DC
+
+## Codage AC avec RLE
+
+## Encodage Huffman
 
 # Structures de données choisies
 
