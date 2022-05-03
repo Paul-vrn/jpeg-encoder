@@ -14,7 +14,8 @@ Entrée : `argv`
 
 Sortie : `void`
 
-Description : La fonction va réaliser les actions données en paramètre et remplir des variables globales (si besoin).
+Description : La fonction va réaliser les actions données en paramètre et remplir des variables globales\
+(soit variables globales du fichier ppm2jpeg soit des variables passés en paramètre qu'on passera dans les autres fonctions qui en ont besoin)
 
 ## Lecture du fichier
 
@@ -24,7 +25,7 @@ Entrée : `void` (variable global contenant nom du fichier ppm)
 
 Sortie : `uint8_t[]` (tableaux contenant les pixels (data))
 
-Description : La fonction lit le fichier ppm/pgm et va changer des variables globales en fonction de l'entête de l'image,  puis  il va lire la partie "data" et la mettre  dans un  tableau qu'il va retourner.
+Description : La fonction lit le fichier ppm/pgm et va changer des variables globales en fonction de l'entête de l'image,  puis  il va lire la partie "data" et la mettre  dans un  tableau de `uint8_t[]` qu'il va retourner.
 
 ## Conversion RGB vers YCbCr
 
@@ -34,7 +35,7 @@ Entrée : `*uint8_t[]`
 
 Sortie : `void`
 
-Description : Change  tous les pixels de RGB vers YCbCr
+Description : Change  tous les pixels de RGB vers YCbCr. Si PGM rien à changer
 
 ## Découpage de l'image en MCUs
 
@@ -42,22 +43,15 @@ Prérequis : Conversion RGB vers YCbCr
 
 Entrée : `uint8_t[]`
 
-Sortie : (liste chainée de matrice (une matrice correspond à un MCU))
+Sortie : `*MCU` (liste chainée de de `MCU` contenant des blocs Y, Cb, Cr)
 
 Description : En fonction du fichier (PPM/PGM) découper les pixels en MCUs, en fonction de l'échantillonage le MCU contient 1, 2 ou 4 bloc (Y, Cr, Cb).
-```
-struct MCU {
-    Y0 -> Y1 -> Y2
-    Cr0 -> Cr1...
-    Cb0...
-}
-```
 
 ## Sous-échantillonnage de l'image
 
 Prérequis : Découpage de l'image en MCUs
 
-Entrée : `*MCU[]`
+Entrée : `*MCU`
 
 Sortie : `void`
 
@@ -65,31 +59,53 @@ Description : Dans chaque MCU, en  fonction  de l'échantillonage,  on va fusion
 
 ## Transformation DCT
 
-Prérequis : ...
+Prérequis : Sous échantillonage de l'image
 
-Entrée : `*MCU[]`
+Entrée : `*MCU`
 
 Sortie : `void`
 
-Description : Fait la DCT sur les MCUs un à un.
+Description : Module qui prend la liste de MCU et applique la DCT à chaque bloc de chaque MCU.
 
 ## Zig-zag
 
 Prérequis : Transformation DCT
 
-Entrée : `*MCU[]`
+Entrée : `*MCU`
 
-Sortie : `void`
+Sortie : `uint8_t[][64]`
 
-Description
+Description : Crée un tableau contenant `nb MCU x nb bloc par MCU` case contenant les vecteurs de la transformation zig-zag
 
 ## Quantification
 
-## Codage différentiel DC
+Prérequis : Zig-zag
 
-## Codage AC avec RLE
+Entrée : `*uint8_t[][64]`
+
+Sortie : `void`
+
+Description : applique les tableaux de quantification à chaque vecteurs.
+
+## Codage DC et AC (RLE)
+
+Prérequis : Quantification
+
+Entrée : 
+
+Sortie :
+
+Description : 
 
 ## Encodage Huffman
+
+Prérequis : Quantification
+
+Entrée : 
+
+Sortie :
+
+Description : 
 
 # Structures de données choisies
 
