@@ -123,22 +123,22 @@ void blocs_fusion(struct bloc_t **blocs){
 
 
 uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
-    float pi = 3.141592653589793238462643383279502884197169399375105820;
+    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/
     float n = 8;
     float resultat = 0;
     for(uint32_t x = 0; x < 8; x++){
         for(uint32_t y = 0; y < 8 ; y++){
-            resultat += bloc[x][y] * cos(((2*x+1)*i*pi)/(2*n)) * cos(((2*y+1)*i*pi)/(2*n)); 
+            resultat += bloc[x][y] * cos(((2*x+1)*(float)i*pi)/(2*n)) * cos(((2*y+1)*(float)i*pi)/(2*n)); 
         }
     }
     if(i==0 && j==0){
-        resultat *= (2/n) * 1/srqt(2) * 1/srqt(2); 
+        resultat *= (2/n) * 1/sqrt(2) * 1/sqrt(2); 
     }
     else if(i==0){
-        resultat *= (2/n) * 1/srqt(2);
+        resultat *= (2/n) * 1/sqrt(2);
     }
     else if(j==0){
-        resultat *= (2/n) * 1/srqt(2); 
+        resultat *= (2/n) * 1/sqrt(2); 
     }
     else{
         resultat *= (2/n);
@@ -149,8 +149,28 @@ uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
 void DCT2(uint8_t**bloc){
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
+            bloc[i][j] = bloc[i][j] - 128 ;
+        }}
+    for(uint32_t i=0; i<8; i++){
+        for(uint32_t j=0; j<8; j++){
             bloc[i][j] = DCT(**bloc, i, j);
         }
-
     }
 }
+
+/* Il y a deja un main
+void main(){
+    uint8_t ligne1[] = {139, 144, 149, 153, 155, 155, 155, 155};
+    uint8_t ligne2[] = {144, 151, 153, 156, 159, 156, 156, 156};
+    uint8_t ligne3[] = {150, 155, 150, 153, 158, 156, 156, 156};
+    uint8_t ligne4[] = {159, 161, 162, 160, 160, 159, 159, 159};
+    uint8_t ligne5[] = {159, 160, 161, 162, 162, 155, 155, 155};
+    uint8_t ligne6[] = {161, 161, 161, 161, 160, 157, 157, 157};
+    uint8_t ligne7[] = {162, 162, 161, 163, 162, 157, 157, 157};
+    uint8_t ligne8[] = {162, 162, 161, 161, 163, 158, 158, 158};
+    uint8_t bloc[] = {ligne1, ligne2, ligne3, ligne4, ligne5, ligne6, ligne7, ligne8};
+    bloc_print(bloc);
+    DCT2(bloc);
+    bloc_print(bloc);
+} */
+
