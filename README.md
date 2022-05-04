@@ -109,11 +109,11 @@ Description :
 
 # Structures de données choisies
 
-img
+![Structure de données]()
 
 # Gantt
 
-img
+![Gantt](./docs/Gantt.drawio.png)
 
 # Progression
 
