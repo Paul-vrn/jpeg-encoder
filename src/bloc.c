@@ -151,7 +151,8 @@ void DCT2(uint8_t**bloc){
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
             bloc[i][j] = bloc[i][j] - 128 ;
-        }}
+        }
+    }
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
             bloc[i][j] = DCT(**bloc, i, j);
