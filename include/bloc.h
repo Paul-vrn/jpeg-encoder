@@ -7,6 +7,7 @@
 struct bloc_t;
 
 struct bloc_t *bloc_create(uint8_t matrice[8][8]);
+struct bloc_t* bloc_create_from_pixels(uint8_t **matrice, uint32_t start_x, uint32_t end_x, uint32_t start_y, uint32_t end_y);
 
 void bloc_destroy(struct bloc_t *bloc);
 void blocs_destroy(struct bloc_t *blocs);

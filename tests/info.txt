@@ -1,0 +1,7 @@
+Pour compiler un  test :
+
+Compile en  .o le  test
+gcc -c -Wall -Wextra -g -O2 -I ../include/    bloc_test.c   -o bloc_test.o
+
+Edition de lien : (pour chaque "truc.h" dans  l'entête du test il  faut ajoute  à la ligne  "../obj/truc.o")
+gcc -Wall -Wextra -g -O2 -I ../include/    bloc_test.o ../obj/bloc.o   -o bloc_test

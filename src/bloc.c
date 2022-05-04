@@ -27,6 +27,28 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
     return bloc;
 }
 
+struct bloc_t* bloc_create_from_pixels(uint8_t **matrice, uint32_t start_x, uint32_t end_x, uint32_t start_y, uint32_t end_y){
+    struct bloc_t *bloc = calloc(1, sizeof(struct bloc_t));
+    bloc->next = NULL;
+    for (uint32_t i = start_x; i < end_x; i++){
+        for (uint32_t j = start_y; j < end_y; j++){
+            bloc->matrice[i][j] = matrice[i][j];
+        }
+        for (uint32_t j = end_y; j < 8; j++){
+            bloc->matrice[i][j] = matrice[i][end_y];
+        }
+    }
+    for (uint32_t i = end_x; i < 8; i++){
+        for (uint32_t j = start_y; j < end_y; j++){
+            bloc->matrice[i][j] = matrice[end_x][j];
+        }
+        for (uint32_t j = end_y; j < 8; j++){
+            bloc->matrice[i][j] = matrice[end_x][end_y];
+        }
+    }
+    return bloc;
+}
+
 void bloc_destroy(struct bloc_t *bloc) {
     free(bloc);
 }
