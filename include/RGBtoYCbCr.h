@@ -5,6 +5,6 @@
 #include "bloc.h"
 #include "mcu.h"
 
-void ConversionYCbCr(uint8_t**matrice, uint32_t hauteur, uint32_t longueur)
+void ConversionYCbCr(uint8_t**matrice, uint32_t hauteur, uint32_t longueur);
 
 #endif /* _RGBtoYCbCr.h_ */

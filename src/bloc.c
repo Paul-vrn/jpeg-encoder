@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <math.h>
 
 struct bloc_t {
     struct bloc_t *next;
@@ -120,3 +121,36 @@ void blocs_fusion(struct bloc_t **blocs){
     } 
 }
 
+
+uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
+    float pi = 3.141592653589793238462643383279502884197169399375105820;
+    float n = 8;
+    float resultat = 0;
+    for(uint32_t x = 0; x < 8; x++){
+        for(uint32_t y = 0; y < 8 ; y++){
+            resultat += bloc[x][y] * cos(((2*x+1)*i*pi)/(2*n)) * cos(((2*y+1)*i*pi)/(2*n)); 
+        }
+    }
+    if(i==0 && j==0){
+        resultat *= (2/n) * 1/srqt(2) * 1/srqt(2); 
+    }
+    else if(i==0){
+        resultat *= (2/n) * 1/srqt(2);
+    }
+    else if(j==0){
+        resultat *= (2/n) * 1/srqt(2); 
+    }
+    else{
+        resultat *= (2/n);
+    }
+    return resultat;
+}
+
+void DCT2(uint8_t**bloc){
+    for(uint32_t i=0; i<8; i++){
+        for(uint32_t j=0; j<8; j++){
+            bloc[i][j] = DCT(**bloc, i, j);
+        }
+
+    }
+}
