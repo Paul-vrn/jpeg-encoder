@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-
+/*
 int main(void)
 {
     printf("Au boulot!\n");
@@ -9,3 +9,4 @@ int main(void)
     
     return EXIT_SUCCESS;
 }
+*/

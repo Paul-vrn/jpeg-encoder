@@ -15,6 +15,7 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
     if (matrice != NULL){
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
+                //printf("%u\n", matrice[i][j]);
                 bloc->matrice[i][j] = matrice[i][j];
             }
         }
@@ -43,7 +44,7 @@ void blocs_destroy(struct bloc_t *blocs){
 void bloc_print(struct bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            printf("%d ", bloc->matrice[i][j]);
+            printf("%u ", bloc->matrice[i][j]);
         }
         printf("\n");
     }
@@ -132,7 +133,7 @@ uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
         }
     }
     if(i==0 && j==0){
-        resultat *= (2/n) * 1/sqrt(2) * 1/sqrt(2); 
+        resultat *= (2/n) * 1/2; 
     }
     else if(i==0){
         resultat *= (2/n) * 1/sqrt(2);
@@ -158,19 +159,21 @@ void DCT2(uint8_t**bloc){
     }
 }
 
-/* Il y a deja un main
+/* Il y a deja un main*/
 void main(){
-    uint8_t ligne1[] = {139, 144, 149, 153, 155, 155, 155, 155};
-    uint8_t ligne2[] = {144, 151, 153, 156, 159, 156, 156, 156};
-    uint8_t ligne3[] = {150, 155, 150, 153, 158, 156, 156, 156};
-    uint8_t ligne4[] = {159, 161, 162, 160, 160, 159, 159, 159};
-    uint8_t ligne5[] = {159, 160, 161, 162, 162, 155, 155, 155};
-    uint8_t ligne6[] = {161, 161, 161, 161, 160, 157, 157, 157};
-    uint8_t ligne7[] = {162, 162, 161, 163, 162, 157, 157, 157};
-    uint8_t ligne8[] = {162, 162, 161, 161, 163, 158, 158, 158};
-    uint8_t bloc[] = {ligne1, ligne2, ligne3, ligne4, ligne5, ligne6, ligne7, ligne8};
-    bloc_print(bloc);
+    uint8_t bloc[8][8] = {{139, 144, 149, 153, 155, 155, 155, 155},
+                    {144, 151, 153, 156, 159, 156, 156, 156},
+                    {150, 155, 150, 153, 158, 156, 156, 156},
+                    {159, 161, 162, 160, 160, 159, 159, 159},
+                    {159, 160, 161, 162, 162, 155, 155, 155},
+                    {161, 161, 161, 161, 160, 157, 157, 157},
+                    {162, 162, 161, 163, 162, 157, 157, 157},
+                    {162, 162, 161, 161, 163, 158, 158, 158}};
+
+    struct bloc_t *bloco = bloc_create(bloc);
+    bloc_print(bloco);
     DCT2(bloc);
-    bloc_print(bloc);
-} */
+    struct bloc *bloco1 = bloc_create(bloc);
+    bloc_print(bloco1);
+} 
 
