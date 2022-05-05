@@ -147,7 +147,6 @@ struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
         for (uint32_t j = 0; j < 8; j++) {
             if (k < 8) {
                 bloc_fusion->matrice[i][j] = (uint8_t)(bloc1->matrice[i][k]+bloc1->matrice[i][k+1])/2;
-                //printf("[%i][%i] = %u = %u + %u\n",i,j, bloc_fusion->matrice[i][j],bloc1->matrice[i][k], bloc1->matrice[i][k+1]);
             } else {
                 bloc_fusion->matrice[i][j] = (uint8_t)(bloc2->matrice[i][k-8]+bloc2->matrice[i][k-7])/2;
             }
