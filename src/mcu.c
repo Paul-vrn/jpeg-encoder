@@ -56,7 +56,7 @@ struct mcu_t* mcu_get_next(struct mcu_t *mcu)
 
 /**
  * @brief 
- * 
+ * @test✔️
  * @param Y 
  * @param Cb 
  * @param Cr 
@@ -99,6 +99,13 @@ void mcu_print(struct mcu_t *mcu){
     blocs_print(mcu->Cr);
 }
 
+void mcus_print(struct mcu_t *mcu){
+    while (mcu != NULL){
+        mcu_print(mcu);
+        mcu = mcu->next;
+    }
+}
+
 /**
  * @brief 
  * 
@@ -109,9 +116,20 @@ void mcu_sous_echantillonne(struct mcu_t *mcu){
     blocs_fusion(&mcu->Cr);
 }
 
+void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
+    struct mcu_t *tmp = *mcu;
+    if (tmp == NULL){
+        *mcu = next;
+    }
+    else{
+        while (tmp->next != NULL)
+            tmp = tmp->next;
+        tmp->next = next;
+    }
+}
 /**
  * @brief 
- * 
+ * @test✔️(gris) ❌(RGB)
  * @param pixels 
  * @param height 
  * @param width 
@@ -119,8 +137,8 @@ void mcu_sous_echantillonne(struct mcu_t *mcu){
  * @return struct mcu_t* 
  */
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, bool gris, uint32_t L, uint32_t H, uint32_t V){
-    struct mcu_t *mcu_current = NULL;
-    struct mcu_t *mcu_to_return = NULL;
+    
+    struct mcu_t *mcus = NULL;
     if (gris){
         //MCU 8x8
         uint32_t start_x = 0;
@@ -129,30 +147,91 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
             while (start_x < width){
                 uint32_t end_x = start_x+8<width?start_x+8:width;
                 uint32_t end_y = start_y+8<height?start_y+8:height;
-                printf("start_x: %d, end_x: %d, start_y: %d, end_y: %d\n", start_x, end_x, start_y, end_y);
                 struct bloc_t *bloc = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
-                bloc_print(bloc);
                 struct mcu_t *new_mcu = mcu_create(bloc, NULL, NULL, 8, 8);
-                if (mcu_current == NULL){
-                    mcu_current = new_mcu;
-                    mcu_to_return = new_mcu;
-                } else {
-                    mcu_current->next = new_mcu;
-                    mcu_current = mcu_current->next;
-                }
+                mcu_add(&mcus, new_mcu);
                 start_x += 8;
             }
             start_y += 8;
             start_x = 0;
         }
     } else {
-        if (H == 4 && V == 4){
+        printf("H:%d V:%d\n", H, V);
+        if (H == 4 && V == 4){ // tested
             //MCU 8x8
-        } else if (H == 2 && V == 2){
+            uint32_t start_x = 0;
+            uint32_t start_y = 0;
+            while (start_y < height){
+                while (start_x < width){
+                    uint32_t end_x = start_x+8<width?start_x+8:width;
+                    uint32_t end_y = start_y+8<height?start_y+8:height;
+                    struct bloc_t *blocR = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
+                    struct bloc_t *blocG = bloc_create_from_pixels(pixels[1], start_x, end_x, start_y, end_y);
+                    struct bloc_t *blocB = bloc_create_from_pixels(pixels[2], start_x, end_x, start_y, end_y);
+                    struct mcu_t *new_mcu = mcu_create(blocR, blocG, blocB, 8, 8);
+                    mcu_add(&mcus, new_mcu);
+                    start_x += 8;
+                }
+                start_y += 8;
+                start_x = 0;
+            }
+        } else if (H == 2 && V == 2){ // not work
             //MCU 16x8
+            uint32_t start_x = 0;
+            uint32_t start_y = 0;
+            while (start_y < height){
+                while (start_x < width){
+                    uint32_t end_x1 = start_x+8<width?start_x+8:width;
+                    uint32_t end_x2 = start_x+16<width?start_x+16:width;
+                    uint32_t end_y = start_y+8<height?start_y+8:height;
+                    struct bloc_t *blocR = bloc_create_from_pixels(pixels[0], start_x, end_x1, start_y, end_y);
+                    struct bloc_t *blocG = bloc_create_from_pixels(pixels[1], start_x, end_x1, start_y, end_y);
+                    struct bloc_t *blocB = bloc_create_from_pixels(pixels[2], start_x, end_x1, start_y, end_y);
+                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], end_x1, end_x2, start_y, end_y));
+                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], end_x1, end_x2, start_y, end_y));
+                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], end_x1, end_x2, start_y, end_y));
+                    struct mcu_t *new_mcu = mcu_create(blocR, blocG, blocB, 16, 8);
+                    mcu_add(&mcus, new_mcu);
+                    start_x += 16;
+                }
+                start_y += 8;
+                start_x = 0;
+            }
         } else if (H == 2 && V == 0){
             //MCU 16x16
+            uint32_t start_x = 0;
+            uint32_t start_y = 0;
+            while (start_y < height){
+                while (start_x < width){
+                    uint32_t end_x1 = start_x+8<width?start_x+8:width;
+                    uint32_t end_x2 = start_x+16<width?start_x+16:width;
+                    uint32_t end_y1 = start_y+8<height?start_y+8:height;
+                    uint32_t end_y2 = start_y+16<height?start_y+16:height;
+                    struct bloc_t *blocR = bloc_create_from_pixels(pixels[0], start_x, end_x1, start_y, end_y1);
+                    struct bloc_t *blocG = bloc_create_from_pixels(pixels[1], start_x, end_x1, start_y, end_y1);
+                    struct bloc_t *blocB = bloc_create_from_pixels(pixels[2], start_x, end_x1, start_y, end_y1);
+            
+                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], end_x1, end_x2, start_y, end_y1));
+                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], end_x1, end_x2, start_y, end_y1));
+                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], end_x1, end_x2, start_y, end_y1));
+            
+                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], start_x, end_x1, end_y1, end_y2));
+                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], start_x, end_x1, end_y1, end_y2));
+                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], start_x, end_x1, end_y1, end_y2));
+            
+                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], end_x1, end_x2, end_y1, end_y2));
+                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], end_x1, end_x2, end_y1, end_y2));
+                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], end_x1, end_x2, end_y1, end_y2));
+                    struct mcu_t *new_mcu = mcu_create(blocR, blocG, blocB, 16, 16);
+                    mcu_add(&mcus, new_mcu);
+                    start_x += 16;
+                }
+                start_y += 16;
+                start_x = 0;
+            }
+        } else {
+            printf("Error: unsupported MCU size\n");
         }
     }
-    return mcu_to_return;
+    return mcus;
 }
