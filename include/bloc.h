@@ -29,4 +29,5 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
 
 bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2);
 
+
 #endif /* _BLOC_H_ */

@@ -11,5 +11,8 @@ int main(void)
     //Lecture des fichiers
 
         
+
+    //zig zag : créer le "zigzag" en fonction de l:h:v et du nombre de MCU (mcu_count)
+    
     return EXIT_SUCCESS;
 }

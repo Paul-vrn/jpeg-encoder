@@ -12,6 +12,8 @@ mcu: mcu.o ../obj/bloc.o ../obj/mcu.o
 bloc: bloc.o ../obj/bloc.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 
+zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS).o: $(TESTS).c 
 	$(CC) $(CFLAGS) -c $^ -o $@

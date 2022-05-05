@@ -11,6 +11,9 @@ struct mcu_t {
     struct mcu_t *next;
     uint32_t largeur;
     uint32_t hauteur;
+    int8_t *vectorY[64];
+    int8_t *vectorCb[64];
+    int8_t *vectorCr[64];
 };
 
 void mcu_set_next(struct mcu_t *mcu, struct mcu_t *next)
@@ -54,6 +57,15 @@ struct mcu_t* mcu_get_next(struct mcu_t *mcu)
     return mcu->next;
 }
 
+uint32_t mcu_count(struct mcu_t *mcu)
+{
+    uint32_t count = 0;
+    while (mcu != NULL) {
+        count++;
+        mcu = mcu->next;
+    }
+    return count;
+}
 /**
  * @brief 
  * @test✔️
@@ -87,8 +99,6 @@ void mcu_destroy(struct mcu_t *mcu){
         blocs_destroy(mcu->Cr);
     free(mcu);
 }
-
-
 void mcu_print(struct mcu_t *mcu){
     printf("MCU:\n");
     printf("Y:\n");
@@ -235,3 +245,27 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
     }
     return mcus;
 }
+
+/*
+void mcu_to_zig_zag(struct mcu_t *mcu, int8_t **zig_zag){
+    struct mcu_t *current = mcu;
+    while (current != NULL){
+        struct bloc_t *current_bloc = current->Y;
+        while (current_bloc != NULL){
+            bloc_to_zig_zag(current_bloc, zig_zag);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        struct bloc_t *current_bloc = current->Cb;
+        while (current_bloc != NULL){
+            bloc_to_zig_zag(current_bloc, zig_zag);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        struct bloc_t *current_bloc = current->Cr;
+        while (current_bloc != NULL){
+            bloc_to_zig_zag(current_bloc, zig_zag);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current = current->next;
+    }
+}
+*/

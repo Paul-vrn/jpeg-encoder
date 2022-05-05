@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <math.h>
 
 struct bloc_t {
     struct bloc_t *next;
-    uint8_t matrice[8][8];
+    int8_t matrice[8][8];
 };
 
 void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next)
@@ -253,9 +254,9 @@ void blocs_fusion(struct bloc_t **blocs){
     } 
 }
 
-
+/*
 uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/
+    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
     float n = 8;
     float resultat = 0;
     for(uint32_t x = 0; x < 8; x++){
@@ -289,6 +290,7 @@ void DCT2(uint8_t**bloc){
         }
     }
 }
+*/
 
 /**
  * @brief compare two blocs 
@@ -304,6 +306,6 @@ bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
                 return false;
             }
         }
-    }
+    } 
     return true;
 }
