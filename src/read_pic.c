@@ -70,29 +70,14 @@ uint8_t ***creat_matrix(int argc, char *argv[]){
 
     } while((int)arg != 10);
 
+    
 
 
 
-    // uint8_t *r_lines = calloc(WIDTH*HEIGHT, sizeof(uint8_t));
-    // uint8_t **r_component = calloc(HEIGHT, sizeof(uint8_t));
-    // uint8_t *g_lines = calloc(WIDTH*HEIGHT, sizeof(uint8_t));
-    // uint8_t **g_component = calloc(HEIGHT, sizeof(uint8_t));
-    // uint8_t *b_lines = calloc(WIDTH*HEIGHT, sizeof(uint8_t));
-    // uint8_t **b_component = calloc(HEIGHT, sizeof(uint8_t));
+
+
     uint8_t ***matrixs = calloc(3, sizeof(uint8_t));
     
-    // for (i = 0; i < HEIGHT; i++){
-
-    //     r_component[i] = r_lines + i*WIDTH;
-    //     g_component[i] = g_lines + i*WIDTH;
-    //     b_component[i] = b_lines + i*WIDTH;
-
-
-    // }
-
-    // matrixs[0] = r_component;
-    // matrixs[1] = g_component;
-    // matrixs[2] = b_component;
 
     
     if (TYPE == 5){
