@@ -2,13 +2,36 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
+#include <stdbool.h>
 
 struct bloc_t {
     struct bloc_t *next;
     uint8_t matrice[8][8];
 };
 
+void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next)
+{
+    bloc->next = next;
+}
+void bloc_set_matrice(struct bloc_t *bloc, uint8_t matrice[8][8]){
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+            bloc->matrice[i][j] = matrice[i][j];
+        }
+    }
+}
 
+struct bloc_t *get_next(struct bloc_t *bloc){
+    return bloc->next;
+}
+
+
+/**
+ * @brief Create a bloc
+ * @test✔️
+ * @param matrice The matrice of the bloc
+ * @return struct bloc_t* The bloc
+ */
 struct bloc_t *bloc_create(uint8_t matrice[8][8]){
     struct bloc_t *bloc = calloc(1, sizeof(struct bloc_t));
     bloc->next = NULL;
@@ -28,9 +51,52 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
     return bloc;
 }
 
+/**
+ * @brief function to create a bloc from a set of pixels
+ * @test❌
+ * @param pixels matrix containing ALL the pixels
+ * @param start_x x coordinate of the first pixel
+ * @param end_x x coordinate of the last pixel
+ * @param start_y y coordinate of the first pixel
+ * @param end_y y coordinate of the last pixel
+ * @return struct bloc_t* pointer to the new bloc
+ */
+struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint32_t end_x, uint32_t start_y, uint32_t end_y){
+    struct bloc_t *bloc = calloc(1, sizeof(struct bloc_t));
+    bloc->next = NULL;
+    for (uint32_t i = start_x; i < end_x; i++){
+        for (uint32_t j = start_y; j < end_y; j++){
+            bloc->matrice[i][j] = pixels[i][j];
+        }
+        for (uint32_t j = end_y; j < 8; j++){
+            bloc->matrice[i][j] = pixels[i][end_y];
+        }
+    }
+    for (uint32_t i = end_x; i < 8; i++){
+        for (uint32_t j = start_y; j < end_y; j++){
+            bloc->matrice[i][j] = pixels[end_x][j];
+        }
+        for (uint32_t j = end_y; j < 8; j++){
+            bloc->matrice[i][j] = pixels[end_x][end_y];
+        }
+    }
+    return bloc;
+}
+
+/**
+ * @brief Destroy a bloc
+ * @test✔️
+ * @param bloc 
+ */
 void bloc_destroy(struct bloc_t *bloc) {
     free(bloc);
 }
+
+/**
+ * @brief Destroy blocs
+ * @test✔️
+ * @param blocs 
+ */
 void blocs_destroy(struct bloc_t *blocs){
     struct bloc_t *bloc = blocs;
     while (bloc != NULL) {
@@ -40,6 +106,11 @@ void blocs_destroy(struct bloc_t *blocs){
     }
 }
 
+/**
+ * @brief Print values of a bloc
+ * @test✔️
+ * @param bloc 
+ */
 void bloc_print(struct bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -50,22 +121,36 @@ void bloc_print(struct bloc_t *bloc){
 }
 
 /**
+ * @brief Print values of blocs
+ * @test✔️
+ * @param blocs
+ */
+void blocs_print(struct bloc_t *blocs){
+    struct bloc_t *bloc = blocs;
+    while (bloc != NULL) {
+        bloc_print(bloc);
+        bloc = bloc->next;
+        printf("\n");
+    }
+}
+
+/**
  * @brief function that merge 2 blocs line by line
- * 
- * @param bloc1 
- * @param bloc2 
- * @return struct bloc_t* 
+ * @test✔️
+ * @param bloc1 first block
+ * @param bloc2 second block (to the right)
+ * @return struct bloc_t* merged bloc
  */
 struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     struct bloc_t *bloc_fusion = bloc_create(NULL);
-    for (int i = 0; i < 8; i++) {
-        uint8_t j = 0;
+    for (uint32_t i = 0; i < 8; i++) {
         uint8_t k = 0;
-        for (j = 0; j < 8; j++) {
-            if (k <= 8) {
-                bloc_fusion->matrice[i][j] = (bloc1->matrice[i][k]+bloc1->matrice[i][k+1])/2;
+        for (uint32_t j = 0; j < 8; j++) {
+            if (k < 8) {
+                bloc_fusion->matrice[i][j] = (uint8_t)(bloc1->matrice[i][k]+bloc1->matrice[i][k+1])/2;
+                //printf("[%i][%i] = %u = %u + %u\n",i,j, bloc_fusion->matrice[i][j],bloc1->matrice[i][k], bloc1->matrice[i][k+1]);
             } else {
-                bloc_fusion->matrice[i][j] = (bloc2->matrice[i][k-8]+bloc2->matrice[i][k-7])/2;
+                bloc_fusion->matrice[i][j] = (uint8_t)(bloc2->matrice[i][k-8]+bloc2->matrice[i][k-7])/2;
             }
             k += 2;
         }
@@ -73,24 +158,33 @@ struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     return bloc_fusion;
 }
 
+/**
+ * @brief function that merge 4 blocs 2 lines by 2 lines, 
+ * example : [0][0] = mean([0][0], [0][1], [1][0], [1][1])
+ * @test❌
+ * @param bloc1 first block
+ * @param bloc2 second block (to the right)
+ * @param bloc3 third block (bellow)
+ * @param bloc4 fourth block (to the right and bellow)
+ * @return struct bloc_t* merged bloc
+ */
 struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct bloc_t *bloc3, struct bloc_t *bloc4){
     struct bloc_t *bloc_fusion = bloc_create(NULL);
 
-    for (int i = 0; i < 8; i++) {
-        uint8_t j = 0;
+    for (uint32_t i = 0; i < 8; i++) {
         uint8_t k = 0;
-        for (j = 0; j < 8; j++) {
-            if (j*2 <= 8){
-                if (k <= 8) {
-                    bloc_fusion->matrice[i][j] = (bloc1->matrice[i*2][k]+bloc1->matrice[i*2][k+1]+bloc1->matrice[(i+1)*2][k]+bloc1->matrice[(i+1)*2][k+1])/4;
+        for (uint32_t j = 0; j < 8; j++) {
+            if (j*2 < 8){
+                if (k < 8) {
+                    bloc_fusion->matrice[i][j] = (uint8_t)(bloc1->matrice[i*2][k]+bloc1->matrice[i*2][k+1]+bloc1->matrice[(i+1)*2][k]+bloc1->matrice[(i+1)*2][k+1])/4;
                 } else {
-                    bloc_fusion->matrice[i][j] = (bloc2->matrice[i*2][k]+bloc2->matrice[i*2][k+1]+bloc2->matrice[(i+1)*2][k]+bloc2->matrice[(i+1)*2][k+1])/4;
+                    bloc_fusion->matrice[i][j] = (uint8_t)(bloc2->matrice[i*2][k]+bloc2->matrice[i*2][k+1]+bloc2->matrice[(i+1)*2][k]+bloc2->matrice[(i+1)*2][k+1])/4;
                 }
             } else {
-                if (k <= 8) {
-                    bloc_fusion->matrice[i][j] = (bloc3->matrice[i*2][k]+bloc3->matrice[i*2][k+1]+bloc3->matrice[(i+1)*2][k]+bloc3->matrice[(i+1)*2][k+1])/4;
+                if (k < 8) {
+                    bloc_fusion->matrice[i][j] = (uint8_t)(bloc3->matrice[i*2][k]+bloc3->matrice[i*2][k+1]+bloc3->matrice[(i+1)*2][k]+bloc3->matrice[(i+1)*2][k+1])/4;
                 } else {
-                    bloc_fusion->matrice[i][j] = (bloc4->matrice[i*2][k]+bloc4->matrice[i*2][k+1]+bloc4->matrice[(i+1)*2][k]+bloc4->matrice[(i+1)*2][k+1])/4;
+                    bloc_fusion->matrice[i][j] = (uint8_t)(bloc4->matrice[i*2][k]+bloc4->matrice[i*2][k+1]+bloc4->matrice[(i+1)*2][k]+bloc4->matrice[(i+1)*2][k+1])/4;
                 }
             }
             k += 2;
@@ -174,3 +268,13 @@ void main(){
     bloc_print(bloc);
 } */
 
+bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
+    for (uint32_t i = 0; i < 8; i++) {
+        for (uint32_t j = 0; j < 8; j++) {
+            if (bloc1->matrice[i][j] != bloc2->matrice[i][j]){
+                return false;
+            }
+        }
+    }
+    return true;
+}

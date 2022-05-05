@@ -1,12 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
+
+bool GRIS  = true;
 
 int main(void)
 {
-    printf("Au boulot!\n");
-    uint32_t t = 0;
-    
-    
+    //lecture  des paramètres
+    //Lecture des fichiers
+
+        
     return EXIT_SUCCESS;
 }
