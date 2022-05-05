@@ -35,7 +35,7 @@ uint8_t **creat_matrix(int argc, char *argv[]){
 
     while((int)arg != 32){ // On lis la largeur de l'image
 
-        hauteur += 10*hauteur + (uint32_t)arg - 48;
+        largeur = 10*largeur + (arg - '0');
         arg = fgetc(img);
 
     }
@@ -44,7 +44,7 @@ uint8_t **creat_matrix(int argc, char *argv[]){
 
     while((int)arg != 10){ // On lis la hauteur de l'image
 
-        largeur += 10*largeur + (arg - '0');
+        hauteur = 10*hauteur + (arg - '0');
         arg = fgetc(img);
 
     }
@@ -57,7 +57,7 @@ uint8_t **creat_matrix(int argc, char *argv[]){
     } while((int)arg != 10);
 
 
-    printf("%u %u\n", hauteur, largeur);
+
 
     uint8_t *lignes = calloc(largeur*hauteur, sizeof(uint8_t));
     uint8_t **matrice = calloc(hauteur, sizeof(uint8_t));
@@ -98,14 +98,13 @@ void main(int argc, char *argv[]){
     for (int i = 0; i < hauteur; i++){
         for (int j = 0; j < largeur; j++){
 
-           
             printf("%u ", matrix[i][j]);
 
-
         }
-    printf("\n");
+        printf("\n");
     }
 
+    printf("%u %u\n", hauteur, largeur);
 
 
 }
