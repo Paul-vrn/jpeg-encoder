@@ -4,9 +4,10 @@
 /*
 int main(void)
 {
-    printf("Au boulot!\n");
-    uint32_t t = 0;
-    
+    //lecture  des paramètres
+    //Lecture des fichiers
+
+        
     return EXIT_SUCCESS;
 }
 */
