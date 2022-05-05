@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -I../include -O0 -g
 LDFLAGS = -lm
-TESTS = mcu
+TESTS = mcu bloc vector read_param
 all: $(TESTS)
 
 
@@ -15,7 +15,7 @@ bloc: bloc.o ../obj/bloc.o
 read_param: read_param.o ../obj/read_param.o ../obj/read_pic.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
+vector: vector.o ../obj/bloc.o ../obj/vector.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS).o: $(TESTS).c 
