@@ -28,5 +28,8 @@ int main(int argc, char *argv[])
     uint8_t ***matr = creat_matrix(&HEIGHT, &WIDTH, &TYPE, &INFILE);
 
         
+
+    //zig zag : créer le "zigzag" en fonction de l:h:v et du nombre de MCU (mcu_count)
+    
     return EXIT_SUCCESS;
 }
