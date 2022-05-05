@@ -6,7 +6,7 @@
 
 struct bloc_t {
     struct bloc_t *next;
-    int8_t matrice[8][8];
+    uint8_t matrice[8][8];
 };
 
 void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next)
@@ -14,15 +14,18 @@ void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next)
     bloc->next = next;
 }
 void bloc_set_matrice(struct bloc_t *bloc, uint8_t matrice[8][8]){
-    for (int i = 0; i < 8; i++){
-        for (int j = 0; j < 8; j++){
+    for (uint32_t i = 0; i < 8; i++){
+        for (uint32_t j = 0; j < 8; j++){
             bloc->matrice[i][j] = matrice[i][j];
         }
     }
 }
 
-struct bloc_t *get_next(struct bloc_t *bloc){
+struct bloc_t *bloc_get_next(struct bloc_t *bloc){
     return bloc->next;
+}
+uint8_t ***bloc_get_matrice(struct bloc_t *bloc){
+    return &bloc->matrice;
 }
 
 void bloc_add(struct bloc_t **bloc, struct bloc_t *next){
@@ -235,6 +238,7 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
 void blocs_fusion(struct bloc_t **blocs){
     uint8_t count = 0;
     struct bloc_t *bloc = *blocs;
+    //TODO : à changer quand il y a les variables globales qui permettent de dire si on fait une fusion par 2 ou 4
     while (bloc != NULL) {
         count++;
         bloc = bloc->next;
