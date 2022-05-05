@@ -1,19 +1,17 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -O2 -I ../include/
-LDFLAGS = 
+CFLAGS = -Wall -Wextra -g -O2 -I../include
+LDFLAGS = -lm
 
-TESTS =	bloc
-
-SRC = $(TESTS:=.c) $(wildcard ../obj/%.o)
-OBJ = $(TESTS:=.o)
-
+#A CHANGER POUR LE CHAQUE TEST
+TESTS = mcu
+ASSOCIATED = ../obj/bloc.o ../obj/mcu.o
 all: $(TESTS)
 
-%-test: %.o
-	$(CC) $(CFLAGS) $^ -o $@
+$(TESTS): $(TESTS).o $(ASSOCIATED)
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^
+$(TESTS).o: $(TESTS).c 
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 .PHONY: clean
 

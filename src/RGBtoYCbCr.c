@@ -4,7 +4,7 @@
 /*
   Convertit une matrice de pixels en RGB en matrices de pixels en YCbCr
 */
-
+/*
 void ConversionYCbCr(*matrice,hauteur,longueur){
     for(i=0; i < hauteur; i++){
         for(j=0; j < longueur){
@@ -23,3 +23,4 @@ void ConversionYCbCr(*matrice,hauteur,longueur){
 
 }
 
+*/
