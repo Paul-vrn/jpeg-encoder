@@ -1,25 +1,23 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -I../include -O0 -g
 LDFLAGS = -lm
-
-#A CHANGER POUR LE CHAQUE TEST
-TESTS = mcu \
-		bloc
-#ASSOCIATED = ../obj/bloc.o ../obj/mcu.o
+#TESTS = mcu
 all: $(TESTS)
 
-#$(TESTS): $(TESTS).o $(ASSOCIATED)
-#	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
+
 
 mcu: mcu.o ../obj/bloc.o ../obj/mcu.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
+
+bloc: bloc.o ../obj/bloc.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 
 
 $(TESTS).o: $(TESTS).c 
 	$(CC) $(CFLAGS) -c $^ -o $@
 
-../obj/%.o: ../src/%.c
-	make -f ../Makefile $@
+#../obj/$(TESTS).o: ../src/$(TESTS).c
+#	make -f ../Makefile $@
 
 .PHONY: clean
 
