@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-/*
+
 int main(void)
 {
     //lecture  des paramètres
@@ -10,4 +10,3 @@ int main(void)
         
     return EXIT_SUCCESS;
 }
-*/
