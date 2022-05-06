@@ -62,10 +62,12 @@ void test_decoupage_mcu(){
             pixels[i][j] = p[i][j];
         }
     }
-    uint8_t **tab[3] = {pixels, NULL, NULL};
-    struct mcu_t* mcu = decoupage_mcu(tab, 12, 20, true, 4, 4, 4);
-    mcu_print(mcu);
+    uint8_t **tab[3] = {pixels, pixels, pixels};
+    struct mcu_t* mcu = decoupage_mcu(tab, 12, 20, false, 4, 2, 0);
+    mcus_print(mcu);
 }
+
+// TODO : faire un test avec une matrice 16x24 et 4:2:2
 
 int main(void)
 {

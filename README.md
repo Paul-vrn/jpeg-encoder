@@ -43,7 +43,7 @@ Prérequis : Conversion RGB vers YCbCr
 
 Entrée : `uint8_t[]`
 
-Sortie : `*MCU` (liste chainée de de `MCU` contenant des blocs Y, Cb, Cr)
+Sortie : `*mcu` (liste chainée de de `MCU` contenant des blocs Y, Cb, Cr)
 
 Description : En fonction du fichier (PPM/PGM) découper les pixels en MCUs, en fonction de l'échantillonage le MCU contient 1, 2 ou 4 bloc (Y, Cr, Cb).
 
@@ -51,7 +51,7 @@ Description : En fonction du fichier (PPM/PGM) découper les pixels en MCUs, en 
 
 Prérequis : Découpage de l'image en MCUs
 
-Entrée : `*MCU`
+Entrée : `*mcu`
 
 Sortie : `void`
 
@@ -61,21 +61,21 @@ Description : Dans chaque MCU, en  fonction  de l'échantillonage,  on va fusion
 
 Prérequis : Sous échantillonage de l'image
 
-Entrée : `*MCU`
+Entrée : `*mcu`
 
 Sortie : `void`
 
-Description : Module qui prend la liste de MCU et applique la DCT à chaque bloc de chaque MCU.
+Description : Module qui prend la liste de MCU et applique la DCT à chaque bloc de chaque MCU. Il va mettre les nouvelles valeurs dans les "freqential_bloc" de tailles int16_t.
 
 ## Zig-zag
 
 Prérequis : Transformation DCT
 
-Entrée : `*MCU`
+Entrée : `*mcu`
 
-Sortie : `uint8_t[][64]`
+Sortie : `void`
 
-Description : Crée un tableau contenant `nb MCU x nb bloc par MCU` case contenant les vecteurs de la transformation zig-zag
+Description : Pour chaque frenquential_bloc de chaque mcu, crée un "vector_t" correspondant avec les valeurs triées en mode zig-zag
 
 ## Quantification
 
@@ -109,7 +109,7 @@ Description :
 
 # Structures de données choisies
 
-![Structure de données]()
+![Structure de données](./docs/struct.drawio.png)
 
 # Gantt
 
