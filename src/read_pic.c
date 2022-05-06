@@ -27,7 +27,6 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
     while (i < 1){ 
 
         arg = fgetc(img);
-        printf("%c", arg);
 
         if ((int)arg == 53 || (int)arg == 54){
 
@@ -80,7 +79,7 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
     if (*TYPE == 5){
 
         uint8_t *y_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **y_component = calloc(*HEIGHT, sizeof(uint8_t));
+        uint8_t **y_component = calloc(*HEIGHT, sizeof(uint8_t*));
 
         for (i = 0; i < *HEIGHT; i++){
 
@@ -107,11 +106,11 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
     } else if (*TYPE == 6){
 
         uint8_t *r_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **r_component = calloc(*HEIGHT, sizeof(uint8_t));
+        uint8_t **r_component = calloc(*HEIGHT, sizeof(uint8_t*));
         uint8_t *g_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **g_component = calloc(*HEIGHT, sizeof(uint8_t));
+        uint8_t **g_component = calloc(*HEIGHT, sizeof(uint8_t*));
         uint8_t *b_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **b_component = calloc(*HEIGHT, sizeof(uint8_t));
+        uint8_t **b_component = calloc(*HEIGHT, sizeof(uint8_t*));
 
         for (i = 0; i < *HEIGHT; i++){
 

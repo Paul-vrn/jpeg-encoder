@@ -27,6 +27,23 @@ int main(int argc, char *argv[])
 
     uint8_t ***matr = creat_matrix(&HEIGHT, &WIDTH, &TYPE, &INFILE);
 
-        
+    for (int i = 0; i < HEIGHT; i++){
+        for (int j = 0; j < WIDTH; j++){
+
+            printf("%u ", matr[0][i][j]);
+        }
+        printf("\n");
+
+
+    }
+    printf("type = %i\n", TYPE);
+    printf("hauteur = %u // largeur = %u\n", HEIGHT, WIDTH);
+    printf("outfile = %s\n", OUTFILE);
+    printf("infile = %s\n", INFILE);
+    printf("h1 = %i, v1 = %i\n", H1, V1);
+    printf("h2 = %i, v2 = %i\n", H2, V2);
+    printf("h3 = %i, v3 = %i\n", H3, V3);
+
+
     return EXIT_SUCCESS;
 }
