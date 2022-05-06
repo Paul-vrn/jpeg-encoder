@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "bloc.h"
-#include "frenquential_bloc.h"
+#include "frequential_bloc.h"
 #include "vector.h"
 
 struct mcu_t {
@@ -290,3 +290,5 @@ void mcu_dc_ac(struct mcu_t* mcu){
         current = current->next;
     }
 }
+
+
