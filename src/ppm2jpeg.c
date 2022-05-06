@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "read_param.h"
 #include "read_pic.h"
+#include "convert_RGB_to_YCbCr.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,28 +23,45 @@ int main(int argc, char *argv[])
 
     read_param(argc, argv, &H1, &V1, &H2, &V2, &H3, &V3, &filename_out, &filename);
 
-    uint8_t ***matr = creat_matrix(&height, &width, &type, &filename);
+    uint8_t ***matrice = creat_matrix(&height, &width, &type, &filename);
     //lecture  des paramètres
     //Lecture des fichiers
 
 
     struct jpeg *jpg = jpeg_create();
 
+    /* ------ SET HEADER JPEG ------ */
     jpeg_set_ppm_filename(jpg, filename);
     jpeg_set_jpeg_filename(jpg, filename_out);
     jpeg_set_image_width(jpg, width);
     jpeg_set_image_height(jpg, height);
 
-/*
-    ici on fait des trucs super pour appeler les autres
-    jpeg_set_XXX avec les arguments qui vont bien.
-*/
+
     jpeg_set_nb_components(jpg, 3); // 1 si gris, 3 si couleur
     jpeg_write_header(jpg);
 
     /* Et là des trucs géniaux, comment encoder une image ... */
     //crée les MCUS, faire les transformations, etc...
+
+    /* ------ CONVERT RGB TO YCbCr ------ */
+    ConvertYCbCr(matrice, height, width);
+
+    /* ------ CREATE MCUS ------ */
+    struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, V1, H2, V2, H3, V3);
+
+    /* ------ SOUS ECHANTILLONAGE DES MCUS ------ */
+    mcu_sous_echantillonne(mcu);
+
+    /* ------ TRANSFORMATION DCT ------ */
+
+    /* ------ ZIG ZAG ------ */
+
+    /* ------ QUANTIFICATION ------ */
+
+    /* ------ ENCODAGE DANS LE BITSTREAM ------ */
+
     
+
     struct bitstream *bs = jpeg_get_bitstream(jpg);
 
     /* Voilà, on finit proprement notre belle image! */
