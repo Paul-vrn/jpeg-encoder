@@ -225,18 +225,25 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
                 } else {
                     bloc_fusion->matrice[i][j] = (uint8_t)(bloc4->matrice[i*2][k]+bloc4->matrice[i*2][k+1]+bloc4->matrice[(i+1)*2][k]+bloc4->matrice[(i+1)*2][k+1])/4;
                 }
+<<<<<<< HEAD
             }
+=======
+>>>>>>> Update: tcd
             k += 2;
         }
     }
     return bloc_fusion;
 }
+<<<<<<< HEAD
 
 /**
  * @brief function that merge blocs,
  * @test❌
  * @param blocs 
  */
+=======
+}
+>>>>>>> Update: tcd
 void blocs_fusion(struct bloc_t **blocs){
     uint8_t count = 0;
     struct bloc_t *bloc = *blocs;
@@ -261,10 +268,48 @@ void blocs_fusion(struct bloc_t **blocs){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
 uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
     float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
 =======
+=======
+struct int_bloc_t {
+    struct int_bloc_t *next;
+    int matrice[8][8];
+};
+
+void int_bloc_print(struct int_bloc_t *bloc){
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            printf("%i ", bloc->matrice[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+struct int_bloc_t *int_bloc_create(int matrice[8][8]){
+    struct int_bloc_t *bloc = calloc(1, sizeof(struct int_bloc_t));
+    bloc->next = NULL;
+    if (matrice != NULL){
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                //printf("%u\n", matrice[i][j]);
+                bloc->matrice[i][j] = matrice[i][j];
+            }
+        }
+    } else {
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                bloc->matrice[i][j] = 0;
+            }
+        }
+    }
+    return bloc;
+}
+
+>>>>>>> Update: tcd
 /**
  * @brief 
  * @test❌
@@ -274,14 +319,15 @@ uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
  * @param j 
  * @return uint32_t 
  */
-uint32_t DCT(uint8_t**bloc, uint8_t**bloc_copy, uint32_t i, uint32_t j){
+float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j){
     float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/
 >>>>>>> pre merge
     float n = 8;
-    float resultat = 0;
+    float resultat = 0.0;
     for(uint32_t x = 0; x < 8; x++){
         for(uint32_t y = 0; y < 8 ; y++){
-            resultat += bloc_copy[x][y] * cos(((2*x+1)*(float)i*pi)/(2*n)) * cos(((2*y+1)*(float)i*pi)/(2*n)); 
+            //printf("%d", bloc_copy[x][y]);
+            resultat += (float)(bloc_copy[x][y]) * cosf(((2*(float)(x)+1)*(float)(i)*pi)/((float)(2*n))) * cosf(((2*(float)(y)+1)*(float)j*pi)/((float)(2*n))); 
         }
     }
     if(i==0 && j==0){
@@ -299,26 +345,33 @@ uint32_t DCT(uint8_t**bloc, uint8_t**bloc_copy, uint32_t i, uint32_t j){
     return resultat;
 }
 
-void DCT2(uint8_t**bloc){
-    uint8_t bloc_copy[8][8];
+struct int_bloc_t *dct(uint8_t bloc[8][8]){
+    int new_bloc[8][8];
+    int bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
+<<<<<<< HEAD
             bloc[i][j] = bloc[i][j] - 128 ;
 <<<<<<< HEAD
         }}
 =======
+=======
+>>>>>>> Update: tcd
             bloc_copy[i][j] = bloc[i][j];
         }
     }
 >>>>>>> pre merge
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc[i][j] = DCT(**bloc, **bloc_copy, i, j);
+            new_bloc[i][j] = (int)coef_dct(bloc_copy, i, j);
         }
     }
+    struct int_bloc_t *blocc = int_bloc_create(new_bloc);
+    return blocc;
 }
 */
 
+<<<<<<< HEAD
 /**
  * @brief compare two blocs 
  * @test✔️
@@ -326,6 +379,36 @@ void DCT2(uint8_t**bloc){
  * @param bloc2 
  * @return true if blocs are equal, false otherwise
  */
+=======
+// void center_bloc(struct bloc_t *bloc){
+//     for(uint32_t i=0; i<8; i++){
+//         for(uint32_t j=0; j<8; j++){
+//             bloc->matrice[i][j] -= 128;
+//         }
+//     }
+// }
+
+// void mcus_dct(struct bloc_t **mcus){
+//     struct mcu_t *mcu = *mcus;
+//     while (mcu != NULL) {
+//         struct bloc_t *bloc = *mcu->Y;
+//         while (bloc != NULL) {
+//             bloc->matrice = dct(bloc->matrice);
+//             bloc = bloc->next;
+//         struct bloc_t *bloc = *mcu->Cb;
+//         while (bloc != NULL) {
+//             bloc->matrice = dct(bloc->matrice);
+//             bloc = bloc->next;
+//         struct bloc_t *bloc = *mcu->Cr;
+//         while (bloc != NULL) {
+//             bloc->matrice = dct(bloc->matrice);
+//             bloc = bloc->next;
+//         mcu = mcu->next;
+//     }
+//     return 0;
+// }
+
+>>>>>>> Update: tcd
 bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     for (uint32_t i = 0; i < 8; i++) {
         for (uint32_t j = 0; j < 8; j++) {
