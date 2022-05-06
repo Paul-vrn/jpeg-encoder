@@ -1,5 +1,5 @@
-#ifndef _MCU_H_
-#define _MCU_H_
+#ifndef _FREQUENTIAL_BLOC_H_
+#define _FREQUENTIAL_BLOC_H_
 
 #include <stdint.h>
 
