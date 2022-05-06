@@ -1,7 +1,9 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -I../include -O0 -g
 LDFLAGS = -lm
-TESTS = mcu bloc vector
+
+TESTS = vector
+
 all: $(TESTS)
 
 
@@ -15,7 +17,7 @@ bloc: bloc.o ../obj/bloc.o
 zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-vector: vector.o ../obj/bloc.o ../obj/vector.o
+vector: vector.o ../obj/bloc.o ../obj/vector.o ../obj_prof/htables_prof.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS).o: $(TESTS).c 

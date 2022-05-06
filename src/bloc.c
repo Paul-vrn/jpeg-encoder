@@ -260,7 +260,7 @@ void blocs_fusion(struct bloc_t **blocs){
 
 /*
 uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
+    float pi = 3.14159265358;9793238462643383279502884197169399375105820;
     float n = 8;
     float resultat = 0;
     for(uint32_t x = 0; x < 8; x++){
