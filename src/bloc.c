@@ -307,7 +307,8 @@ struct int_bloc_t *dct(uint8_t bloc[8][8]){
     int bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc_copy[i][j] = bloc[i][j];
+            bloc_copy[i][j] = bloc[i][j]-128;
+            //bloc_copy[i][j] = bloc[i][j];
         }
     }
     for(uint32_t i=0; i<8; i++){
@@ -327,25 +328,28 @@ struct int_bloc_t *dct(uint8_t bloc[8][8]){
 //     }
 // }
 
-// void mcus_dct(struct bloc_t **mcus){
-//     struct mcu_t *mcu = *mcus;
-//     while (mcu != NULL) {
-//         struct bloc_t *bloc = *mcu->Y;
-//         while (bloc != NULL) {
-//             bloc->matrice = dct(bloc->matrice);
-//             bloc = bloc->next;
-//         struct bloc_t *bloc = *mcu->Cb;
-//         while (bloc != NULL) {
-//             bloc->matrice = dct(bloc->matrice);
-//             bloc = bloc->next;
-//         struct bloc_t *bloc = *mcu->Cr;
-//         while (bloc != NULL) {
-//             bloc->matrice = dct(bloc->matrice);
-//             bloc = bloc->next;
-//         mcu = mcu->next;
-//     }
-//     return 0;
-// }
+void mcus_dct(struct bloc_t **mcus){
+    struct mcu_t *mcu = *mcus;
+    while (mcu != NULL) {
+        struct bloc_t *bloc = *mcu->Y;
+        while (bloc != NULL) {
+            bloc = dct(bloc->matrice);
+            *bloc = *bloc->next;
+        }
+        struct bloc_t *bloc = *mcu->Cb;
+        while (bloc != NULL) {
+            bloc = dct(bloc->matrice);
+            *bloc = *bloc->next;
+        }
+        struct bloc_t *bloc = *mcu->Cr;
+        while (bloc != NULL) {
+            bloc = dct(bloc->matrice);
+            *bloc = *bloc->next;
+        }
+        *mcu = *mcu->next;
+    }
+    return 0;
+}
 
 bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     for (uint32_t i = 0; i < 8; i++) {
