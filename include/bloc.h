@@ -9,7 +9,6 @@ struct bloc_t;
 void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next);
 void bloc_set_matrice(struct bloc_t *bloc, uint8_t matrice[8][8]);
 struct bloc_t *bloc_get_next(struct bloc_t *bloc);
-uint8_t ***bloc_get_matrice(struct bloc_t *bloc);
 
 void bloc_add(struct bloc_t **bloc, struct bloc_t *next);
 

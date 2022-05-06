@@ -6,7 +6,7 @@
 struct vector_t;
 
 struct vector_t* create_vector(struct bloc_t *bloc);
-void quantification(struct vector_t **vector);
+void quantification(struct vector_t *vector);
 void codage_dc(struct vector_t *vector);
 void codage_ac(struct vector_t *vector);
 void vector_dc_ac(struct vector_t *vector);
