@@ -26,7 +26,6 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
     while (i < 1){ 
 
         arg = fgetc(img);
-        printf("%c", arg);
 
         if ((int)arg == 53 || (int)arg == 54){
 
