@@ -273,7 +273,6 @@ void int_bloc_print(struct int_bloc_t *bloc){
     }
 }
 
-
 struct int_bloc_t *int_bloc_create(int matrice[8][8]){
     struct int_bloc_t *bloc = calloc(1, sizeof(struct int_bloc_t));
     bloc->next = NULL;
@@ -294,29 +293,8 @@ struct int_bloc_t *int_bloc_create(int matrice[8][8]){
     return bloc;
 }
 
-
-uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
-=======
->>>>>>> 2adf3fa664479718a73b68991f1116451bd216d4
-/**
- * @brief 
- * @test❌
- * @param bloc 
- * @param bloc_copy 
- * @param i 
- * @param j 
- * @return uint32_t 
- */
-
-/*
 float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
->>>>>>> pre merge
-=======
-float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
-
+    float pi = 3.14159265358;
     float n = 8;
     float resultat = 0.0;
     for(uint32_t x = 0; x < 8; x++){

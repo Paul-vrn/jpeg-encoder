@@ -6,11 +6,11 @@
 
 struct bloc_t;
 
-struct int_bloc_t;
+//struct int_bloc_t;
 
-struct int_bloc_t *int_bloc_create(int matrice[8][8]);
+//struct int_bloc_t *int_bloc_create(int matrice[8][8]);
 
-void int_bloc_print(struct int_bloc_t *bloc);
+//void int_bloc_print(struct int_bloc_t *bloc);
 
 void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next);
 void bloc_set_matrice(struct bloc_t *bloc, uint8_t matrice[8][8]);
@@ -35,15 +35,9 @@ struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2);
 
 struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct bloc_t *bloc3, struct bloc_t *bloc4);
 
-<<<<<<< HEAD
 //float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j);
 
 //struct int_bloc_t *dct(uint8_t bloc[8][8]);
-=======
-float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j);
-
-struct int_bloc_t *dct(uint8_t bloc[8][8]);
->>>>>>> 2adf3fa664479718a73b68991f1116451bd216d4
 
 // void mcus_dct(struct bloc_t **blocs);
 
