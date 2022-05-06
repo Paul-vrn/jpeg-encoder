@@ -74,6 +74,6 @@ void test_dct(){
 int main(void)
 {
     //test_fusion_2();
-    test_dct();
+    //test_dct();
     return EXIT_SUCCESS;
 }
