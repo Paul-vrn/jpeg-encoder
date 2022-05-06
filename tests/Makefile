@@ -1,7 +1,11 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -I../include -O0 -g
 LDFLAGS = -lm
+<<<<<<< HEAD
 TESTS = mcu bloc vector read_param
+=======
+TESTS = mcu bloc vector
+>>>>>>> 08d9d60592a4654ecf13c669ce31a3e3e838f296
 all: $(TESTS)
 
 
