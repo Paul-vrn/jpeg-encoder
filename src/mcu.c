@@ -291,32 +291,46 @@ void mcu_dc_ac(struct mcu_t* mcu){
     }
 }
 
-//Cette fonction applique la transformation dct sur tous les blocs d'une mcu
+//Cette fonction applique la transformation dct sur tous les blocs d'une seule mcu
 void mcu_dct(struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     while (current != NULL){
-        struct bloc_t *current_bloc = current->Y;
-        struct frequential_bloc_t *current_freq = current->freqY;
+        struct bloc_t *current_bloc = current->Y;   //chaîne Y existante
+        struct frequential_bloc_t *current_freq;    
+        struct frequential_bloc_t *prev_freq = current->freqY;  //chaîne en dct à créer
+        prev_freq = dct(bloc_get_matrice(current_bloc));
+
+        current_bloc = bloc_get_next(current_bloc);
+
         while (current_bloc != NULL){
-            current_freq->matrice = dct(bloc_get_matrice(current_bloc))->matrice;
+            current_freq = dct(bloc_get_matrice(current_bloc));
             current_bloc = bloc_get_next(current_bloc);
-            current_freq = current_freq->next;
+            prev_freq->next = current_freq;
         }
-        current_bloc = current->Cb;
-        current_freq = current->freqCb;
+        struct bloc_t *current_bloc = current->Cb;   //chaîne Cb existante
+        struct frequential_bloc_t *current_freq;    
+        struct frequential_bloc_t *prev_freq = current->freqCb;  //chaîne en dct à créer
+        prev_freq = dct(bloc_get_matrice(current_bloc));
+
+        current_bloc = bloc_get_next(current_bloc);
+
         while (current_bloc != NULL){
-            current_freq->matrice = dct(bloc_get_matrice(current_bloc))->matrice;
+            current_freq = dct(bloc_get_matrice(current_bloc));
             current_bloc = bloc_get_next(current_bloc);
-            current_freq = current_freq->next;
+            prev_freq->next = current_freq;
         }
-        current_bloc = current->Cr;
-        current_freq = current->freqCr;
+        struct bloc_t *current_bloc = current->Cr;   //chaîne Cr existante
+        struct frequential_bloc_t *current_freq;    
+        struct frequential_bloc_t *prev_freq = current->freqCr;  //chaîne en dct à créer
+        prev_freq = dct(bloc_get_matrice(current_bloc));
+
+        current_bloc = bloc_get_next(current_bloc);
+
         while (current_bloc != NULL){
-            current_freq->matrice = dct(bloc_get_matrice(current_bloc))->matrice;
+            current_freq = dct(bloc_get_matrice(current_bloc));
             current_bloc = bloc_get_next(current_bloc);
-            current_freq = current_freq->next;
+            prev_freq->next = current_freq;
         }
-        current = current->next;
     }
 }
 
