@@ -80,7 +80,7 @@ struct frequential_bloc_t *dct(uint8_t bloc[8][8]){
     int16_t bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc_copy[i][j] = bloc[i][j] - 128;
+            bloc_copy[i][j] = bloc[i][j];
         }
     }
     for(uint32_t i=0; i<8; i++){

@@ -18,8 +18,12 @@ zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
 vector: vector.o ../obj/bloc.o ../obj/vector.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
+frequential_bloc: frequential_bloc.o ../obj/frequential_bloc.o ../obj/bloc.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
 $(TESTS).o: $(TESTS).c 
 	$(CC) $(CFLAGS) -c $^ -o $@
+
 
 #../obj/$(TESTS).o: ../src/$(TESTS).c
 #	make -f ../Makefile $@

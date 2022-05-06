@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <assert.h>
 #include "bloc.h"
+#include "frequential_bloc.h"
 
 void test_dct(){
     uint8_t bloc[8][8] = {{139, 144, 149, 153, 155, 155, 155, 155},
@@ -25,3 +26,10 @@ void test_dct(){
     // struct bloc *bloco1 = bloc_create(bloc1);
     frequential_bloc_print(bloc1);
 } 
+
+
+int main(void)
+{
+    test_dct();
+    return EXIT_SUCCESS;
+}
