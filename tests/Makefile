@@ -12,6 +12,8 @@ mcu: mcu.o ../obj/bloc.o ../obj/mcu.o
 bloc: bloc.o ../obj/bloc.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 
+read_param: read_param.o ../obj/read_param.o ../obj/read_pic.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS).o: $(TESTS).c 
 	$(CC) $(CFLAGS) -c $^ -o $@

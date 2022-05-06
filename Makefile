@@ -21,7 +21,9 @@ OBJ_FILES=$(patsubst src/%.c,obj/%.o,$(SRC_FILES))
 OBJ_PROF_FILES = obj_prof/jpeg_writer_prof.o \
 				 obj_prof/huffman_prof.o     \
 				 obj_prof/bitstream_prof.o   \
-				 obj_prof/htables_prof.o
+				 obj_prof/htables_prof.o     \
+				 obj/read_param.o            \
+				 obj/read_pic.o
 
 all: ppm2jpeg
 
