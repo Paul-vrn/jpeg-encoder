@@ -74,6 +74,10 @@ void test_dct(){
 int main(void)
 {
     //test_fusion_2();
+<<<<<<< HEAD
     //test_dct();
+=======
+    test_dct();
+>>>>>>> 2adf3fa664479718a73b68991f1116451bd216d4
     return EXIT_SUCCESS;
 }

@@ -225,7 +225,6 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
                 } else {
                     bloc_fusion->matrice[i][j] = (uint8_t)(bloc4->matrice[i*2][k]+bloc4->matrice[i*2][k+1]+bloc4->matrice[(i+1)*2][k]+bloc4->matrice[(i+1)*2][k+1])/4;
                 }
-            }
             k += 2;
         }
     }
@@ -259,13 +258,7 @@ void blocs_fusion(struct bloc_t **blocs){
         //error
     } 
 }
-
-
 /*
-uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
-=======
-=======
 struct int_bloc_t {
     struct int_bloc_t *next;
     int matrice[8][8];
@@ -301,7 +294,11 @@ struct int_bloc_t *int_bloc_create(int matrice[8][8]){
     return bloc;
 }
 
->>>>>>> Update: tcd
+
+uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
+    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
+=======
+>>>>>>> 2adf3fa664479718a73b68991f1116451bd216d4
 /**
  * @brief 
  * @test❌
@@ -311,10 +308,15 @@ struct int_bloc_t *int_bloc_create(int matrice[8][8]){
  * @param j 
  * @return uint32_t 
  */
+
 /*
 float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j){
     float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
 >>>>>>> pre merge
+=======
+float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j){
+    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;
+
     float n = 8;
     float resultat = 0.0;
     for(uint32_t x = 0; x < 8; x++){
@@ -362,15 +364,6 @@ struct int_bloc_t *dct(uint8_t bloc[8][8]){
 }
 */
 
-
-/**
- * @brief compare two blocs 
- * @test✔️
- * @param bloc1 
- * @param bloc2 
- * @return true if blocs are equal, false otherwise
- */
-
 // void center_bloc(struct bloc_t *bloc){
 //     for(uint32_t i=0; i<8; i++){
 //         for(uint32_t j=0; j<8; j++){
@@ -398,6 +391,16 @@ struct int_bloc_t *dct(uint8_t bloc[8][8]){
 //     }
 //     return 0;
 // }
+
+/**
+ * @brief compare two blocs 
+ * @test✔️
+ * @param bloc1 
+ * @param bloc2 
+ * @return true if blocs are equal, false otherwise
+ */
+
+
 
 bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     for (uint32_t i = 0; i < 8; i++) {

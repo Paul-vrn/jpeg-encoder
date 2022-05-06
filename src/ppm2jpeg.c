@@ -1,9 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <stdbool.h>
-
-bool GRIS  = true;
 
 int main(void)
 {

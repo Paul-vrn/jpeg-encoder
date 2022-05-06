@@ -35,9 +35,15 @@ struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2);
 
 struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct bloc_t *bloc3, struct bloc_t *bloc4);
 
+<<<<<<< HEAD
 //float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j);
 
 //struct int_bloc_t *dct(uint8_t bloc[8][8]);
+=======
+float coef_dct(int bloc_copy[8][8], uint32_t i, uint32_t j);
+
+struct int_bloc_t *dct(uint8_t bloc[8][8]);
+>>>>>>> 2adf3fa664479718a73b68991f1116451bd216d4
 
 // void mcus_dct(struct bloc_t **blocs);
 
