@@ -26,7 +26,8 @@ struct bloc_t *bloc_get_next(struct bloc_t *bloc){
     return bloc->next;
 }
 uint8_t ***bloc_get_matrice(struct bloc_t *bloc){
-    return &bloc->matrice;
+    return NULL;
+//    return &bloc->matrice;
 }
 
 void bloc_add(struct bloc_t **bloc, struct bloc_t *next){
@@ -225,6 +226,7 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
                 } else {
                     bloc_fusion->matrice[i][j] = (uint8_t)(bloc4->matrice[i*2][k]+bloc4->matrice[i*2][k+1]+bloc4->matrice[(i+1)*2][k]+bloc4->matrice[(i+1)*2][k+1])/4;
                 }
+            }
             k += 2;
         }
     }
@@ -265,9 +267,6 @@ void blocs_fusion(struct bloc_t **blocs){
  * @param bloc2 
  * @return true if blocs are equal, false otherwise
  */
-
-
-
 bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     for (uint32_t i = 0; i < 8; i++) {
         for (uint32_t j = 0; j < 8; j++) {

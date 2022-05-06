@@ -3,8 +3,14 @@
 
 #include <stdint.h>
 
-struct frequential_bloc_t;
+struct frequential_bloc_t {
+    struct frequential_bloc_t *next;
+    int16_t matrice[8][8];
+};
 
+struct frequential_bloc_t* frequential_get_next(struct frequential_bloc_t *bloc);
+
+struct frequential_bloc_t* frequential_get_matrice(struct frequential_bloc_t *bloc);
 
 void frequential_blocs_destroy(struct frequential_bloc_t *frequential_blocs);
 

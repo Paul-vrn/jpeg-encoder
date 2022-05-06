@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -I../include -O0 -g
 LDFLAGS = -lm
-TESTS = mcu bloc vector read_param frequential_bloc
+#TESTS = mcu bloc vector read_param frequential_bloc
 all: $(TESTS)
 
 

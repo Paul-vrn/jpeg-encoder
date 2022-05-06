@@ -3,11 +3,18 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
+#include "../include/frequential_bloc.h"
 
-struct frequential_bloc_t {
-    struct frequential_bloc_t *next;
-    int16_t matrice[8][8];
-};
+
+struct frequential_bloc_t* frequential_get_next(struct frequential_bloc_t *bloc)
+{
+    return bloc->next;
+}
+
+struct frequential_bloc_t* frequential_get_matrice(struct frequential_bloc_t *bloc)
+{
+    return bloc->matrice;
+}
 
 void frequential_blocs_destroy(struct frequential_bloc_t *frequential_blocs){
     struct frequential_bloc_t *tmp = frequential_blocs;
@@ -80,7 +87,7 @@ struct frequential_bloc_t *dct(uint8_t bloc[8][8]){
     int16_t bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc_copy[i][j] = bloc[i][j];
+            bloc_copy[i][j] = bloc[i][j]-128;
         }
     }
     for(uint32_t i=0; i<8; i++){

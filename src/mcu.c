@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "bloc.h"
-#include "frequential_bloc.h"
+#include "../include/frequential_bloc.h"
 #include "vector.h"
 
 struct mcu_t {
@@ -291,4 +291,32 @@ void mcu_dc_ac(struct mcu_t* mcu){
     }
 }
 
+//Cette fonction applique la transformation dct sur tous les blocs d'une mcu
+void mcu_dct(struct mcu_t* mcu){
+    struct mcu_t *current = mcu;
+    while (current != NULL){
+        struct bloc_t *current_bloc = current->Y;
+        struct frequential_bloc_t *current_freq = current->freqY;
+        while (current_bloc != NULL){
+            current_freq->matrice = dct(bloc_get_matrice(current_bloc))->matrice;
+            current_bloc = bloc_get_next(current_bloc);
+            current_freq = current_freq->next;
+        }
+        current_bloc = current->Cb;
+        current_freq = current->freqCb;
+        while (current_bloc != NULL){
+            current_freq->matrice = dct(bloc_get_matrice(current_bloc))->matrice;
+            current_bloc = bloc_get_next(current_bloc);
+            current_freq = current_freq->next;
+        }
+        current_bloc = current->Cr;
+        current_freq = current->freqCr;
+        while (current_bloc != NULL){
+            current_freq->matrice = dct(bloc_get_matrice(current_bloc))->matrice;
+            current_bloc = bloc_get_next(current_bloc);
+            current_freq = current_freq->next;
+        }
+        current = current->next;
+    }
+}
 

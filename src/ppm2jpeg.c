@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-
+#include "jpeg_writer.h"
 #include <stdbool.h>
 #include "read_param.h"
 #include "read_pic.h"
