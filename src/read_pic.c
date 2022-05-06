@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <read_param.h>
 
 uint32_t HEIGHT = 0;
 uint32_t WIDTH = 0;
@@ -14,7 +15,7 @@ int TYPE;
  * @param argv 
  * @return uint8_t** 
  */
-uint8_t ***creat_matrix(int argc, char *argv[]){
+uint8_t ***creat_matrix(void){
 
 
     int nb;
@@ -25,7 +26,7 @@ uint8_t ***creat_matrix(int argc, char *argv[]){
     uint32_t i = 0;
     uint32_t j = 0;
 
-    FILE *img = fopen(argv[1], "r");
+    FILE *img = fopen(INFILE, "r");
     
     while (i < 1){ 
 
@@ -158,16 +159,7 @@ uint8_t ***creat_matrix(int argc, char *argv[]){
 
 
 
-int main(int argc, char *argv[]){
 
-    uint8_t ***matrix = creat_matrix(argc, argv);
-
-
-    printf("%u %u %i\n", HEIGHT, WIDTH, TYPE);
-
-
-    return EXIT_SUCCESS;
-}
 
 
 

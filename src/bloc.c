@@ -64,21 +64,40 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
 struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint32_t end_x, uint32_t start_y, uint32_t end_y){
     struct bloc_t *bloc = calloc(1, sizeof(struct bloc_t));
     bloc->next = NULL;
-    for (uint32_t i = start_x; i < end_x; i++){
-        for (uint32_t j = start_y; j < end_y; j++){
-            bloc->matrice[i][j] = pixels[i][j];
+    uint32_t k = 0;
+    uint32_t l = 0;
+    for (uint32_t i = start_y; i < end_y; i++){
+        for (uint32_t j = start_x; j < end_x; j++){
+            bloc->matrice[k][l] = pixels[i][j];
+            l++;
         }
-        for (uint32_t j = end_y; j < 8; j++){
-            bloc->matrice[i][j] = pixels[i][end_y];
-        }
+        k++;
+        l = 0;
     }
-    for (uint32_t i = end_x; i < 8; i++){
-        for (uint32_t j = start_y; j < end_y; j++){
-            bloc->matrice[i][j] = pixels[end_x][j];
+    if (end_x-start_x==8 && end_y-start_y==8){
+        return bloc;
+    }
+    return bloc;
+    k = 0;
+    l = end_x - start_x;
+    for (uint32_t i = start_y; i < end_y; i++){ 
+        for (uint32_t j = end_x; j < start_x + 8; j++){ // de start+4 à start+8
+            bloc->matrice[k][l] = bloc->matrice[i][end_x-1];
+            l++;
         }
-        for (uint32_t j = end_y; j < 8; j++){
-            bloc->matrice[i][j] = pixels[end_x][end_y];
+        k++;
+        l = 0;
+    }
+
+    k = end_y - start_y;
+    l = 0;
+    for (uint32_t i = end_y; i < start_y + 8; i++){
+        for (uint32_t j = start_x; j < end_x; j++){
+            bloc->matrice[k][l] = bloc->matrice[end_y-1][j];
+            l++;
         }
+        k++;
+        l = 0;
     }
     return bloc;
 }
@@ -148,7 +167,6 @@ struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
         for (uint32_t j = 0; j < 8; j++) {
             if (k < 8) {
                 bloc_fusion->matrice[i][j] = (uint8_t)(bloc1->matrice[i][k]+bloc1->matrice[i][k+1])/2;
-                //printf("[%i][%i] = %u = %u + %u\n",i,j, bloc_fusion->matrice[i][j],bloc1->matrice[i][k], bloc1->matrice[i][k+1]);
             } else {
                 bloc_fusion->matrice[i][j] = (uint8_t)(bloc2->matrice[i][k-8]+bloc2->matrice[i][k-7])/2;
             }
