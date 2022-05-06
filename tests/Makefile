@@ -16,6 +16,10 @@ read_param: read_param.o ../obj/read_param.o ../obj/read_pic.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 vector: vector.o ../obj/bloc.o ../obj/vector.o
+zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
+vector: vector.o ../obj/bloc.o ../obj/vector.o ../obj_prof/htables_prof.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS).o: $(TESTS).c 
