@@ -24,6 +24,9 @@ zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
 convert_RGB_to_YCbCr: convert_RGB_to_YCbCr.o ../obj/convert_RGB_to_YCbCr.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
+test: test.o ../obj/bloc.o ../obj_prof/jpeg_writer_prof.o ../obj_prof/bitstream_prof.o ../obj_prof/huffman_prof.o ../obj_prof/htables_prof.o ../obj/read_param.o ../obj/read_pic.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
 $(TESTS).o: $(TESTS).c 
 	$(CC) $(CFLAGS) -c $^ -o $@
 
