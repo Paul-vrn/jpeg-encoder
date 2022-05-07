@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <math.h>
 #include <stdbool.h>
+#include <math.h>
 
 struct bloc_t {
     struct bloc_t *next;
@@ -14,15 +15,30 @@ void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next)
     bloc->next = next;
 }
 void bloc_set_matrice(struct bloc_t *bloc, uint8_t matrice[8][8]){
-    for (int i = 0; i < 8; i++){
-        for (int j = 0; j < 8; j++){
+    for (uint32_t i = 0; i < 8; i++){
+        for (uint32_t j = 0; j < 8; j++){
             bloc->matrice[i][j] = matrice[i][j];
         }
     }
 }
 
-struct bloc_t *get_next(struct bloc_t *bloc){
+struct bloc_t *bloc_get_next(struct bloc_t *bloc){
     return bloc->next;
+}
+uint8_t bloc_get_matrice(struct bloc_t *bloc, uint32_t i, uint32_t j){
+    return bloc->matrice[i][j];
+}
+
+void bloc_add(struct bloc_t **bloc, struct bloc_t *next){
+    struct bloc_t *tmp = *bloc;
+    if (tmp == NULL){
+        *bloc = next;
+    } else {
+        while (tmp->next != NULL){
+            tmp = tmp->next;
+        }
+        tmp->next = next;
+    }
 }
 
 
@@ -53,7 +69,7 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
 
 /**
  * @brief function to create a bloc from a set of pixels
- * @test❌
+ * @test✔️
  * @param pixels matrix containing ALL the pixels
  * @param start_x x coordinate of the first pixel
  * @param end_x x coordinate of the last pixel
@@ -62,6 +78,7 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
  * @return struct bloc_t* pointer to the new bloc
  */
 struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint32_t end_x, uint32_t start_y, uint32_t end_y){
+    //printf("start_x: %d, end_x: %d, start_y: %d, end_y: %d\n", start_x, end_x, start_y, end_y);
     struct bloc_t *bloc = calloc(1, sizeof(struct bloc_t));
     bloc->next = NULL;
     uint32_t k = 0;
@@ -77,23 +94,26 @@ struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint3
     if (end_x-start_x==8 && end_y-start_y==8){
         return bloc;
     }
-    return bloc;
     k = 0;
     l = end_x - start_x;
     for (uint32_t i = start_y; i < end_y; i++){ 
         for (uint32_t j = end_x; j < start_x + 8; j++){ // de start+4 à start+8
-            bloc->matrice[k][l] = bloc->matrice[i][end_x-1];
+            bloc->matrice[k][l] = pixels[i][end_x-1];
             l++;
         }
         k++;
-        l = 0;
+        l = end_x - start_x;
     }
 
     k = end_y - start_y;
     l = 0;
     for (uint32_t i = end_y; i < start_y + 8; i++){
-        for (uint32_t j = start_x; j < end_x; j++){
-            bloc->matrice[k][l] = bloc->matrice[end_y-1][j];
+        for (uint32_t j = start_x; j < start_x+8; j++){
+            if (j < end_x){
+                bloc->matrice[k][l] = pixels[end_y-1][j];
+            } else {
+                bloc->matrice[k][l] = pixels[end_y-1][end_x-1];
+            }
             l++;
         }
         k++;
@@ -211,9 +231,15 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
     return bloc_fusion;
 }
 
+/**
+ * @brief function that merge blocs,
+ * @test❌
+ * @param blocs 
+ */
 void blocs_fusion(struct bloc_t **blocs){
     uint8_t count = 0;
     struct bloc_t *bloc = *blocs;
+    //TODO : à changer quand il y a les variables globales qui permettent de dire si on fait une fusion par 2 ou 4
     while (bloc != NULL) {
         count++;
         bloc = bloc->next;
@@ -233,59 +259,13 @@ void blocs_fusion(struct bloc_t **blocs){
     } 
 }
 
-
-uint32_t DCT(uint8_t**bloc, uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/
-    float n = 8;
-    float resultat = 0;
-    for(uint32_t x = 0; x < 8; x++){
-        for(uint32_t y = 0; y < 8 ; y++){
-            resultat += bloc[x][y] * cos(((2*x+1)*(float)i*pi)/(2*n)) * cos(((2*y+1)*(float)i*pi)/(2*n)); 
-        }
-    }
-    if(i==0 && j==0){
-        resultat *= (2/n) * 1/sqrt(2) * 1/sqrt(2); 
-    }
-    else if(i==0){
-        resultat *= (2/n) * 1/sqrt(2);
-    }
-    else if(j==0){
-        resultat *= (2/n) * 1/sqrt(2); 
-    }
-    else{
-        resultat *= (2/n);
-    }
-    return resultat;
-}
-
-void DCT2(uint8_t**bloc){
-    for(uint32_t i=0; i<8; i++){
-        for(uint32_t j=0; j<8; j++){
-            bloc[i][j] = bloc[i][j] - 128 ;
-        }}
-    for(uint32_t i=0; i<8; i++){
-        for(uint32_t j=0; j<8; j++){
-            bloc[i][j] = DCT(**bloc, i, j);
-        }
-    }
-}
-
-/* Il y a deja un main
-void main(){
-    uint8_t ligne1[] = {139, 144, 149, 153, 155, 155, 155, 155};
-    uint8_t ligne2[] = {144, 151, 153, 156, 159, 156, 156, 156};
-    uint8_t ligne3[] = {150, 155, 150, 153, 158, 156, 156, 156};
-    uint8_t ligne4[] = {159, 161, 162, 160, 160, 159, 159, 159};
-    uint8_t ligne5[] = {159, 160, 161, 162, 162, 155, 155, 155};
-    uint8_t ligne6[] = {161, 161, 161, 161, 160, 157, 157, 157};
-    uint8_t ligne7[] = {162, 162, 161, 163, 162, 157, 157, 157};
-    uint8_t ligne8[] = {162, 162, 161, 161, 163, 158, 158, 158};
-    uint8_t bloc[] = {ligne1, ligne2, ligne3, ligne4, ligne5, ligne6, ligne7, ligne8};
-    bloc_print(bloc);
-    DCT2(bloc);
-    bloc_print(bloc);
-} */
-
+/**
+ * @brief compare two blocs 
+ * @test✔️
+ * @param bloc1 
+ * @param bloc2 
+ * @return true if blocs are equal, false otherwise
+ */
 bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
     for (uint32_t i = 0; i < 8; i++) {
         for (uint32_t j = 0; j < 8; j++) {
@@ -293,6 +273,6 @@ bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
                 return false;
             }
         }
-    }
+    } 
     return true;
 }

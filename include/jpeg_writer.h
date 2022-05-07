@@ -139,7 +139,8 @@ extern uint8_t jpeg_get_nb_components(struct jpeg *jpg);
 
 
 /*
-    Ecrit dans la structure jpeg le facteur d'échantillonnage sampling_factor
+    Ecrit dans la structure jpeg le facteur d'échantillonnage 
+    sampling_factor
     à utiliser pour la composante de couleur cc et la direction dir.
 */
 extern void jpeg_set_sampling_factor(struct jpeg *jpg,
