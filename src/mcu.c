@@ -283,10 +283,20 @@ void mcu_to_zig_zag(struct mcu_t *mcu, int8_t **zig_zag){
 void mcu_dc_ac(struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     while (current != NULL){
-        struct bloc_t *current_bloc = current->Y;
         vector_dc_ac(current->vectorY);
         vector_dc_ac(current->vectorCb);
         vector_dc_ac(current->vectorCr);
+        current = current->next;
+    }
+}
+
+
+void mcu_quantification(struct mcu_t* mcu){
+    struct mcu_t *current = mcu;
+    while (current != NULL){
+        vectors_quantificationY(current->vectorY);
+        vectors_quantificationCbCr(current->vectorCb);
+        vectors_quantificationCbCr(current->vectorCr);
         current = current->next;
     }
 }

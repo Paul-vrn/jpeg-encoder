@@ -5,6 +5,7 @@
 #include "read_param.h"
 #include "read_pic.h"
 #include "convert_RGB_to_YCbCr.h"
+#include "jpeg_writer.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +45,7 @@ int main(int argc, char *argv[])
     //crée les MCUS, faire les transformations, etc...
 
     /* ------ CONVERT RGB TO YCbCr ------ */
-    ConvertYCbCr(matrice, height, width);
+    convert_RGB_to_YCbCr(matrice, height, width);
 
     /* ------ CREATE MCUS ------ */
     struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, V1, H2, V2, H3, V3);
