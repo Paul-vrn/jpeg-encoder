@@ -71,14 +71,14 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
 
 
 
-    uint8_t ***matrixs = calloc(3, sizeof(uint8_t));
+    uint8_t ***matrixs = calloc(3, sizeof(uint8_t **));
     
 
     
     if (*type == 5){
 
         uint8_t *y_lines = calloc((*width)*(*height), sizeof(uint8_t));
-        uint8_t **y_component = calloc(*height, sizeof(uint8_t));
+        uint8_t **y_component = calloc(*height, sizeof(uint8_t *));
 
         for (i = 0; i < *height; i++){
 
@@ -105,11 +105,11 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
     } else if (*type == 6){
 
         uint8_t *r_lines = calloc((*width)*(*height), sizeof(uint8_t));
-        uint8_t **r_component = calloc(*height, sizeof(uint8_t));
+        uint8_t **r_component = calloc(*height, sizeof(uint8_t *));
         uint8_t *g_lines = calloc((*width)*(*height), sizeof(uint8_t));
-        uint8_t **g_component = calloc(*height, sizeof(uint8_t));
+        uint8_t **g_component = calloc(*height, sizeof(uint8_t *));
         uint8_t *b_lines = calloc((*width)*(*height), sizeof(uint8_t));
-        uint8_t **b_component = calloc(*height, sizeof(uint8_t));
+        uint8_t **b_component = calloc(*height, sizeof(uint8_t *));
 
         for (i = 0; i < *height; i++){
 
