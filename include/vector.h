@@ -14,9 +14,6 @@ void vectors_quantificationY(struct vector_t *vectors);
 
 void vectors_quantificationCbCr(struct vector_t *vectors);
 
-void codage_dc(struct vector_t *vector);
-void codage_ac(struct vector_t *vector);
-void vector_dc_ac(struct vector_t *vector);
 void vectors_destroy(struct vector_t *vector);
 uint32_t get_bits_needed(int16_t number);
 

@@ -46,7 +46,7 @@ struct vector_t* create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
 
 /**
  * @brief
- * @test❌
+ * @test❌ (valeur approximative)
  * @param vector 
  */
 void vector_quantificationY(struct vector_t *vector){
@@ -57,7 +57,7 @@ void vector_quantificationY(struct vector_t *vector){
 
 /**
  * @brief
- * @test❌
+ * @test❌ (valeur approximative)
  * @param vector 
  */
 void vector_quantificationCbCr(struct vector_t *vector){
@@ -84,42 +84,6 @@ void vectors_quantificationCbCr(struct vector_t *vectors){
 
 /**
  * @brief
- * @test❌
- * @param vector 
- */
-void codage_dc(struct vector_t *vector){
-    struct vector_t *current = vector;
-    struct vector_t *prec = NULL;
-    while (current != NULL){
-        if (prec == NULL){
-            //sans faire la différence
-            current->vector[0] = 0;
-        } else {
-            //avec la différence
-            current->vector[0] = current->vector[0] - prec->vector[0];
-        }
-        current = current->next;
-    }
-}
-
-/**
- * @brief
- * @test❌
- * @param vector 
- */
-void codage_ac(struct vector_t *vector){
-    printf("%p\n", vector);
-    return;
-}
-
-void vector_dc_ac(struct vector_t *vector){
-    codage_dc(vector);
-    codage_ac(vector);
-}
-
-
-/**
- * @brief
  * @test✔️
  * @param vector 
  */
@@ -131,21 +95,4 @@ void vectors_destroy(struct vector_t *vector){
         tmp = tmp2;
     }
     vector = NULL;
-}
-
-/**
- * @brief
- * @test✔️
- * @param vector 
- */
-uint32_t get_bits_needed(int16_t number){
-    uint32_t bits_needed = 0;
-    if (number < 0){
-        number = -number;
-    }
-    while (number > 0){
-        number = number >> 1;
-        bits_needed++;
-    }
-    return bits_needed;
 }
