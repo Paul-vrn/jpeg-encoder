@@ -27,9 +27,11 @@ struct vector_t* create_vector(int16_t tab[64]){
 }
 
 /**
- * @brief create a new vector from a bloc by zig zag
+ * @brief Create a vector from bloc object
  * 
-*/
+ * @param freq_bloc 
+ * @return struct vector_t* 
+ */
 struct vector_t* create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
     struct vector_t* vector = calloc(1, sizeof(struct vector_t));
     vector->next = NULL;
