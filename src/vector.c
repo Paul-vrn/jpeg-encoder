@@ -37,7 +37,7 @@ struct vector_t* create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
     for (int i = 0; i < 8; i++){
         for (int j = 0; j < 8; j++){
             vector->vector[i*8+j] = frequential_bloc_get_matrice(freq_bloc, i, j);
-             // mauvaise implémentation
+            // mauvaise implémentation
         }
     }
     return vector;
