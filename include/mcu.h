@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "bloc.h"
+#include "frequential_bloc.h"
 /**
  * @brief structure to represent a MCU
  * 
