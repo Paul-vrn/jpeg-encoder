@@ -62,7 +62,7 @@ void test_zigzag(){
     {1,2,3,4,5,6,7,8}};
 
     struct frequential_bloc_t *fbloc = create_frequential_bloc(tab);
-    struct vector_t tab_res = create_vector_from_bloc(fbloc);
+    struct vector_t *tab_res = create_vector_from_bloc(fbloc);
 
     frequential_bloc_print(tab_res);
 }
@@ -71,6 +71,6 @@ int main(void)
     printf("test vector!\n");
     //test_quantification();
     //test_get_bits_needed();
-    //test_zigzag();
+    test_zigzag();
     return EXIT_SUCCESS;
 }
