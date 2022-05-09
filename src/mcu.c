@@ -3,8 +3,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "bloc.h"
-#include "frenquential_bloc.h"
+#include "frequential_bloc.h"
 #include "vector.h"
+#include "bitstream.h"
+#include "jpeg_writer.h"
+#include "encoding.h"
 
 struct mcu_t {
     struct bloc_t *Y;
@@ -60,6 +63,18 @@ struct bloc_t* mcu_get_Cr(struct mcu_t *mcu)
 struct mcu_t* mcu_get_next(struct mcu_t *mcu)
 {
     return mcu->next;
+}
+struct vector_t* mcu_get_vectorY(struct mcu_t *mcu)
+{
+    return mcu->vectorY;
+}
+struct vector_t* mcu_get_vectorCb(struct mcu_t *mcu)
+{
+    return mcu->vectorCb;
+}
+struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
+{
+    return mcu->vectorCr;
 }
 
 uint32_t mcu_count(struct mcu_t *mcu)
@@ -156,10 +171,10 @@ void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
  * @param gris 
  * @return struct mcu_t* 
  */
-struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, bool gris, uint32_t L, uint32_t H, uint32_t V){
+struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t L, uint32_t H, uint32_t V){
     
     struct mcu_t *mcus = NULL;
-    if (gris){
+    if (pixels[1] == NULL){
         //MCU 8x8
         uint32_t start_x = 0;
         uint32_t start_y = 0;
@@ -255,38 +270,17 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
     return mcus;
 }
 
-/*
-void mcu_to_zig_zag(struct mcu_t *mcu, int8_t **zig_zag){
-    struct mcu_t *current = mcu;
-    while (current != NULL){
-        struct bloc_t *current_bloc = current->Y;
-        while (current_bloc != NULL){
-            bloc_to_zig_zag(current_bloc, zig_zag);
-            current_bloc = bloc_get_next(current_bloc);
-        }
-        struct bloc_t *current_bloc = current->Cb;
-        while (current_bloc != NULL){
-            bloc_to_zig_zag(current_bloc, zig_zag);
-            current_bloc = bloc_get_next(current_bloc);
-        }
-        struct bloc_t *current_bloc = current->Cr;
-        while (current_bloc != NULL){
-            bloc_to_zig_zag(current_bloc, zig_zag);
-            current_bloc = bloc_get_next(current_bloc);
-        }
-        current = current->next;
-    }
-}
-*/
 
 
-void mcu_dc_ac(struct mcu_t* mcu){
+void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
     struct mcu_t *current = mcu;
+    int16_t *precY_DC = calloc(1, sizeof(int16_t));
+    int16_t *precCb_DC = calloc(1, sizeof(int16_t));
+    int16_t *precCr_DC = calloc(1, sizeof(int16_t));
     while (current != NULL){
-        struct bloc_t *current_bloc = current->Y;
-        vector_dc_ac(current->vectorY);
-        vector_dc_ac(current->vectorCb);
-        vector_dc_ac(current->vectorCr);
+        *precY_DC = encode_vectors(stream, current->vectorY, Y, *precY_DC);
+        *precCb_DC = encode_vectors(stream, current->vectorCb, Cb, *precCb_DC);
+        *precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC);        
         current = current->next;
     }
 }
