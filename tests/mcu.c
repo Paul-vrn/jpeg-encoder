@@ -65,8 +65,8 @@ void test_decoupage_mcu(){
         }
     }
     uint8_t **tab[3] = {pixels, pixels, pixels};
-    struct mcu_t* mcu = decoupage_mcu(tab, 12, 20, false, 4, 2, 0);
-    mcus_print(mcu);
+    //struct mcu_t* mcu = decoupage_mcu(tab, 12, 20, false, 4, 2, 0);
+    //mcus_print(mcu);
 }
 
 void test_mcu_dct(void)
@@ -80,10 +80,10 @@ void test_mcu_dct(void)
         {0x77, 0x77, 0x77, 0x78, 0x78, 0x78, 0x79, 0x79},
         {0x77, 0x77, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78},
         {0x78, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78}};
+    //struct bloc_t bloc = bloc_create(matrice1);
+    struct mcu_t *mcu = mcu_create(NULL, bloc_create(matrice1), NULL, 8, 8);
 
-    struct mcu_t *mcu = mcu_create(NULL, matrice1, NULL, 8, 8);
-
-    mcu_dct(mcu);
+    mcu_dct2(mcu);
 
     mcu_print(mcu);
 
@@ -98,3 +98,4 @@ int main(void)
     test_mcu_dct();
     return EXIT_SUCCESS;
 }
+

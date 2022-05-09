@@ -3,18 +3,42 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
-#include "../include/frequential_bloc.h"
+#include <bloc.h>
 
+struct frequential_bloc_t {
+    struct frequential_bloc_t *next;
+    int16_t matrice[8][8];
+};
+
+void frequential_bloc_set_next(struct frequential_bloc_t *frequential_bloc, struct frequential_bloc_t *next)
+{
+    frequential_bloc->next = next;
+}
 
 struct frequential_bloc_t* frequential_get_next(struct frequential_bloc_t *bloc)
 {
     return bloc->next;
 }
 
-struct frequential_bloc_t* frequential_get_matrice(struct frequential_bloc_t *bloc)
-{
-    return bloc->matrice;
+int16_t frequential_bloc_get_matrice(struct frequential_bloc_t *frequential_bloc, uint8_t i, uint8_t j){
+    return frequential_bloc->matrice[i][j];
 }
+
+
+void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_bloc_t *next){
+    struct frequential_bloc_t *tmp = *bloc;
+    if (tmp == NULL){
+        *bloc = next;
+    } else {
+        while (tmp->next != NULL){
+            tmp = tmp->next;
+        }
+        tmp->next = next;
+    }
+}
+
+
+
 
 void frequential_blocs_destroy(struct frequential_bloc_t *frequential_blocs){
     struct frequential_bloc_t *tmp = frequential_blocs;
@@ -82,12 +106,12 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 }
 
 
-struct frequential_bloc_t *dct(uint8_t bloc[8][8]){
+struct frequential_bloc_t *dct(struct bloc_t *bloc){
     int16_t new_bloc[8][8];
     int16_t bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc_copy[i][j] = bloc[i][j]-128;
+            bloc_copy[i][j] = bloc_get_matrice(bloc, i, j)-128;
         }
     }
     for(uint32_t i=0; i<8; i++){

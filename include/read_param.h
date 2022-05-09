@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 
-void read_param(int argc, char *argv[], int *H1, int *V1, int *H2, int *V2, int *H3, int *V3, char **OUTFILE, char **INFILE);
+void read_param(int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, uint8_t *V2, uint8_t *H3, uint8_t *V3, char **OUTFILE, char **INFILE);
 
 
 #endif /* _READ_PARAM_H_ */
