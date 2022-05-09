@@ -6,13 +6,12 @@
 #include "read_pic.h"
 #include "convert_RGB_to_YCbCr.h"
 #include "jpeg_writer.h"
-<<<<<<< HEAD
 #include "mcu.h"
-=======
->>>>>>> 14f0370069952d9cc009215bb4b6f2b0049fa18f
 #include "htables.h"
 #include "huffman.h"
 #include "qtables.h"
+#include "bitstream.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -20,12 +19,12 @@ int main(int argc, char *argv[])
     uint32_t width = 0;
     uint8_t type;
 
-    uint8_t H1 = 1;
-    uint8_t H2 = 1;
-    uint8_t H3 = 1;
-    uint8_t V1 = 1;
-    uint8_t V2 = 1;
-    uint8_t V3 = 1;
+    uint8_t H1 = 2;
+    uint8_t H2 = 2;
+    uint8_t H3 = 2;
+    uint8_t V1 = 2;
+    uint8_t V2 = 2;
+    uint8_t V3 = 2;
     char *filename_out;
     char *filename;
 
@@ -36,7 +35,7 @@ int main(int argc, char *argv[])
     // Lecture des fichiers
 
 
-    struct jpeg *jpeg = jpeg_create();
+    struct jpeg *jpg = jpeg_create();
 
     /* ------ SET HEADER JPEG ------ */
 
@@ -54,8 +53,7 @@ int main(int argc, char *argv[])
         jpeg_set_huffman_table(jpg, DC, Y, htable_DC_Y);
         struct huff_table *htable_AC_Y = huffman_table_build(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
         jpeg_set_huffman_table(jpg, AC, Y, htable_AC_Y);
-        huffman_table_destroy(htable_DC_Y);
-        huffman_table_destroy(htable_AC_Y);
+ 
         jpeg_set_quantization_table(jpg, Y, quantification_table_Y);
 
     } else if (type == 6){
@@ -73,22 +71,16 @@ int main(int argc, char *argv[])
         jpeg_set_huffman_table(jpg, DC, Y, htable_DC_Y);
         struct huff_table *htable_AC_Y = huffman_table_build(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
         jpeg_set_huffman_table(jpg, AC, Y, htable_AC_Y);
-        huffman_table_destroy(htable_DC_Y);
-        huffman_table_destroy(htable_AC_Y);
 
         struct huff_table *htable_DC_Cr = huffman_table_build(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
         jpeg_set_huffman_table(jpg, DC, Cr, htable_DC_Cr);
         struct huff_table *htable_AC_Cr = huffman_table_build(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
         jpeg_set_huffman_table(jpg, AC, Cr, htable_AC_Cr);
-        huffman_table_destroy(htable_DC_Cr);
-        huffman_table_destroy(htable_AC_Cr);
 
         struct huff_table *htable_DC_Cb = huffman_table_build(htables_nb_symb_per_lengths[DC][Cb], htables_symbols[DC][Cb], htables_nb_symbols[DC][Cb]);
         jpeg_set_huffman_table(jpg, DC, Cb, htable_DC_Cb);
         struct huff_table *htable_AC_Cb = huffman_table_build(htables_nb_symb_per_lengths[AC][Cb], htables_symbols[AC][Cb], htables_nb_symbols[AC][Cb]);
         jpeg_set_huffman_table(jpg, AC, Cb, htable_AC_Cb);
-        huffman_table_destroy(htable_DC_Cb);
-        huffman_table_destroy(htable_AC_Cb);
 
         jpeg_set_quantization_table(jpg, Y, quantification_table_Y);
         jpeg_set_quantization_table(jpg, Cb, quantification_table_CbCr);
@@ -97,30 +89,38 @@ int main(int argc, char *argv[])
     }
     jpeg_write_header(jpg);
 
-    // /* Et là des trucs géniaux, comment encoder une image ... */
-    // //crée les MCUS, faire les transformations, etc...
+    /* Et là des trucs géniaux, comment encoder une image ... */
+    //crée les MCUS, faire les transformations, etc...
 
-    // /* ------ CONVERT RGB TO YCbCr ------ */
-    // convert_RGB_to_YCbCr(matrice, height, width);
+    /* ------ CONVERT RGB TO YCbCr ------ */
+    convert_RGB_to_YCbCr(matrice, height, width);
 
     /* ------ CREATE MCUS ------ */
     struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1*V1, H2*V2, H3*V3);
 
-    // /* ------ SOUS ECHANTILLONAGE DES MCUS ------ */
-    // mcu_sous_echantillonne(mcu);
+    /* ------ SOUS ECHANTILLONAGE DES MCUS ------ */
+    mcu_sous_echantillonne(mcu);
 
-    // /* ------ TRANSFORMATION DCT ------ */
+    /* ------ TRANSFORMATION DCT ------ */
 
-    // /* ------ ZIG ZAG ------ */
 
-    // /* ------ QUANTIFICATION ------ */
+    /* ------ ZIG ZAG ------ */
 
-    // /* ------ ENCODAGE DANS LE BITSTREAM ------ */
+
+    /* ------ QUANTIFICATION ------ */
+
+
+    /* ------ ENCODAGE DANS LE BITSTREAM ------ */
+
+    struct bitstream *bitstream = bitstream_create(filename_out);
+    
+
+
 
     
 
 
-    jpeg_write_footer(jpeg); 
+    jpeg_write_footer(jpg); 
 
     
     return EXIT_SUCCESS;

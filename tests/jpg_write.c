@@ -21,7 +21,7 @@ int main(void){
     char filename_out[] = "test.jpg";
     char filename[] = "../images/invader.pgm";
 
-     struct jpeg *jpeg = jpeg_create();
+    struct jpeg *jpeg = jpeg_create();
     //On rentre les paramètre dans la structure entete set_XXX
     // Caractèristique de l'image à traiter
     jpeg_set_ppm_filename(jpeg, filename);

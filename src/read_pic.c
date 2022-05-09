@@ -13,7 +13,7 @@
  */
 uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char **filename){
 
-    int nb;
+
     uint8_t r;
     uint8_t g;
     uint8_t b;
@@ -96,7 +96,7 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
         for (i = 0; i < *height; i++){
             for (j = 0; j < *width; j++){
 
-                nb = fscanf(img, "%c", &r);
+                fscanf(img, "%c", &r);
                 matrixs[0][i][j] = r;
 
             }
@@ -127,11 +127,11 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
         for (i = 0; i < *height; i++){
             for (j = 0; j < *width; j++){
 
-                nb = fscanf(img, "%c", &r);
+                fscanf(img, "%c", &r);
                 matrixs[0][i][j] = r;
-                nb = fscanf(img, "%c", &g);
+                fscanf(img, "%c", &g);
                 matrixs[1][i][j] = g;
-                nb = fscanf(img, "%c", &b);
+                fscanf(img, "%c", &b);
                 matrixs[2][i][j] = b;
 
             }
