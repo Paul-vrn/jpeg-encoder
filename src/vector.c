@@ -23,7 +23,20 @@ struct vector_t* create_vector(struct bloc_t *bloc){
     // TODO: à changer pour faire en zig zag
     for (int i = 0; i < 8; i++){
         for (int j = 0; j < 8; j++){
-            vector->vector[i*8+j] = matrice[i][j];
+            if (i+j % 2 == 0 && i+j < 8){
+                vector->vector[i+(i+j+1)*(i+j)/2] = matrice[i][j];
+            } else if (i+j % 2 == 1 && i+j < 8){
+            vector->vector[j+(i+j+1)*(i+j)/2] = matrice[i][j];
+            }
+            else if(i+j % 2 == 0 && i+j >= 8){
+                uint8_t iprime = 7-i;
+                uint8_t jprime = 7-j;
+                vector->vector[63-(iprime+(iprime+jprime+1)*(iprime+jprime)/2)] = matrice[i][j];
+            } else if (i+j % 2 == 1 && i+j >= 8){
+                uint8_t iprime = 7-i;
+                uint8_t jprime = 7-j;
+                vector->vector[63-(jprime+(iprime+jprime+1)*(iprime+jprime)/2)] = matrice[i][j];
+            }
         }
     }
     return vector;
