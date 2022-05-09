@@ -32,6 +32,7 @@ encoding: encoding.o ../obj/encoding.o ../obj_prof/jpeg_writer_prof.o \
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 test: test.o ../obj/bloc.o ../obj_prof/jpeg_writer_prof.o ../obj_prof/bitstream_prof.o ../obj_prof/huffman_prof.o ../obj_prof/htables_prof.o ../obj/read_param.o ../obj/read_pic.o
+jpg_write: jpg_write.o ../obj/bloc.o ../obj_prof/jpeg_writer_prof.o ../obj_prof/bitstream_prof.o ../obj_prof/huffman_prof.o ../obj_prof/htables_prof.o ../obj/read_param.o ../obj/read_pic.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS).o: $(TESTS).c 
