@@ -6,6 +6,7 @@
 #include "read_pic.h"
 #include "convert_RGB_to_YCbCr.h"
 #include "jpeg_writer.h"
+#include "mcu.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,7 +49,7 @@ int main(int argc, char *argv[])
     convert_RGB_to_YCbCr(matrice, height, width);
 
     /* ------ CREATE MCUS ------ */
-    struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, V1, H2, V2, H3, V3);
+    struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1*V1, H2*V2, H3*V3);
 
     /* ------ SOUS ECHANTILLONAGE DES MCUS ------ */
     mcu_sous_echantillonne(mcu);
@@ -63,7 +64,6 @@ int main(int argc, char *argv[])
 
     
 
-    struct bitstream *bs = jpeg_get_bitstream(jpg);
 
     /* Voilà, on finit proprement notre belle image! */
     jpeg_write_footer(jpg); 

@@ -7,14 +7,15 @@
 #include "vector.h"
 #include "mcu.h"
 #include "jpeg_writer.h"
+#include "huffman.h"
 
 /**
  * @brief
  * @test✔️
  * @param vector 
  */
-uint32_t get_magnitude(int16_t number){
-    uint32_t bits_needed = 0;
+uint8_t get_magnitude(int16_t number){
+    uint8_t bits_needed = 0;
     if (number < 0){
         number = -number;
     }
@@ -28,35 +29,35 @@ uint32_t get_magnitude(int16_t number){
 
 /**
  * @brief
- * @test
+ * @test✔️ (~)
  * @param number
  * @param magnitude 
  */
-uint32_t get_indice_magnitude(int16_t number, uint32_t magnitude){
+uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
     uint32_t min_value = pow(2, magnitude-1);
     uint32_t max_value = pow(2, magnitude) - 1;
     if (number < 0){
         return max_value + number;
     } else {
-        return (max_value - min_value) + (number - min_value);
+        return (max_value - min_value) + (number - min_value) +1;
     }
 }
 
 /**
  * @brief 
- * @test❌ 
+ * @test✔️ 
  * @param vector 
  * @param stream 
  * @param prec_DC 
  * @param color 
  * @return int16_t 
  */
-int16_t codage_DC(struct vector_t *vector, struct bitstream *stream, int16_t prec_DC, struct huff_table *ht){
+int16_t codage_DC(struct bitstream *stream, struct vector_t *vector, int16_t prec_DC, struct huff_table *ht){
     int16_t valeur = vector_get(vector, 0) - prec_DC;
     int16_t magnitude = get_magnitude(valeur);
     int16_t indice = get_indice_magnitude(valeur, magnitude);
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
-    uint32_t value = huffman_table_get_path(ht, valeur-prec_DC, nb_bits);
+    uint32_t value = huffman_table_get_path(ht, magnitude, nb_bits);
     bitstream_write_bits(stream, value, *nb_bits, false);
     printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
     bitstream_write_bits(stream, indice, magnitude, false);
@@ -66,7 +67,7 @@ int16_t codage_DC(struct vector_t *vector, struct bitstream *stream, int16_t pre
 
 /**
  * @brief Construct a new codage RLE AC object
- * 
+ * @test❌ 
  * @param vector 
  * @param color 
  */
@@ -87,9 +88,10 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
                     nb_F0++;
                 }
             } else {
-                for (nb_F0; nb_F0 > 0; nb_F0--){
-                    bitstream_write_bits(stream, 0xF0, 9, false); // taille pas bonne
-                    printf("bitstream => writing %d over %d bits\n", 0xF0, 1);
+                while(nb_F0 > 0){
+                    bitstream_write_bits(stream, 0x00, 1, false);
+                    printf("bitstream => writing %d over %d bits\n", 0x00, 1);
+                    nb_F0--;
                 }
                 int16_t value = vector_get(vector, i);
                 uint8_t magnitude = get_magnitude(value);
@@ -112,39 +114,22 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
  * @param vector 
  * @param color 
  */
-void encode_vectors(struct bitstream *stream, struct vector_t *vector, enum color_component color){
+int16_t encode_vectors(struct bitstream *stream, struct vector_t *vector, enum color_component color, int16_t prec_DC){
     struct vector_t *current_vector = vector;
     struct huff_table *htDC = huffman_table_build(
-        htables_nb_symb_per_lengths[DC][(color == Y) ? Y:Cb][16],
+        htables_nb_symb_per_lengths[DC][(color == Y) ? Y:Cb],
         htables_symbols[DC][(color == Y) ? Y:Cb],
         htables_nb_symbols[DC][(color == Y) ? Y:Cb]
     );
     struct huff_table *htAC = huffman_table_build(
-        htables_nb_symb_per_lengths[AC][(color == Y) ? Y:Cb][16],
+        htables_nb_symb_per_lengths[AC][(color == Y) ? Y:Cb],
         htables_symbols[AC][(color == Y) ? Y:Cb],
         htables_nb_symbols[AC][(color == Y) ? Y:Cb]
     );
-    int16_t *prec_DC = calloc(1, sizeof(int16_t));
     while (current_vector != NULL){
-        *prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);
+        prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);
         codage_AC(stream, current_vector, htAC);
         current_vector = vector_get_next(current_vector);
     }
-}
-
-/**
- * @brief 
- * 
- * @param stream 
- * @param mcu 
- */
-void encode(struct bitstream *stream, struct mcu_t *mcu)
-{
-    struct mcu_t *current_mcu = mcu;
-    while (current_mcu != NULL){
-        encode_vectors(stream, mcu_get_vectorY(current_mcu), Y);
-        encode_vectors(stream, mcu_get_vectorCb(current_mcu), Cb);
-        encode_vectors(stream, mcu_get_vectorCr(current_mcu), Cr);
-        current_mcu = mcu_get_next(current_mcu);
-    }
+    return prec_DC;
 }
