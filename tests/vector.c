@@ -7,6 +7,7 @@
 #include "vector.h"
 #include "huffman.h"
 #include "htables.h"
+#include "frequential_bloc.h"
 
 void test_get_bits_needed(){
     int16_t test[11] = {0, 1, -1, 2, -3, 4, -5, 25, 63, 64, 2047};
@@ -49,9 +50,27 @@ void test_quantification(){
 
 }
 
+void test_zigzag(){
+    int16_t tab[8][8] = 
+    {{1,2,3,4,5,6,7,8},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8}};
+
+    struct frequential_bloc_t *fbloc = create_frequential_bloc(tab);
+    struct vector_t *tab_res = create_vector_from_bloc(fbloc);
+
+    frequential_bloc_print(tab_res);
+}
 int main(void)
 {
     printf("test vector!\n");
-    test_quantification();
+    //test_quantification();
+    //test_get_bits_needed();
+    test_zigzag();
     return EXIT_SUCCESS;
 }

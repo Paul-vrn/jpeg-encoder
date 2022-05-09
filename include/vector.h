@@ -9,7 +9,15 @@ int16_t vector_get(struct vector_t *vector, uint32_t index);
 struct vector_t *vector_get_next(struct vector_t *vector);
 
 struct vector_t* create_vector(int16_t tab[64]);
+<<<<<<< HEAD
 struct vector_t* create_vector_from_bloc(struct bloc_t *bloc);
+=======
+
+struct vector_t* create_vector_from_bloc(struct frequential_bloc_t *freq_bloc);
+void vector_quantificationY(struct vector_t *vector);
+void vector_quantificationCbCr(struct vector_t *vector);
+void vectors_quantificationY(struct vector_t *vectors);
+>>>>>>> dev_Marco
 
 void vectors_quantificationY(struct vector_t *vectors);
 void vectors_quantificationCbCr(struct vector_t *vectors);

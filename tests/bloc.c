@@ -49,12 +49,35 @@ void test_fusion_2(){
     return;
 }
 
+void test_dct(){
+    uint8_t bloc[8][8] = {{139, 144, 149, 153, 155, 155, 155, 155},
+                    {144, 151, 153, 156, 159, 156, 156, 156},
+                    {150, 155, 160, 163, 158, 156, 156, 156},
+                    {159, 161, 162, 160, 160, 159, 159, 159},
+                    {159, 160, 161, 162, 162, 155, 155, 155},
+                    {161, 161, 161, 161, 160, 157, 157, 157},
+                    {162, 162, 161, 163, 162, 157, 157, 157},
+                    {162, 162, 161, 161, 163, 158, 158, 158}};
+    // for(uint8_t i=0; i<8; i++){
+    //     for(uint8_t j=0; j<8; j++){
+    //         printf("%f", coef_dct(bloc, i,j));
+    //     }
+    // }
+    struct bloc_t *bloco = bloc_create(bloc);
+    bloc_print(bloco);
+    printf("\n");
+    struct int_bloc_t *bloc1 = dct(bloc);
+    // struct bloc *bloco1 = bloc_create(bloc1);
+    int_bloc_print(bloc1);
+} 
 
 int main(void)
 {
-    struct bloc_t *bloc1 = bloc_create(NULL);
-    bloc_print(bloc1);
-    bloc_destroy(bloc1);
-    test_fusion_2();
+    //test_fusion_2();
+<<<<<<< HEAD
+    //test_dct();
+=======
+    test_dct();
+>>>>>>> 2adf3fa664479718a73b68991f1116451bd216d4
     return EXIT_SUCCESS;
 }

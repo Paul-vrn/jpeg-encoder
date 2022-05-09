@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "bloc.h"
+#include "frequential_bloc.h"
 /**
  * @brief structure to represent a MCU
  * 
@@ -34,5 +35,7 @@ void mcu_sous_echantillonne(struct mcu_t *mcu);
 
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t L, uint32_t H, uint32_t V);
 void mcu_encode(struct bitstream *stream, struct mcu_t* mcu);
+
+void mcu_dct(struct mcu_t* mcu);
 
 #endif /* _MCU_H_ */

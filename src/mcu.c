@@ -303,3 +303,37 @@ void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
         current = current->next;
     }
 }
+
+/*
+
+
+    struct frequential_bloc_t *freqY;
+    struct frequential_bloc_t *freqCb;
+    struct frequential_bloc_t *freqCr;
+
+*/
+void mcu_dct2(struct mcu_t* mcu){
+    struct mcu_t *current = mcu;
+    while (current != NULL){
+        struct bloc_t *current_bloc = current->Y;
+        struct frequential_bloc_t *current_freq = NULL;
+        while (current_bloc != NULL){
+            current_freq = dct(current_bloc);
+            frequential_bloc_add(&current->freqY, current_freq);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current_bloc = current->Cb;
+        while (current_bloc != NULL){
+            current_freq = dct(current_bloc);
+            frequential_bloc_add(&current->freqCb, current_freq);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current_bloc = current->Cr;
+        while (current_bloc != NULL){
+            current_freq = dct(current_bloc);
+            frequential_bloc_add(&current->freqCr, current_freq);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current = current->next;
+    }
+}
