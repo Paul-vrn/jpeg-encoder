@@ -11,8 +11,7 @@
  * @param argv 
  * @return uint8_t** 
  */
-uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INFILE){
-
+uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char **filename){
 
     int nb;
     uint8_t r;
@@ -22,7 +21,7 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
     uint32_t i = 0;
     uint32_t j = 0;
 
-    FILE *img = fopen(*INFILE, "r");
+    FILE *img = fopen(*filename, "r");
     
     while (i < 1){ 
 
@@ -31,7 +30,7 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
 
         if ((int)arg == 53 || (int)arg == 54){
 
-            *TYPE = arg - '0';
+            *type = arg - '0';
 
         }
 
@@ -44,18 +43,18 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
 
     arg = fgetc(img);
 
-    while((int)arg != 32){ // On lis la WIDTH de l'image
+    while((int)arg != 32){ // On lis la width de l'image
 
-        *WIDTH = 10*(*WIDTH) + (arg - '0');
+        *width = 10*(*width) + (arg - '0');
         arg = fgetc(img);
 
     }
 
     arg = fgetc(img);
 
-    while((int)arg != 10){ // On lis la HEIGHT de l'image
+    while((int)arg != 10){ // On lis la height de l'image
 
-        *HEIGHT = 10*(*HEIGHT) + (arg - '0');
+        *height = 10*(*height) + (arg - '0');
         arg = fgetc(img);
 
     }
@@ -77,14 +76,14 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
     
 
     
-    if (*TYPE == 5){
+    if (*type == 5){
 
-        uint8_t *y_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **y_component = calloc(*HEIGHT, sizeof(uint8_t));
+        uint8_t *y_lines = calloc((*width)*(*height), sizeof(uint8_t));
+        uint8_t **y_component = calloc(*height, sizeof(uint8_t));
 
-        for (i = 0; i < *HEIGHT; i++){
+        for (i = 0; i < *height; i++){
 
-            y_component[i] = y_lines + i*(*WIDTH);
+            y_component[i] = y_lines + i*(*width);
 
 
         }
@@ -95,8 +94,8 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
 
 
 
-        for (i = 0; i < *HEIGHT; i++){
-            for (j = 0; j < *WIDTH; j++){
+        for (i = 0; i < *height; i++){
+            for (j = 0; j < *width; j++){
 
                 nb = fscanf(img, "%c", &r);
                 matrixs[0][i][j] = r;
@@ -104,20 +103,20 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
             }
         }
 
-    } else if (*TYPE == 6){
+    } else if (*type == 6){
 
-        uint8_t *r_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **r_component = calloc(*HEIGHT, sizeof(uint8_t));
-        uint8_t *g_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **g_component = calloc(*HEIGHT, sizeof(uint8_t));
-        uint8_t *b_lines = calloc((*WIDTH)*(*HEIGHT), sizeof(uint8_t));
-        uint8_t **b_component = calloc(*HEIGHT, sizeof(uint8_t));
+        uint8_t *r_lines = calloc((*width)*(*height), sizeof(uint8_t));
+        uint8_t **r_component = calloc(*height, sizeof(uint8_t));
+        uint8_t *g_lines = calloc((*width)*(*height), sizeof(uint8_t));
+        uint8_t **g_component = calloc(*height, sizeof(uint8_t));
+        uint8_t *b_lines = calloc((*width)*(*height), sizeof(uint8_t));
+        uint8_t **b_component = calloc(*height, sizeof(uint8_t));
 
-        for (i = 0; i < *HEIGHT; i++){
+        for (i = 0; i < *height; i++){
 
-            r_component[i] = r_lines + i*(*WIDTH);
-            g_component[i] = g_lines + i*(*WIDTH);
-            b_component[i] = b_lines + i*(*WIDTH);
+            r_component[i] = r_lines + i*(*width);
+            g_component[i] = g_lines + i*(*width);
+            b_component[i] = b_lines + i*(*width);
 
 
         }
@@ -126,8 +125,8 @@ uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INF
         matrixs[1] = g_component;
         matrixs[2] = b_component;
 
-        for (i = 0; i < *HEIGHT; i++){
-            for (j = 0; j < *WIDTH; j++){
+        for (i = 0; i < *height; i++){
+            for (j = 0; j < *width; j++){
 
                 nb = fscanf(img, "%c", &r);
                 matrixs[0][i][j] = r;

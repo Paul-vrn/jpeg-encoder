@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 
-uint8_t ***creat_matrix(uint32_t *HEIGHT, uint32_t *WIDTH, int *TYPE, char **INFILE);
+uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char **filename);
 
 
 #endif /* _READ_PIC_H_ */
