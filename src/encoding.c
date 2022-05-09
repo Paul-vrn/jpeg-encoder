@@ -59,15 +59,15 @@ int16_t codage_DC(struct bitstream *stream, struct vector_t *vector, int16_t pre
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
     uint32_t value = huffman_table_get_path(ht, magnitude, nb_bits);
     bitstream_write_bits(stream, value, *nb_bits, false);
-    printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
+    //printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
     bitstream_write_bits(stream, indice, magnitude, false);
-    printf("bitstream => writing %d over %d bits\n", indice, magnitude);
+    //printf("bitstream => writing %d over %d bits\n", indice, magnitude);
     return vector_get(vector, 0);
 }
 
 /**
  * @brief Construct a new codage RLE AC object
- * @test❌ 
+ * @test✔️ (à 90% sur) 
  * @param vector 
  * @param color 
  */
@@ -76,11 +76,18 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
     uint8_t coef_0 = 0;
     uint8_t nb_F0 = 0;
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
+    int16_t value = 0;
+    uint32_t value_huff = 0;
     for (uint8_t i = 1; i < 64; i++){
         if (i == 63){
-            bitstream_write_bits(stream, 0x00, 1, false);
+            //printf("value = endofblock\n");
+            value = 0x00;
+            value_huff = huffman_table_get_path(ht, value, nb_bits);
+            bitstream_write_bits(stream, value_huff, *nb_bits, false);
+            //printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
         } else {
-            if (vector_get(vector, i) == 0){ // si bloque == 0
+            if (vector_get(vector, i) == 0)
+            { // si bloque == 0
                 coef_0++;
                 if (coef_0 >= 16)
                 {   
@@ -89,19 +96,22 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
                 }
             } else {
                 while(nb_F0 > 0){
-                    bitstream_write_bits(stream, 0x00, 1, false);
-                    printf("bitstream => writing %d over %d bits\n", 0x00, 1);
+                    value = 0xF0;
+                    value_huff = huffman_table_get_path(ht, value, nb_bits);
+                    bitstream_write_bits(stream, value_huff, *nb_bits, false);
+                    //printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
                     nb_F0--;
                 }
-                int16_t value = vector_get(vector, i);
+                value = vector_get(vector, i);
                 uint8_t magnitude = get_magnitude(value);
                 uint8_t index = get_indice_magnitude(value, magnitude);
-                uint32_t value_huff = (coef_0 << 4) + magnitude;
+                value_huff = (coef_0 << 4) + magnitude;
                 value_huff = huffman_table_get_path(ht, value_huff, nb_bits);
                 bitstream_write_bits(stream, value_huff, *nb_bits, false);
-                printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
+                //printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
                 bitstream_write_bits(stream, index, magnitude, false);
-                printf("bitstream => writing %d over %d bits\n", index, magnitude);
+                //printf("bitstream => writing %d over %d bits\n", index, magnitude);
+                coef_0 = 0;
             }
         }
     }
@@ -109,7 +119,7 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
 
 /**
  * @brief 
- * 
+ * @test✔️
  * @param stream 
  * @param vector 
  * @param color 
@@ -127,7 +137,9 @@ int16_t encode_vectors(struct bitstream *stream, struct vector_t *vector, enum c
         htables_nb_symbols[AC][(color == Y) ? Y:Cb]
     );
     while (current_vector != NULL){
+        //printf("Codage DC :\n");
         prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);
+        //printf("Codage AC :\n");
         codage_AC(stream, current_vector, htAC);
         current_vector = vector_get_next(current_vector);
     }
