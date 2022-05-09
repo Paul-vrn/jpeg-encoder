@@ -19,7 +19,7 @@ void frequential_bloc_set_next(struct frequential_bloc_t *frequential_bloc, stru
     frequential_bloc->next = next;
 }
 
-struct frequential_bloc_t* frequential_get_next(struct frequential_bloc_t *bloc)
+struct frequential_bloc_t* frequential_bloc_get_next(struct frequential_bloc_t *bloc)
 {
     return bloc->next;
 }

@@ -30,6 +30,19 @@ struct vector_t* create_vector(int16_t tab[64]){
     return vector;
 }
 
+
+
+void vector_add(struct vector_t **vector, struct vector_t *next){
+    struct vector_t *tmp = *vector;
+    if (tmp == NULL){
+        *vector = next;
+    } else {
+        while (tmp->next != NULL){
+            tmp = tmp->next;
+        }
+        tmp->next = next;
+    }
+}
 /**
  * @brief Create a vector from bloc object
  * 
