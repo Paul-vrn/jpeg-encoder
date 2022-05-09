@@ -5,6 +5,10 @@
 #include <stdbool.h>
 #include <math.h>
 
+/**
+ * @brief 
+ * 
+ */
 struct bloc_t {
     struct bloc_t *next;
     uint8_t matrice[8][8];

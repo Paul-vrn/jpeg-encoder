@@ -10,10 +10,8 @@ struct vector_t *vector_get_next(struct vector_t *vector);
 
 struct vector_t* create_vector(int16_t tab[64]);
 struct vector_t* create_vector_from_bloc(struct bloc_t *bloc);
-void vector_quantificationY(struct vector_t *vector);
-void vector_quantificationCbCr(struct vector_t *vector);
-void vectors_quantificationY(struct vector_t *vectors);
 
+void vectors_quantificationY(struct vector_t *vectors);
 void vectors_quantificationCbCr(struct vector_t *vectors);
 
 void vectors_destroy(struct vector_t *vector);

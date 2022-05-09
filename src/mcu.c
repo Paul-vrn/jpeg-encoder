@@ -270,8 +270,27 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
     return mcus;
 }
 
+/**
+ * @brief 
+ * 
+ * @param mcu 
+ */
+void mcu_quantification(struct mcu_t *mcu){
+    struct mcu_t *current_mcu = mcu;
+    while (current_mcu != NULL){
+        vectors_quantificationY(current_mcu->vectorY);
+        vectors_quantificationCbCr(current_mcu->vectorCb);
+        vectors_quantificationCbCr(current_mcu->vectorCr);
+        current_mcu = current_mcu->next;
+    }
+}
 
-
+/**
+ * @brief Encode vectors in the stream
+ * @test 
+ * @param stream 
+ * @param mcu 
+ */
 void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     int16_t *precY_DC = calloc(1, sizeof(int16_t));

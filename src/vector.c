@@ -49,42 +49,23 @@ struct vector_t* create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
     return vector;
 }
 
-
-/**
- * @brief
- * @test❌ (valeur approximative)
- * @param vector 
- */
-void vector_quantificationY(struct vector_t *vector){
-    for (uint8_t i = 0; i < 64; i++){
-        vector->vector[i] = (int16_t) round(vector->vector[i] / quantification_table_Y[i]);
-    }
-}
-
-/**
- * @brief
- * @test❌ (valeur approximative)
- * @param vector 
- */
-void vector_quantificationCbCr(struct vector_t *vector){
-    for (uint8_t i = 0; i < 64; i++){
-        vector->vector[i] = (int16_t) (vector->vector[i] / quantification_table_CbCr[i]);
-    }
-}
-
 void vectors_quantificationY(struct vector_t *vectors){
-    struct vector_t *tmp = vectors;
-    while (tmp != NULL){
-        vector_quantificationY(tmp);
-        tmp = tmp->next;
+    struct vector_t *vector = vectors;
+    while (vector != NULL){
+        for (uint8_t i = 0; i < 64; i++){
+            vector->vector[i] = (int16_t) round(vector->vector[i] / quantification_table_Y[i]);
+        }
+        vector = vector->next;
     }
 }
 
 void vectors_quantificationCbCr(struct vector_t *vectors){
-    struct vector_t *tmp = vectors;
-    while (tmp != NULL){
-        vector_quantificationCbCr(tmp);
-        tmp = tmp->next;
+    struct vector_t *vector = vectors;
+    while (vector != NULL){
+        for (uint8_t i = 0; i < 64; i++){
+            vector->vector[i] = (int16_t) (vector->vector[i] / quantification_table_CbCr[i]);
+        }
+        vector = vector->next;
     }
 }
 
