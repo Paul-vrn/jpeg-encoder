@@ -16,6 +16,10 @@ int16_t vector_get(struct vector_t *vector, uint32_t index)
 {
     return vector->vector[index];
 }
+struct vector_t *vector_get_next(struct vector_t *vector)
+{
+    return vector->next;
+}
 
 struct vector_t* create_vector(int16_t tab[64]){
     struct vector_t *vector = calloc(1, sizeof(struct vector_t));

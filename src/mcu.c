@@ -5,6 +5,8 @@
 #include "bloc.h"
 #include "frequential_bloc.h"
 #include "vector.h"
+#include "bitstream.h"
+
 
 struct mcu_t {
     struct bloc_t *Y;
@@ -292,13 +294,13 @@ void mcu_to_zig_zag(struct mcu_t *mcu, int8_t **zig_zag){
 */
 
 
-void mcu_dc_ac(struct mcu_t* mcu){
+void mcu_dc_ac(struct bitstream *stream, struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     while (current != NULL){
         struct bloc_t *current_bloc = current->Y;
-        vector_dc_ac(current->vectorY);
-        vector_dc_ac(current->vectorCb);
-        vector_dc_ac(current->vectorCr);
+        encode(stream, current->vectorY);
+        encode(stream, current->vectorCb);
+        encode(stream, current->vectorCr);
         current = current->next;
     }
 }

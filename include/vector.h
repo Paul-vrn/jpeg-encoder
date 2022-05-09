@@ -6,6 +6,8 @@
 struct vector_t;
 
 int16_t vector_get(struct vector_t *vector, uint32_t index);
+struct vector_t *vector_get_next(struct vector_t *vector);
+
 struct vector_t* create_vector(int16_t tab[64]);
 struct vector_t* create_vector_from_bloc(struct bloc_t *bloc);
 void vector_quantificationY(struct vector_t *vector);
