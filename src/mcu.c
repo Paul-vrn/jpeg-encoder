@@ -352,5 +352,6 @@ void mcu_zigzag(struct mcu_t* mcu){
             vector_add(&current->vectorCr, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
+        current = current->next;
     }
 }

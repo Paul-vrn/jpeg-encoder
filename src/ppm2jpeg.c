@@ -103,10 +103,10 @@ int main(int argc, char *argv[])
     mcu_sous_echantillonne(mcu);
 
     /* ------ TRANSFORMATION DCT ------ */
-
+    mcu_dct(mcu);
 
     /* ------ ZIG ZAG ------ */
-
+    mcu_zigzag(mcu);
 
     /* ------ QUANTIFICATION ------ */
     mcu_quantification(mcu);
