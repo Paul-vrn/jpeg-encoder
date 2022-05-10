@@ -81,7 +81,7 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
     uint32_t value_huff = 0;
     for (uint8_t i = 1; i < 64; i++){
         if (i == 63){
-            //printf("value = endofblock\n");
+            // printf("value = endofblock\n");
             value = 0x00;
             value_huff = huffman_table_get_path(ht, value, nb_bits);
             bitstream_write_bits(stream, value_huff, *nb_bits, false);
@@ -144,7 +144,7 @@ int16_t encode_vectors(struct bitstream *stream, struct vector_t *vector, enum c
         //vector_print(current_vector);
         //printf("Codage DC :\n");
         prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);
-        //printf("Codage AC :\n");
+        // printf("Codage AC :\n");
         codage_AC(stream, current_vector, htAC);
         current_vector = vector_get_next(current_vector);
     }
