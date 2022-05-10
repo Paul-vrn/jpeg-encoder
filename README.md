@@ -4,6 +4,19 @@ Membres : Paul Vernin, Axel Perrin, Marc Felix-Henry
 
 [https://formationc.pages.ensimag.fr/projet/jpeg/jpeg/](https://formationc.pages.ensimag.fr/projet/jpeg/jpeg/).
 
+# Progression
+
+- [x] invader.pgm
+- [x] gris.pgm
+- [x] bisou.pgm
+- [x] complexite.pgm
+- [ ] zig-zag.ppm
+- [ ] thumbs.ppm
+- [ ] horizontal.ppm
+- [ ] vertical.ppm
+- [ ] shaun_the_sheep.ppm
+- [ ] biiiiiig.ppm
+
 # Expression fonctionnelle du besoin
 
 ## Lecture paramètre (stdin)
@@ -114,16 +127,3 @@ Description :
 # Gantt
 
 ![Gantt](./docs/Gantt.drawio.png)
-
-# Progression
-
-- [ ] invader.pgm
-- [ ] gris.pgm
-- [ ] bisou.pgm
-- [ ] complexite.pgm
-- [ ] zig-zag.ppm
-- [ ] thumbs.ppm
-- [ ] horizontal.ppm
-- [ ] vertical.ppm
-- [ ] shaun_the_sheep.ppm
-- [ ] biiiiiig.ppm
