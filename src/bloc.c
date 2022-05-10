@@ -158,7 +158,7 @@ void blocs_destroy(struct bloc_t *blocs){
 void bloc_print(struct bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            printf("%u ", bloc->matrice[i][j]);
+            printf("%x ", bloc->matrice[i][j]);
         }
         printf("\n");
     }

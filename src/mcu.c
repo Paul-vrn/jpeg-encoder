@@ -126,13 +126,47 @@ void mcu_destroy(struct mcu_t *mcu){
     free(mcu);
 }
 void mcu_print(struct mcu_t *mcu){
+    if (mcu == NULL) {
+        printf("MCU:NULL\n");
+        return;
+    }
     printf("MCU:\n");
-    printf("Y:\n");
-    blocs_print(mcu->Y);
-    printf("Cb:\n");
-    blocs_print(mcu->Cb);
-    printf("Cr:\n");
-    blocs_print(mcu->Cr);
+    if(mcu->Y != NULL){
+        printf("bloc : Y:\n");
+        blocs_print(mcu->Y);    
+    }
+    if(mcu->Cb != NULL){
+        printf("bloc : Cb:\n");
+        blocs_print(mcu->Cb);
+    }
+    if(mcu->Cr != NULL){
+        printf("bloc : Cr:\n");
+        blocs_print(mcu->Cr);
+    }
+    if(mcu->freqY != NULL){
+        printf("frequential bloc : Y:\n");
+        frequential_blocs_print(mcu->freqY);
+    }
+    if(mcu->freqCb != NULL){
+        printf("frequential bloc : Cb:\n");
+        frequential_blocs_print(mcu->freqCb);
+    }
+    if(mcu->freqCr != NULL){
+        printf("frequential bloc : Cr:\n");
+        frequential_blocs_print(mcu->freqCr);
+    }
+    if(mcu->vectorY != NULL){
+        printf("vector : Y:\n");
+        vectors_print(mcu->vectorY);
+    }
+    if(mcu->vectorCb != NULL){
+        printf("vector : Cb:\n");
+        vectors_print(mcu->vectorCb);
+    }
+    if(mcu->vectorCr != NULL){
+        printf("vector : Cr:\n");
+        vectors_print(mcu->vectorCr);
+    }
 }
 void mcus_print(struct mcu_t *mcu){
     while (mcu != NULL){
@@ -336,21 +370,22 @@ void mcu_zigzag(struct mcu_t* mcu){
         struct frequential_bloc_t *current_freq = current->freqY;
         struct vector_t *current_vector = NULL;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc(current_freq);
+            current_vector = create_vector_from_bloc2(current_freq);
             vector_add(&current->vectorY, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCb;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc(current_freq);
+            current_vector = create_vector_from_bloc2(current_freq);
             vector_add(&current->vectorCb, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCr;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc(current_freq);
+            current_vector = create_vector_from_bloc2(current_freq);
             vector_add(&current->vectorCr, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
+        current = current->next;
     }
 }
