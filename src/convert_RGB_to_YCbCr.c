@@ -13,7 +13,6 @@ void convert_RGB_to_YCbCr(uint8_t ***matrice, uint32_t height, uint32_t width){
     if (matrice[1] == NULL && matrice[2] == NULL){
         return;
     } 
-    printf("test\n");
     for (uint32_t i = 0; i < height; i++){
         for (uint32_t j = 0; j < width; j++){
             uint8_t R = (uint8_t)matrice[0][i][j];

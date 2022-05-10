@@ -6,7 +6,10 @@ all: $(TESTS)
 
 
 
-mcu: mcu.o ../obj/bloc.o ../obj/mcu.o
+mcu: mcu.o ../obj/bloc.o ../obj/mcu.o ../obj/frequential_bloc.o \
+			../obj_prof/huffman_prof.o ../obj/vector.o ../obj/encoding.o \
+			../obj_prof/bitstream_prof.o ../obj_prof/htables_prof.o \
+
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 
 bloc: bloc.o ../obj/bloc.o
@@ -15,11 +18,11 @@ bloc: bloc.o ../obj/bloc.o
 read_param: read_param.o ../obj/read_param.o ../obj/read_pic.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-vector: vector.o ../obj/encoding.o ../obj_prof/jpeg_writer_prof.o \
-					 ../obj_prof/bitstream_prof.o ../obj_prof/htables_prof.o \
-					 ../obj_prof/huffman_prof.o \
-					 ../obj/mcu.o ../obj/vector.o ../obj/bloc.o \
-					 ../obj/frequential_bloc.o
+vector: vector.o ../obj/bloc.o ../obj/vector.o ../obj/frequential_bloc.o \
+			../obj_prof/huffman_prof.o ../obj/vector.o ../obj/encoding.o \
+			../obj_prof/bitstream_prof.o ../obj_prof/htables_prof.o \
+			../obj_prof/mcu.o
+
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 zig_zag: zig_zag.o ../obj/bloc.o ../obj/zig_zag.o ../obj/mcu.o
@@ -35,8 +38,25 @@ encoding: encoding.o ../obj/encoding.o ../obj_prof/jpeg_writer_prof.o \
 					 ../obj/frequential_bloc.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
+test: test.o ../obj/bloc.o ../obj_prof/jpeg_writer_prof.o \
+			 ../obj_prof/bitstream_prof.o ../obj_prof/huffman_prof.o \
+			 ../obj_prof/htables_prof.o ../obj/read_param.o ../obj/read_pic.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+jpg_write: jpg_write.o ../obj/bloc.o ../obj_prof/jpeg_writer_prof.o \
+					   ../obj_prof/bitstream_prof.o ../obj_prof/huffman_prof.o\
+					   ../obj_prof/htables_prof.o ../obj/read_param.o ../obj/read_pic.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+test: test.o ../obj/bloc.o ../obj_prof/jpeg_writer_prof.o \
+			 ../obj_prof/bitstream_prof.o ../obj_prof/huffman_prof.o \
+			 ../obj_prof/htables_prof.o ../obj/read_param.o ../obj/read_pic.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
+frequential_bloc: frequential_bloc.o ../obj/frequential_bloc.o ../obj/bloc.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
 $(TESTS).o: $(TESTS).c 
 	$(CC) $(CFLAGS) -c $^ -o $@
+
 
 #../obj/$(TESTS).o: ../src/$(TESTS).c
 #	make -f ../Makefile $@

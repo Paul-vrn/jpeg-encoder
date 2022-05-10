@@ -7,6 +7,7 @@
 #include "vector.h"
 #include "huffman.h"
 #include "htables.h"
+#include "frequential_bloc.h"
 
 
 /*void test_get_bits_needed(){
@@ -64,6 +65,7 @@ void test_zigzag(){
 	{0xff76, 0x0000, 0x001a, 0x0000, 0xff5a, 0x0000, 0x00f4, 0x0000}, 
 	{0x00dc, 0x0000, 0xffa9, 0x0000, 0xffba, 0x0000, 0xff3d, 0x0000}};
 
+<<<<<<< HEAD
     struct frequential_bloc_t *fbloc = frequential_bloc_create(tab);
     struct vector_t *tab_res = create_vector_from_bloc(fbloc);
     
@@ -82,9 +84,29 @@ void test_zigzag(){
     vector_print(tab_res);
 }
 >>>>>>> Stashed changes
+=======
+void test_zigzag(){
+    int16_t tab[8][8] = 
+    {{1,2,3,4,5,6,7,8},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8,},
+    {1,2,3,4,5,6,7,8}};
+
+    struct frequential_bloc_t *fbloc = create_frequential_bloc(tab);
+    struct vector_t *tab_res = create_vector_from_bloc(fbloc);
+
+    frequential_bloc_print(tab_res);
+}
+>>>>>>> master
 int main(void)
 {
     printf("test vector!\n");
-    test_quantification();
+    //test_quantification();
+    //test_get_bits_needed();
+    test_zigzag();
     return EXIT_SUCCESS;
 }

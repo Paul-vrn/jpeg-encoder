@@ -7,8 +7,6 @@
 #include "qtables.h"
 #include "frequential_bloc.h"
 
-#define min(a,b) (((a)<(b))?(a):(b))
-#define max(a,b) (((a)>(b))?(a):(b)) 
 
 struct vector_t {
     struct vector_t *next;
@@ -33,31 +31,36 @@ struct vector_t* create_vector(int16_t tab[64]){
     return vector;
 }
 
-/**
- * @brief Create a vector from bloc object
- * 
- * @param freq_bloc 
- * @return struct vector_t* 
- *//*
-struct vector_t *create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){   //On a utilisé la fonction d'un autre groupe la notre ne marchait pas merci Arthur Lebeurrier
-    struct vector_t* vector = calloc(1, sizeof(struct vector_t));
-    vector->next = NULL;    
-    int cpt = 0;
-    for (int i = 0; i<14; i++){
-        if (i%2 == 0){
-            for (int j = max(0, i-7); j<=min(i,7); j++){
-                vector->vector[cpt] = frequential_bloc_get_matrice(freq_bloc, i-j, j);
-                cpt++;
-            }
-        } else {
-            for (int j = max(0, i-7); j<=min(i,7); j++){
-                vector->vector[cpt] = frequential_bloc_get_matrice(freq_bloc, j, i-j);
-                cpt++;
-            }
+
+
+void vector_add(struct vector_t **vector, struct vector_t *next){
+    struct vector_t *tmp = *vector;
+    if (tmp == NULL){
+        *vector = next;
+    } else {
+        while (tmp->next != NULL){
+            tmp = tmp->next;
+        }
+        tmp->next = next;
+    }
+}
+
+void vector_print(struct vector_t *vector){
+    for (int i = 0; i < 64; i++){
+        printf("%x ", vector->vector[i]);
+        if (i % 8 == 7){
+            printf("\n");
         }
     }
-    return vector;
-}*/
+}
+void vectors_print(struct vector_t *vectors){
+    struct vector_t *tmp = vectors;
+    while (tmp != NULL){
+        vector_print(tmp);
+        tmp = tmp->next;
+    }
+}
+
 struct vector_t *create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){ 
     struct vector_t* Vvector = calloc(1, sizeof(struct vector_t));
     Vvector->next = NULL; 
@@ -79,6 +82,34 @@ struct vector_t *create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
     }
     return Vvector;
 }
+
+
+// Fonction emprunté à Arthur Lebeurier en attendant que la notre fonctionne
+#define min(a,b) (((a)<(b))?(a):(b))
+#define max(a,b) (((a)>(b))?(a):(b))
+
+struct vector_t* create_vector_from_bloc2(struct frequential_bloc_t *freq_bloc){
+ 	int cpt = 0;
+ 	int len = 8;
+    struct vector_t* vector = calloc(1, sizeof(struct vector_t));
+
+ 	for (int k = 0; k<2*len-1; k++){
+ 		if (k%2 == 0){
+     		for (int j = max(0, k-len+1); j<=min(k,len-1); j++){
+                vector->vector[cpt] = (int16_t) frequential_bloc_get_matrice(freq_bloc, k-j, j);
+		    	cpt++;
+ 		    }
+ 	    } else {
+     		for (int j = max(0, k-len+1); j<=min(k,len-1); j++){
+                vector->vector[cpt] = (int16_t) frequential_bloc_get_matrice(freq_bloc, j, k-j);
+ 			    cpt++;
+ 		    }
+ 	    }
+    }
+    return vector;
+}
+
+
 
 void vectors_quantificationY(struct vector_t *vectors){
     struct vector_t *vector = vectors;

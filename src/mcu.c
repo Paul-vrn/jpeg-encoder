@@ -77,6 +77,17 @@ struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
     return mcu->vectorCr;
 }
 
+struct mcu_t* get_mcu_by_id(struct mcu_t *mcu, uint32_t id)
+{
+    uint32_t i = 0;
+    while(i<id && mcu->next != NULL)
+    {
+        mcu = mcu->next;
+        i++;
+    }
+    return mcu;
+}
+
 uint32_t mcu_count(struct mcu_t *mcu)
 {
     uint32_t count = 0;
@@ -176,10 +187,15 @@ void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
  * @param pixels 
  * @param height 
  * @param width 
- * @param gris 
+ * @param H1 
+ * @param H2 
+ * @param H3 
+ * @param V1 
+ * @param V2 
+ * @param V3 
  * @return struct mcu_t* 
  */
-struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t L, uint32_t H, uint32_t V){
+struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t H2, uint32_t H3, uint32_t V1, uint32_t V2, uint32_t V3){
     
     struct mcu_t *mcus = NULL;
     if (pixels[1] == NULL){
@@ -199,7 +215,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
             start_x = 0;
         }
     } else {
-        if (H == 4 && V == 4){ // tested
+        if (H1 == 2 && V1 == 2 && H2 == 2 && V2 == 2 && H3 == 2 && V3 == 2 ){ // tested
             //MCU 8x8
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -217,8 +233,9 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
                 start_y += 8;
                 start_x = 0;
             }
-        } else if (H == 2 && V == 2){ // not work
+        } else if (H1 == 2 && V1 == 2 && H2 == 1 && V2 == 2 && H3 == 1 && V3 == 2){ // not work
             //MCU 16x8
+            printf("test");
             uint32_t start_x = 0;
             uint32_t start_y = 0;
             while (start_y < height){
@@ -239,7 +256,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
                 start_y += 8;
                 start_x = 0;
             }
-        } else if (H == 2 && V == 0){
+        } else if (H1 == 2 && V1 == 2 && H2 == 1 && V2 == 1 && H3 == 1 && V3 == 1){
             //MCU 16x16
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -304,11 +321,14 @@ void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
     int16_t *precY_DC = calloc(1, sizeof(int16_t));
     int16_t *precCb_DC = calloc(1, sizeof(int16_t));
     int16_t *precCr_DC = calloc(1, sizeof(int16_t));
+    uint32_t i = 0;
     while (current != NULL){
+        //printf("MCU #%d\n", i);    
         *precY_DC = encode_vectors(stream, current->vectorY, Y, *precY_DC);
         *precCb_DC = encode_vectors(stream, current->vectorCb, Cb, *precCb_DC);
         *precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC);        
         current = current->next;
+        i++;
     }
 }
 
@@ -344,19 +364,19 @@ void mcu_zigzag(struct mcu_t* mcu){
         struct frequential_bloc_t *current_freq = current->freqY;
         struct vector_t *current_vector = NULL;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorY, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCb;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorCb, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCr;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorCr, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }

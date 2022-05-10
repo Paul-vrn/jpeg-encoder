@@ -39,7 +39,7 @@ uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
     if (number < 0){
         return max_value + number;
     } else {
-        return (max_value - min_value) + (number - min_value) +1;
+        return (max_value - min_value + 1) + (number - min_value) + 1;
     }
 }
 
@@ -56,6 +56,7 @@ int16_t codage_DC(struct bitstream *stream, struct vector_t *vector, int16_t pre
     int16_t valeur = vector_get(vector, 0) - prec_DC;
     int16_t magnitude = get_magnitude(valeur);
     int16_t indice = get_indice_magnitude(valeur, magnitude);
+    //printf("value = %d, magnitude = %d, index = %d\n", valeur, magnitude, indice);
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
     uint32_t value = huffman_table_get_path(ht, magnitude, nb_bits);
     bitstream_write_bits(stream, value, *nb_bits, false);
@@ -80,11 +81,11 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
     uint32_t value_huff = 0;
     for (uint8_t i = 1; i < 64; i++){
         if (i == 63){
-            //printf("value = endofblock\n");
+            // printf("value = endofblock\n");
             value = 0x00;
             value_huff = huffman_table_get_path(ht, value, nb_bits);
             bitstream_write_bits(stream, value_huff, *nb_bits, false);
-            //printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
+            //printf("    bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
         } else {
             if (vector_get(vector, i) == 0)
             { // si bloque == 0
@@ -99,18 +100,20 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
                     value = 0xF0;
                     value_huff = huffman_table_get_path(ht, value, nb_bits);
                     bitstream_write_bits(stream, value_huff, *nb_bits, false);
-                    //printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
+                    //printf("    bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
                     nb_F0--;
                 }
                 value = vector_get(vector, i);
+                
                 uint8_t magnitude = get_magnitude(value);
                 uint8_t index = get_indice_magnitude(value, magnitude);
+                //printf("value = %d, magnitude = %d, index = %d\n", value, magnitude, index);
                 value_huff = (coef_0 << 4) + magnitude;
                 value_huff = huffman_table_get_path(ht, value_huff, nb_bits);
                 bitstream_write_bits(stream, value_huff, *nb_bits, false);
-                //printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
+                //printf("    bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
                 bitstream_write_bits(stream, index, magnitude, false);
-                //printf("bitstream => writing %d over %d bits\n", index, magnitude);
+                //printf("    bitstream => writing %d over %d bits\n", index, magnitude);
                 coef_0 = 0;
             }
         }
@@ -137,9 +140,11 @@ int16_t encode_vectors(struct bitstream *stream, struct vector_t *vector, enum c
         htables_nb_symbols[AC][(color == Y) ? Y:Cb]
     );
     while (current_vector != NULL){
+        //printf(color);
+        //vector_print(current_vector);
         //printf("Codage DC :\n");
         prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);
-        //printf("Codage AC :\n");
+        // printf("Codage AC :\n");
         codage_AC(stream, current_vector, htAC);
         current_vector = vector_get_next(current_vector);
     }
