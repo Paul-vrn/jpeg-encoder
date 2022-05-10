@@ -31,6 +31,7 @@ void mcu_print(struct mcu_t *mcu);
 void mcus_print(struct mcu_t *mcu);
 void mcu_add(struct mcu_t **mcu, struct mcu_t *next);
 void mcu_sous_echantillonne(struct mcu_t *mcu);
+void mcus_sous_echantillonne(struct mcu_t *mcu);
 
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t L, uint32_t H, uint32_t V);
 void mcu_encode(struct bitstream *stream, struct mcu_t* mcu);

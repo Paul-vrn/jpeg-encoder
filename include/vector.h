@@ -2,7 +2,8 @@
 #define _VECTOR_H_
 
 #include <stdint.h>
-#include "bloc.h"
+#include "frequential_bloc.h"
+
 struct vector_t;
 
 int16_t vector_get(struct vector_t *vector, uint32_t index);

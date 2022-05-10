@@ -48,11 +48,9 @@ int main(int argc, char *argv[])
     /* ------ CONVERT RGB TO YCbCr ------ */
     convert_RGB_to_YCbCr(matrice, height, width);
 
-    /* ------ CREATE MCUS ------ */
-    struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1*V1, H2*V2, H3*V3);
-
-    /* ------ SOUS ECHANTILLONAGE DES MCUS ------ */
-    mcu_sous_echantillonne(mcu);
+    printf("----- SOUS ECHANTILLONAGE ------\n");
+    mcus_sous_echantillonne(mcu);
+    // mcu_print(mcu);
 
     /* ------ TRANSFORMATION DCT ------ */
 
