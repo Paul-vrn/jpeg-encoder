@@ -110,15 +110,13 @@ int main(int argc, char *argv[])
     /* ------ QUANTIFICATION ------ */
 
 
+    /* ------ CODAGE ------ */
+
+
+
     /* ------ ENCODAGE DANS LE BITSTREAM ------ */
 
-    struct bitstream *bitstream = bitstream_create(filename_out);
     
-
-
-
-    
-
 
     jpeg_write_footer(jpg); 
 
