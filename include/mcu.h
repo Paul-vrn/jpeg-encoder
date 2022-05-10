@@ -16,6 +16,7 @@ void mcu_set_Cb(struct mcu_t *mcu, struct bloc_t *Cb);
 void mcu_set_Cr(struct mcu_t *mcu, struct bloc_t *Cr);
 void mcu_set_largeur(struct mcu_t *mcu, uint32_t largeur);
 void mcu_set_hauteur(struct mcu_t *mcu, uint32_t hauteur);
+struct mcu_t* get_mcu_by_id(struct mcu_t *mcu, uint32_t id);
 uint32_t mcu_count(struct mcu_t *mcu);
 struct bloc_t* mcu_get_Y(struct mcu_t *mcu);
 struct bloc_t* mcu_get_Cb(struct mcu_t *mcu);

@@ -126,7 +126,6 @@ int main(int argc, char *argv[])
 
     printf("----- QUANTIFICATION ------\n");
     mcu_quantification(mcu);
-    //mcu_print(mcu);
 
     mcu_encode(jpeg_get_bitstream(jpeg), mcu);
     

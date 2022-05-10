@@ -77,6 +77,17 @@ struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
     return mcu->vectorCr;
 }
 
+struct mcu_t* get_mcu_by_id(struct mcu_t *mcu, uint32_t id)
+{
+    uint32_t i = 0;
+    while(i<id && mcu->next != NULL)
+    {
+        mcu = mcu->next;
+        i++;
+    }
+    return mcu;
+}
+
 uint32_t mcu_count(struct mcu_t *mcu)
 {
     uint32_t count = 0;
@@ -330,11 +341,14 @@ void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
     int16_t *precY_DC = calloc(1, sizeof(int16_t));
     int16_t *precCb_DC = calloc(1, sizeof(int16_t));
     int16_t *precCr_DC = calloc(1, sizeof(int16_t));
+    uint32_t i = 0;
     while (current != NULL){
+        //printf("MCU #%d\n", i);    
         *precY_DC = encode_vectors(stream, current->vectorY, Y, *precY_DC);
         *precCb_DC = encode_vectors(stream, current->vectorCb, Cb, *precCb_DC);
         *precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC);        
         current = current->next;
+        i++;
     }
 }
 
