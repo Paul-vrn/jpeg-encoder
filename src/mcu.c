@@ -126,47 +126,13 @@ void mcu_destroy(struct mcu_t *mcu){
     free(mcu);
 }
 void mcu_print(struct mcu_t *mcu){
-    if (mcu == NULL) {
-        printf("MCU:NULL\n");
-        return;
-    }
     printf("MCU:\n");
-    if(mcu->Y != NULL){
-        printf("bloc : Y:\n");
-        blocs_print(mcu->Y);    
-    }
-    if(mcu->Cb != NULL){
-        printf("bloc : Cb:\n");
-        blocs_print(mcu->Cb);
-    }
-    if(mcu->Cr != NULL){
-        printf("bloc : Cr:\n");
-        blocs_print(mcu->Cr);
-    }
-    if(mcu->freqY != NULL){
-        printf("frequential bloc : Y:\n");
-        frequential_blocs_print(mcu->freqY);
-    }
-    if(mcu->freqCb != NULL){
-        printf("frequential bloc : Cb:\n");
-        frequential_blocs_print(mcu->freqCb);
-    }
-    if(mcu->freqCr != NULL){
-        printf("frequential bloc : Cr:\n");
-        frequential_blocs_print(mcu->freqCr);
-    }
-    if(mcu->vectorY != NULL){
-        printf("vector : Y:\n");
-        vectors_print(mcu->vectorY);
-    }
-    if(mcu->vectorCb != NULL){
-        printf("vector : Cb:\n");
-        vectors_print(mcu->vectorCb);
-    }
-    if(mcu->vectorCr != NULL){
-        printf("vector : Cr:\n");
-        vectors_print(mcu->vectorCr);
-    }
+    printf("Y:\n");
+    blocs_print(mcu->Y);
+    printf("Cb:\n");
+    blocs_print(mcu->Cb);
+    printf("Cr:\n");
+    blocs_print(mcu->Cr);
 }
 void mcus_print(struct mcu_t *mcu){
     while (mcu != NULL){
@@ -205,7 +171,7 @@ void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
  * @param gris 
  * @return struct mcu_t* 
  */
-struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t L, uint32_t H, uint32_t V){
+struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t H2, uint32_t H3, uint32_t V1, uint32_t V2, uint32_t V3){
     
     struct mcu_t *mcus = NULL;
     if (pixels[1] == NULL){
@@ -225,7 +191,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
             start_x = 0;
         }
     } else {
-        if (L== 4 && H == 4 && V == 4){ // tested
+        if (H1 == 2 && V1 == 2 && H2 == 2 && V2 == 2 && H3 == 2 && V3 == 2 ){ // tested
             //MCU 8x8
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -243,8 +209,9 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
                 start_y += 8;
                 start_x = 0;
             }
-        } else if (L == 4 && H == 2 && V == 2){ // not work
+        } else if (H1 == 2 && V1 == 2 && H2 == 1 && V2 == 2 && H3 == 1 && V3 == 2){ // not work
             //MCU 16x8
+            printf("test");
             uint32_t start_x = 0;
             uint32_t start_y = 0;
             while (start_y < height){
@@ -265,7 +232,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
                 start_y += 8;
                 start_x = 0;
             }
-        } else if (L == 4 && H == 2 && V == 0){
+        } else if (H1 == 2 && V1 == 2 && H2 == 1 && V2 == 1 && H3 == 1 && V3 == 1){
             //MCU 16x16
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -370,19 +337,19 @@ void mcu_zigzag(struct mcu_t* mcu){
         struct frequential_bloc_t *current_freq = current->freqY;
         struct vector_t *current_vector = NULL;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorY, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCb;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorCb, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCr;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorCr, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
