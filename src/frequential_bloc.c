@@ -78,11 +78,20 @@ struct frequential_bloc_t *frequential_bloc_create(int16_t matrice[8][8]){
 void frequential_bloc_print(struct frequential_bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            printf("%i ", bloc->matrice[i][j]);
+            printf("%x ", bloc->matrice[i][j]);
         }
         printf("\n");
     }
 }
+
+void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
+    struct frequential_bloc_t *tmp = frequential_blocs;
+    while (tmp != NULL){
+        frequential_bloc_print(tmp);
+        tmp = tmp->next;
+    }
+}
+
 
 float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/

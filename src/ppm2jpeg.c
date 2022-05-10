@@ -90,34 +90,47 @@ int main(int argc, char *argv[])
     }
     jpeg_write_header(jpeg);
 
-    /* Et là des trucs géniaux, comment encoder une image ... */
-    //crée les MCUS, faire les transformations, etc...
-
-    /* ------ CONVERT RGB TO YCbCr ------ */
+    printf("----- CONVERT RGB TO YCbCr -----\n");
     convert_RGB_to_YCbCr(matrice, height, width);
+    /*for (uint32_t i = 0; i < height; i++){
+        for (uint32_t j = 0; j < width; j++){
+            printf("%x ", matrice[0][i][j]);
+        }
+        printf("\n");
+    }*/
 
-    /* ------ CREATE MCUS ------ */
+
+    printf("----- CREATE MCUS -----\n");
     struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1*V1, H2*V2, H3*V3);
+    /*uint32_t nb_mcu = 0;
+    while (mcu != NULL){
+        nb_mcu++;
+        if (nb_mcu == 1184){
+            mcu_print(mcu);
+        }
+        mcu = mcu_get_next(mcu);
+    }*/
 
-    /* ------ SOUS ECHANTILLONAGE DES MCUS ------ */
+    printf("----- SOUS ECHANTI LLONAGE ------\n");
     mcu_sous_echantillonne(mcu);
+    //mcu_print(mcu);
 
-    /* ------ TRANSFORMATION DCT ------ */
+
+    printf("----- TRANSFORMATION DCT ------\n");
     mcu_dct(mcu);
+    //mcu_print(mcu);
 
-    /* ------ ZIG ZAG ------ */
+    printf("----- ZIG ZAG ------\n");
     mcu_zigzag(mcu);
+    //mcu_print(mcu);
 
-    /* ------ QUANTIFICATION ------ */
+    printf("----- QUANTIFICATION ------\n");
     mcu_quantification(mcu);
+    //mcu_print(mcu);
 
-    /* ------ ENCODAGE DANS LE BITSTREAM ------ */
     mcu_encode(jpeg_get_bitstream(jpeg), mcu);
-
-    //struct bitstream *bitstream = bitstream_create(filename_out); ?
     
     jpeg_write_footer(jpeg); 
-
     
     return EXIT_SUCCESS;
 }
