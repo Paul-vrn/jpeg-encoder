@@ -191,7 +191,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
             start_x = 0;
         }
     } else {
-        if (H == 4 && V == 4){ // tested
+        if (L== 4 && H == 4 && V == 4){ // tested
             //MCU 8x8
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -209,7 +209,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
                 start_y += 8;
                 start_x = 0;
             }
-        } else if (H == 2 && V == 2){ // not work
+        } else if (L == 4 && H == 2 && V == 2){ // not work
             //MCU 16x8
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -231,7 +231,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
                 start_y += 8;
                 start_x = 0;
             }
-        } else if (H == 2 && V == 0){
+        } else if (L == 4 && H == 2 && V == 0){
             //MCU 16x16
             uint32_t start_x = 0;
             uint32_t start_y = 0;
@@ -270,8 +270,27 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
     return mcus;
 }
 
+/**
+ * @brief 
+ * 
+ * @param mcu 
+ */
+void mcu_quantification(struct mcu_t *mcu){
+    struct mcu_t *current_mcu = mcu;
+    while (current_mcu != NULL){
+        vectors_quantificationY(current_mcu->vectorY);
+        vectors_quantificationCbCr(current_mcu->vectorCb);
+        vectors_quantificationCbCr(current_mcu->vectorCr);
+        current_mcu = current_mcu->next;
+    }
+}
 
-
+/**
+ * @brief Encode vectors in the stream
+ * @test 
+ * @param stream 
+ * @param mcu 
+ */
 void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     int16_t *precY_DC = calloc(1, sizeof(int16_t));
@@ -282,5 +301,56 @@ void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
         *precCb_DC = encode_vectors(stream, current->vectorCb, Cb, *precCb_DC);
         *precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC);        
         current = current->next;
+    }
+}
+
+void mcu_dct(struct mcu_t* mcu){
+    struct mcu_t *current = mcu;
+    while (current != NULL){
+        struct bloc_t *current_bloc = current->Y;
+        struct frequential_bloc_t *current_freq = NULL;
+        while (current_bloc != NULL){
+            current_freq = dct(current_bloc);
+            frequential_bloc_add(&current->freqY, current_freq);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current_bloc = current->Cb;
+        while (current_bloc != NULL){
+            current_freq = dct(current_bloc);
+            frequential_bloc_add(&current->freqCb, current_freq);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current_bloc = current->Cr;
+        while (current_bloc != NULL){
+            current_freq = dct(current_bloc);
+            frequential_bloc_add(&current->freqCr, current_freq);
+            current_bloc = bloc_get_next(current_bloc);
+        }
+        current = current->next;
+    }
+}
+
+void mcu_zigzag(struct mcu_t* mcu){
+    struct mcu_t *current = mcu;
+    while (current != NULL){
+        struct frequential_bloc_t *current_freq = current->freqY;
+        struct vector_t *current_vector = NULL;
+        while (current_freq != NULL){
+            current_vector = create_vector_from_bloc(current_freq);
+            vector_add(&current->vectorY, current_vector);
+            current_freq = frequential_bloc_get_next(current_freq);
+        }
+        current_freq = current->freqCb;
+        while (current_freq != NULL){
+            current_vector = create_vector_from_bloc(current_freq);
+            vector_add(&current->vectorCb, current_vector);
+            current_freq = frequential_bloc_get_next(current_freq);
+        }
+        current_freq = current->freqCr;
+        while (current_freq != NULL){
+            current_vector = create_vector_from_bloc(current_freq);
+            vector_add(&current->vectorCr, current_vector);
+            current_freq = frequential_bloc_get_next(current_freq);
+        }
     }
 }

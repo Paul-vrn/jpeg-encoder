@@ -6,6 +6,12 @@
 
 struct bloc_t;
 
+//struct int_bloc_t;
+
+//struct int_bloc_t *int_bloc_create(int matrice[8][8]);
+
+//void int_bloc_print(struct int_bloc_t *bloc);
+
 void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next);
 void bloc_set_matrice(struct bloc_t *bloc, uint8_t matrice[8][8]);
 struct bloc_t *bloc_get_next(struct bloc_t *bloc);

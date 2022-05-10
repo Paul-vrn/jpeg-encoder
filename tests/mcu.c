@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "mcu.h"
+#include "frequential_bloc.h"
+#include "bloc.h"
 
 
 void test_sous_echantillonne(void)
@@ -63,16 +65,37 @@ void test_decoupage_mcu(){
         }
     }
     uint8_t **tab[3] = {pixels, pixels, pixels};
-    struct mcu_t* mcu = decoupage_mcu(tab, 12, 20, false, 4, 2, 0);
-    mcus_print(mcu);
+    //struct mcu_t* mcu = decoupage_mcu(tab, 12, 20, false, 4, 2, 0);
+    //mcus_print(mcu);
 }
 
+void test_mcu_dct(void)
+{
+    uint8_t matrice1[8][8] = {
+        {0x75, 0x75, 0x76, 0x77, 0x78, 0x7A, 0x7B, 0x7B},
+        {0x75, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B},
+        {0x75, 0x76, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7A},
+        {0x76, 0x76, 0x77, 0x77, 0x78, 0x79, 0x7A, 0x7A},
+        {0x76, 0x77, 0x77, 0x78, 0x78, 0x79, 0x79, 0x79},
+        {0x77, 0x77, 0x77, 0x78, 0x78, 0x78, 0x79, 0x79},
+        {0x77, 0x77, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78},
+        {0x78, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78}};
+    //struct bloc_t bloc = bloc_create(matrice1);
+    struct mcu_t *mcu = mcu_create(NULL, bloc_create(matrice1), NULL, 8, 8);
+
+    mcu_dct2(mcu);
+
+    mcu_print(mcu);
+
+}
 // TODO : faire un test avec une matrice 16x24 et 4:2:2
 
 int main(void)
 {
     printf("test mcu!\n"); 
     //test_sous_echantillonne();
-    test_decoupage_mcu();
+    //test_decoupage_mcu();
+    test_mcu_dct();
     return EXIT_SUCCESS;
 }
+

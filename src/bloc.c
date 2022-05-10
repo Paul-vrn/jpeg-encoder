@@ -5,6 +5,10 @@
 #include <stdbool.h>
 #include <math.h>
 
+/**
+ * @brief 
+ * 
+ */
 struct bloc_t {
     struct bloc_t *next;
     uint8_t matrice[8][8];
@@ -54,6 +58,7 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
     if (matrice != NULL){
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
+                //printf("%u\n", matrice[i][j]);
                 bloc->matrice[i][j] = matrice[i][j];
             }
         }
@@ -153,7 +158,7 @@ void blocs_destroy(struct bloc_t *blocs){
 void bloc_print(struct bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            printf("%d ", bloc->matrice[i][j]);
+            printf("%u ", bloc->matrice[i][j]);
         }
         printf("\n");
     }
@@ -258,7 +263,6 @@ void blocs_fusion(struct bloc_t **blocs){
         //error
     } 
 }
-
 /**
  * @brief compare two blocs 
  * @test✔️
