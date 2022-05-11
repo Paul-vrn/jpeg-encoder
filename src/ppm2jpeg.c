@@ -92,21 +92,14 @@ int main(int argc, char *argv[])
 
     printf("----- CONVERT RGB TO YCbCr -----\n");
     convert_RGB_to_YCbCr(matrice, height, width);
-    // for (uint32_t i = 0; i < height; i++){
-    //     for (uint32_t j = 0; j < width; j++){
-    //         printf("%x ", matrice[0][i][j]);
-    //     }
-    //     printf("\n");
-    // }
-
 
     printf("----- CREATE MCUS -----\n");
     struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, H2, H3, V1, V2, V3);
-    // mcu_print(mcu);
-
-    printf("----- SOUS ECHANTI LLONAGE ------\n");
-    mcu_sous_echantillonne(mcu);
-    // mcu_print(mcu);
+    //mcu_print(mcu_get_by_id(mcu, 12));
+    
+    printf("----- SOUS ECHANTILLONAGE ------\n");
+    mcus_sous_echantillonne(mcu);
+    //mcu_print(mcu_get_by_id(mcu, 12));
 
 
     printf("----- TRANSFORMATION DCT ------\n");
@@ -119,6 +112,7 @@ int main(int argc, char *argv[])
 
     printf("----- QUANTIFICATION ------\n");
     mcu_quantification(mcu);
+    //mcu_print(mcu_get_by_id(mcu, 12));
 
 
     printf("----- ENCODAGE ------\n");
