@@ -255,7 +255,7 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
  * @param blocs 
  */
 void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2){
-	uint32_t res[8*V1][8*H1];
+	uint8_t res[8*V1][8*H1];
 	struct bloc_t *current_bloc = *blocs;
 
 	for (uint32_t i = 0; i < V1; i++) {
@@ -270,6 +270,8 @@ void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, 
 	}
 	uint32_t value = 0;
 	//uint8_t res2[V2*8][H2*8];
+	V1 = (uint8_t) V1/V2;
+	H1 = (uint8_t) H1/H2;
 	uint8_t **res2 = calloc(V2*8, sizeof(uint8_t*));
 	for (uint32_t i = 0; i < V2*8; i++) {
 		res2[i] = calloc(H2*8, sizeof(uint8_t));
@@ -284,6 +286,7 @@ void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, 
 			res2[i][j] = (uint8_t) value;
 		}
 	}
+		
 	//transformer la matrice en une liste de blocs
 	struct bloc_t *bloc_fusion = NULL;
 	for (uint32_t i = 0; i < V2; i++) {

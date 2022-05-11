@@ -95,11 +95,11 @@ int main(int argc, char *argv[])
 
     printf("----- CREATE MCUS -----\n");
     struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, H2, H3, V1, V2, V3);
-    //mcu_print(mcu_get_by_id(mcu, 12));
+    //mcu_print(mcu_get_by_id(mcu, 66));
     
     printf("----- SOUS ECHANTILLONAGE ------\n");
     mcus_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
-    //mcu_print(mcu_get_by_id(mcu, 12));
+    //mcu_print(mcu_get_by_id(mcu, 66));
 
 
     printf("----- TRANSFORMATION DCT ------\n");
