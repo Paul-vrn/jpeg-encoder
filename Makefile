@@ -26,7 +26,7 @@ OBJ_PROF_FILES = obj_prof/jpeg_writer_prof.o \
 all: ppm2jpeg
 
 ppm2jpeg: $(OBJ_FILES) $(OBJ_PROF_FILES)
-	$(LD) $(OBJ_FILES) $(OBJ_PROF_FILES) $(LDFLAGS) -o $@
+	$(LD) $(OBJ_FILES) $(OBJ_PROF_FILES) $(LDFLAGS) -o $@ 
 
 obj/%.o: src/%.c
 	$(CC) -c $(CFLAGS) $< -o $@

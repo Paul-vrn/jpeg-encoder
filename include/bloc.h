@@ -28,7 +28,7 @@ void blocs_destroy(struct bloc_t *blocs);
 void bloc_print(struct bloc_t *bloc);
 void blocs_print(struct bloc_t *blocs);
 
-void blocs_fusion(struct bloc_t **blocs);
+void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2);
 
 struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2);
 

@@ -20,12 +20,12 @@ int main(int argc, char *argv[])
     uint32_t width = 0;
     uint8_t type;
 
-    uint8_t H1 = 2;
-    uint8_t H2 = 2;
-    uint8_t H3 = 2;
-    uint8_t V1 = 2;
-    uint8_t V2 = 2;
-    uint8_t V3 = 2;
+    uint8_t H1 = 1;
+    uint8_t H2 = 1;
+    uint8_t H3 = 1;
+    uint8_t V1 = 1;
+    uint8_t V2 = 1;
+    uint8_t V3 = 1;
     char *filename_out;
     char *filename;
 
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     //mcu_print(mcu_get_by_id(mcu, 12));
     
     printf("----- SOUS ECHANTILLONAGE ------\n");
-    mcus_sous_echantillonne(mcu);
+    mcus_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
     //mcu_print(mcu_get_by_id(mcu, 12));
 
 

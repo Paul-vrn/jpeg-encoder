@@ -32,8 +32,8 @@ void mcu_destroy(struct mcu_t *mcu);
 void mcu_print(struct mcu_t *mcu);
 void mcus_print(struct mcu_t *mcu);
 void mcu_add(struct mcu_t **mcu, struct mcu_t *next);
-void mcu_sous_echantillonne(struct mcu_t *mcu);
-void mcus_sous_echantillonne(struct mcu_t *mcu);
+void mcu_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3);
+void mcus_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3);
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t H2, uint32_t H3, uint32_t V1, uint32_t V2, uint32_t V3);
 
 void mcu_quantification(struct mcu_t *mcu);

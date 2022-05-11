@@ -187,14 +187,16 @@ void blocs_print(struct bloc_t *blocs){
  */
 struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
 	struct bloc_t *bloc_fusion = bloc_create(NULL);
+	uint32_t value = 0;
 	for (uint32_t i = 0; i < 8; i++) {
 		uint8_t k = 0;
 		for (uint32_t j = 0; j < 8; j++) {
 			if (k < 8) {
-				bloc_fusion->matrice[i][j] = (uint8_t)(bloc1->matrice[i][k]+bloc1->matrice[i][k+1])/2;
+				value = (bloc1->matrice[i][k]+bloc1->matrice[i][k+1])/2;
 			} else {
-				bloc_fusion->matrice[i][j] = (uint8_t)(bloc2->matrice[i][k-8]+bloc2->matrice[i][k-7])/2;
+				value = (bloc2->matrice[i][k-8]+bloc2->matrice[i][k-7])/2;
 			}
+			bloc_fusion->matrice[i][j] = (uint8_t)value;
 			k += 2;
 		}
 	}
@@ -205,7 +207,13 @@ struct bloc_t* fusion_2_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
  * @brief function that merge 4 blocs 2 lines by 2 lines, 
  * example : [0][0] = mean([0][0], [0][1], [1][0], [1][1])
  * @test✔️
- * @param bloc1 first block
+ * @param bloc1 first b	for (uint32_t i = 0; i < V2*8; i++){
+		for (uint32_t j = 0; j < H2*8; j++){
+			printf("%x ", res2[i][j]);
+		}
+		printf("\n");
+	}
+lock
  * @param bloc2 second block (to the right)
  * @param bloc3 third block (bellow)
  * @param bloc4 fourth block (to the right and bellow)
@@ -246,29 +254,78 @@ struct bloc_t* fusion_4_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2, struct
  * @test❌
  * @param blocs 
  */
-void blocs_fusion(struct bloc_t **blocs){
-	uint8_t count = 0;
-	struct bloc_t *bloc = *blocs;
-	while (bloc != NULL) {
-		count++;
-		bloc = bloc->next;
+void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2){
+	uint32_t res[8*V1][8*H1];
+	struct bloc_t *current_bloc = *blocs;
+
+	for (uint32_t i = 0; i < V1; i++) {
+		for (uint32_t j = 0; j < H1; j++) {
+			for(uint32_t k = 0; k < 8; k++) {
+				for(uint32_t l = 0; l < 8; l++) {
+					res[i*8+k][j*8+l] = current_bloc->matrice[k][l];
+				}
+			}
+			current_bloc = current_bloc->next;
+		}
 	}
-	bloc = *blocs;
-	if (count <= 1) {
-		return;
-	} else if (count == 2){
-		struct bloc_t* bloc_fusion = fusion_2_blocs(bloc, bloc->next);
-		blocs_destroy(*blocs);
-		*blocs = bloc_fusion;        
-	} else if (count == 4){
-		struct bloc_t* bloc_fusion = fusion_4_blocs(bloc, bloc->next, bloc->next->next, bloc->next->next->next);
-		blocs_destroy(*blocs);
-		*blocs = bloc_fusion;        
-	} else {
-		printf("Error : blocs_fusion : count = %d\n", count);
-		exit(EXIT_FAILURE);
-	} 
+	uint32_t value = 0;
+	//uint8_t res2[V2*8][H2*8];
+	uint8_t **res2 = calloc(V2*8, sizeof(uint8_t*));
+	for (uint32_t i = 0; i < V2*8; i++) {
+		res2[i] = calloc(H2*8, sizeof(uint8_t));
+		for (uint32_t j = 0; j < H2*8; j++) {
+			value = 0;
+			for (uint32_t k = i*V1; k < (i*V1+V1); k++) {
+				for (uint32_t l = j*H1; l < (j*H1+H1); l++) {
+					value += res[k][l];
+				}
+			}
+			value = value/(V1*H1);
+			res2[i][j] = (uint8_t) value;
+		}
+	}
+	//transformer la matrice en une liste de blocs
+	struct bloc_t *bloc_fusion = NULL;
+	for (uint32_t i = 0; i < V2; i++) {
+		for (uint32_t j = 0; j < H2; j++) {
+			bloc_add(&bloc_fusion, bloc_create_from_pixels(res2, j*8, j*8+8, i*8, i*8+8));
+		}
+	}
+	blocs_destroy(*blocs);
+	*blocs = bloc_fusion;
+
 }
+
+/*void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2){
+	uint32_t x = 0;
+	uint32_t y = 0;
+	uint32_t res[H2*8][V2*8];
+	struct bloc_t *current_bloc = *blocs;
+	for (uint32_t i = 0; i < V1; i++){
+		for (uint32_t j = 0; j < H1; j++){ // bloc par bloc
+			
+			for (uint32_t k = 0; k < 8; k++){
+				for (uint32_t l = 0; l < 8; l++){
+					x = i*8 + k;
+					x = (floor(x/V1)*V2);
+					y = j*8 + l;
+					y = (floor(y/H1)*H2);
+					printf("res[%d][%d] = %x\n", x, y, current_bloc->matrice[k][l]);
+					res[x][y] += current_bloc->matrice[k][l];
+				}
+			}
+			current_bloc = current_bloc->next;
+		}
+	}
+	for (uint32_t i = 0; i < V2*8; i++){
+		for (uint32_t j = 0; j < H2*8; j++){
+			printf("%x/4 = ", res[i][j]);
+			res[i][j] = (uint8_t) (res[i][j]/(H1*V1));
+			printf("%x |", res[i][j]);
+		}
+		printf("\n");
+	}
+}*/
 /**
  * @brief compare two blocs 
  * @test✔️
