@@ -9,13 +9,19 @@ Membres : Paul Vernin, Axel Perrin, Marc Felix-Henry
 - [x] invader.pgm
 - [x] gris.pgm
 - [x] bisou.pgm
-- [x] complexite.pgm
-- [ ] zig-zag.ppm
-- [ ] thumbs.ppm
-- [ ] horizontal.ppm
-- [ ] vertical.ppm
-- [ ] shaun_the_sheep.ppm
-- [ ] biiiiiig.ppm
+- [x] complexite.pgm (en ~1min)
+- [ ] zig-zag.ppm 4:2:2
+- [x] zig-zag.ppm 4:2:0
+- [ ] thumbs.ppm 4:2:2
+- [x] thumbs.ppm 4:2:0 (à 90%)
+- [ ] horizontal.ppm 4:2:2
+- [x] horizontal.ppm 4:2:0
+- [ ] vertical.ppm 4:2:2
+- [x] vertical.ppm 4:2:0
+- [ ] shaun_the_sheep.ppm 4:2:2
+- [x] shaun_the_sheep.ppm 4:2:0
+- [ ] biiiiiig.ppm 4:2:2
+- [x] biiiiiig.ppm 4:2:0 (en 3min40)
 
 # Expression fonctionnelle du besoin
 

@@ -47,7 +47,7 @@ void vector_add(struct vector_t **vector, struct vector_t *next){
 void vector_print(struct vector_t *vector){
     for (int i = 0; i < 64; i++){
         printf("%x ", vector->vector[i]);
-        if (i % 8 == 0){
+        if (i % 8 == 7){
             printf("\n");
         }
     }
