@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <bloc.h>
+#include <costable.h>
 
 /**
  * @brief 
@@ -118,6 +119,61 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     return resultat;
 }
 
+// On améliore la fonction qui crée les coefficients de la DCT
+// grâce à un tableau de produits des cosius créé sur python:
+
+// import numpy as np
+
+// MAT1 = np.zeros((8, 8))
+
+// for i in range(8):
+//     for j in range(8):
+//         MAT1[i][j] = np.cos((2*i+1)*j*np.pi/16)
+
+// MAT2 = np.zeros((64, 64))
+
+// for i in range(8):
+//     for x in range(8):
+//         for j in range(8):
+//             for y in range(8):
+//                 MAT2[8*i+x][8*j+y] = MAT1[x][i] * MAT1[y][j]
+
+// print("{")
+// for i in range(8):
+//     for x in range(8):
+//         print("{")
+//         for j in range(8):
+            
+//             for y in range(8):
+//                 print(MAT2[8*i+x][j*8+y], end=", ")
+            
+//         print("},", end="\n")    
+// print("}")
+
+float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
+
+    float n = 8;
+    float resultat = 0.0;
+    for(uint32_t x = 0; x < 8; x++){
+        for(uint32_t y = 0; y < 8 ; y++){
+            //printf("%d", bloc_copy[x][y]);
+            resultat += (float)(bloc_copy[x][y]) * costables[8*i+x][8*j+y];
+        }
+    }
+    if(i==0 && j==0){
+        resultat *= (2/n) * 1/2; 
+    }
+    else if(i==0){
+        resultat *= (2/n) * 1/sqrt(2);
+    }
+    else if(j==0){
+        resultat *= (2/n) * 1/sqrt(2); 
+    }
+    else{
+        resultat *= (2/n);
+    }
+    return resultat;
+}
 
 struct frequential_bloc_t *dct(struct bloc_t *bloc){
     int16_t new_bloc[8][8];
@@ -129,7 +185,7 @@ struct frequential_bloc_t *dct(struct bloc_t *bloc){
     }
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            new_bloc[i][j] = (int16_t)coef_dct(bloc_copy, i, j);
+            new_bloc[i][j] = (int16_t)coef_dct2(bloc_copy, i, j);
         }
     }
     struct frequential_bloc_t *blocc = frequential_bloc_create(new_bloc);
