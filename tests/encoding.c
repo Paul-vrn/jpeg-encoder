@@ -74,10 +74,27 @@ void test_encoding(){
     printf("nb bits = %d\n", *nb_bits);
 }
 
+void test_encoding_F0_EOF(){
+    struct huff_table *ht = huffman_table_build(
+        htables_nb_symb_per_lengths[AC][Y],
+        htables_symbols[AC][Y],
+        htables_nb_symbols[AC][Y]
+    );
+    uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
+    uint8_t val = 0x00;
+    uint32_t value = huffman_table_get_path(ht, val, nb_bits);
+    printf("value = %d\n", value);
+    printf("nb bits = %d\n", *nb_bits);
+    val = 0xF0;
+    value = huffman_table_get_path(ht, val, nb_bits);
+    printf("value = %d\n", value);
+    printf("nb bits = %d\n", *nb_bits);
+}
 int main(void)
 {
     printf("test encoding!\n");
-    test_huffman_DC();
+//    test_huffman_DC();
+    test_encoding_F0_EOF();
     return EXIT_SUCCESS;
 }
 
