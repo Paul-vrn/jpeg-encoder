@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <bloc.h>
+#include <costable.h>
 
 struct frequential_bloc_t {
     struct frequential_bloc_t *next;
@@ -105,13 +106,37 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     return resultat;
 }
 
+float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
+
+    float n = 8;
+    float resultat = 0.0;
+    for(uint32_t x = 0; x < 8; x++){
+        for(uint32_t y = 0; y < 8 ; y++){
+            //printf("%d", bloc_copy[x][y]);
+            resultat += (float)(bloc_copy[x][y]) * costables[8*i+x][8*j+y];
+        }
+    }
+    if(i==0 && j==0){
+        resultat *= (2/n) * 1/2; 
+    }
+    else if(i==0){
+        resultat *= (2/n) * 1/sqrt(2);
+    }
+    else if(j==0){
+        resultat *= (2/n) * 1/sqrt(2); 
+    }
+    else{
+        resultat *= (2/n);
+    }
+    return resultat;
+}
 
 struct frequential_bloc_t *dct(struct bloc_t *bloc){
     int16_t new_bloc[8][8];
     int16_t bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc_copy[i][j] = bloc_get_matrice(bloc, i, j)-128;
+            bloc_copy[i][j] = bloc_get_matrice(bloc, i, j)-128; //-128
         }
     }
     for(uint32_t i=0; i<8; i++){

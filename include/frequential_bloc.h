@@ -19,6 +19,8 @@ void frequential_bloc_print(struct frequential_bloc_t *bloc);
 
 float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j);
 
+float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j);
+
 struct frequential_bloc_t *dct(struct bloc_t *bloc);
 
 #endif /* _MCU_H_ */
