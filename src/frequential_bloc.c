@@ -105,7 +105,38 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     }
     return resultat;
 }
+/*On améliore la fonction qui crée les coefficients de la DCT
+grâce à un tableau de produits des cosius créé sur python:
 
+import numpy as np
+
+MAT1 = np.zeros((8, 8))
+
+for i in range(8):
+    for j in range(8):
+        MAT1[i][j] = np.cos((2*i+1)*j*np.pi/16)
+
+MAT2 = np.zeros((64, 64))
+
+for i in range(8):
+    for x in range(8):
+        for j in range(8):
+            for y in range(8):
+                MAT2[8*i+x][8*j+y] = MAT1[x][i] * MAT1[y][j]
+
+print("{")
+for i in range(8):
+    for x in range(8):
+        print("{")
+        for j in range(8):
+            
+            for y in range(8):
+                print(MAT2[8*i+x][j*8+y], end=", ")
+            
+        print("},", end="\n")    
+print("}")
+
+*/
 float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 
     float n = 8;
@@ -136,12 +167,12 @@ struct frequential_bloc_t *dct(struct bloc_t *bloc){
     int16_t bloc_copy[8][8];
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            bloc_copy[i][j] = bloc_get_matrice(bloc, i, j)-128; //-128
+            bloc_copy[i][j] = bloc_get_matrice(bloc, i, j)-128;
         }
     }
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            new_bloc[i][j] = (int16_t)coef_dct(bloc_copy, i, j);
+            new_bloc[i][j] = (int16_t)coef_dct2(bloc_copy, i, j);
         }
     }
     struct frequential_bloc_t *blocc = frequential_bloc_create(new_bloc);
