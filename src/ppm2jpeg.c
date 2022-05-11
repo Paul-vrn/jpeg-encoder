@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, H2, H3, V1, V2, V3);
     // mcu_print(mcu);
 
-    printf("----- SOUS ECHANTI LLONAGE ------\n");
+    printf("----- SOUS ECHANTILLONAGE ------\n");
     mcu_sous_echantillonne(mcu);
     // mcu_print(mcu);
 
