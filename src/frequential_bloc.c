@@ -75,7 +75,7 @@ struct frequential_bloc_t *frequential_bloc_create(int16_t matrice[8][8]){
 void frequential_bloc_print(struct frequential_bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            printf("%i ", bloc->matrice[i][j]);
+            printf("%x ", bloc->matrice[i][j]);
         }
         printf("\n");
     }
