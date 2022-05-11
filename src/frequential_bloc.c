@@ -105,38 +105,38 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     }
     return resultat;
 }
-/*On améliore la fonction qui crée les coefficients de la DCT
-grâce à un tableau de produits des cosius créé sur python:
 
-import numpy as np
+// On améliore la fonction qui crée les coefficients de la DCT
+// grâce à un tableau de produits des cosius créé sur python:
 
-MAT1 = np.zeros((8, 8))
+// import numpy as np
 
-for i in range(8):
-    for j in range(8):
-        MAT1[i][j] = np.cos((2*i+1)*j*np.pi/16)
+// MAT1 = np.zeros((8, 8))
 
-MAT2 = np.zeros((64, 64))
+// for i in range(8):
+//     for j in range(8):
+//         MAT1[i][j] = np.cos((2*i+1)*j*np.pi/16)
 
-for i in range(8):
-    for x in range(8):
-        for j in range(8):
-            for y in range(8):
-                MAT2[8*i+x][8*j+y] = MAT1[x][i] * MAT1[y][j]
+// MAT2 = np.zeros((64, 64))
 
-print("{")
-for i in range(8):
-    for x in range(8):
-        print("{")
-        for j in range(8):
+// for i in range(8):
+//     for x in range(8):
+//         for j in range(8):
+//             for y in range(8):
+//                 MAT2[8*i+x][8*j+y] = MAT1[x][i] * MAT1[y][j]
+
+// print("{")
+// for i in range(8):
+//     for x in range(8):
+//         print("{")
+//         for j in range(8):
             
-            for y in range(8):
-                print(MAT2[8*i+x][j*8+y], end=", ")
+//             for y in range(8):
+//                 print(MAT2[8*i+x][j*8+y], end=", ")
             
-        print("},", end="\n")    
-print("}")
+//         print("},", end="\n")    
+// print("}")
 
-*/
 float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 
     float n = 8;
