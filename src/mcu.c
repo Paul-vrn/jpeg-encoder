@@ -20,8 +20,6 @@ struct mcu_t {
 	struct vector_t *vectorCb;
 	struct vector_t *vectorCr;
 	struct mcu_t *next;
-	uint32_t largeur;
-	uint32_t hauteur;
 };
 
 void mcu_set_next(struct mcu_t *mcu, struct mcu_t *next)
@@ -39,14 +37,6 @@ void mcu_set_Cb(struct mcu_t *mcu, struct bloc_t *Cb)
 void mcu_set_Cr(struct mcu_t *mcu, struct bloc_t *Cr)
 {
 	mcu->Cr = Cr;
-}
-void mcu_set_largeur(struct mcu_t *mcu, uint32_t largeur)
-{
-	mcu->largeur = largeur;
-}
-void mcu_set_hauteur(struct mcu_t *mcu, uint32_t hauteur)
-{
-	mcu->hauteur = hauteur;
 }
 struct bloc_t* mcu_get_Y(struct mcu_t *mcu)
 {
@@ -107,7 +97,7 @@ uint32_t mcu_count(struct mcu_t *mcu)
  * @param Cr (bloc_t*) The Cr bloc
  * @return struct mcu_t* 
  */
-struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr, uint32_t largeur, uint32_t hauteur){
+struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr){
 	struct mcu_t *mcu = calloc(1, sizeof(struct mcu_t));
 	mcu->Y = Y;
 	mcu->Cb = Cb;
@@ -119,36 +109,33 @@ struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr,
 	mcu->vectorY = NULL;
 	mcu->vectorCb = NULL;
 	mcu->vectorCr = NULL;
-	mcu->largeur = largeur;
-	mcu->hauteur = hauteur;
 	return mcu;
 }
 
-/**
- * @brief destroy mcu
- * @test✔️
- * @param mcu
- */
 void mcu_destroy(struct mcu_t *mcu){
-	if (mcu->Y != NULL){blocs_destroy(mcu->Y);}
-	if (mcu->Cb != NULL){blocs_destroy(mcu->Cb);}
-	if (mcu->Cr != NULL){blocs_destroy(mcu->Cr);}
-	if (mcu->freqY != NULL){frequential_blocs_destroy(mcu->freqY);}
-	if (mcu->freqCb != NULL){frequential_blocs_destroy(mcu->freqCb);}
-	if (mcu->freqCr != NULL){frequential_blocs_destroy(mcu->freqCr);}
-	if (mcu->vectorY != NULL){vectors_destroy(mcu->vectorY);}
-	if (mcu->vectorCb != NULL){vectors_destroy(mcu->vectorCb);}
-	if (mcu->vectorCr != NULL){vectors_destroy(mcu->vectorCr);}
+	blocs_destroy(&mcu->Y);
+	blocs_destroy(&mcu->Cb);
+	blocs_destroy(&mcu->Cr);
+	frequential_blocs_destroy(&mcu->freqY);
+	frequential_blocs_destroy(&mcu->freqCb);
+	frequential_blocs_destroy(&mcu->freqCr);
+	vectors_destroy(&mcu->vectorY);
+	vectors_destroy(&mcu->vectorCb);
+	vectors_destroy(&mcu->vectorCr);
 	free(mcu);
 }
-void mcus_destroy(struct mcu_t *mcu){
-	struct mcu_t *tmp = mcu;
-	while (mcu != NULL) {
-		tmp = mcu->next;
-		mcu_destroy(mcu);
-		mcu = tmp;
-	}
+
+void mcus_destroy(struct mcu_t **head){
+	struct mcu_t *current = *head;
+    while (current != NULL)
+    {
+        struct mcu_t *next = current->next;
+		mcu_destroy(current);
+        current = next;
+    }
+
 }
+
 
 void mcu_print(struct mcu_t *mcu){
 	printf("MCU:\n");
@@ -258,7 +245,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 				uint32_t end_x = start_x+8<width?start_x+8:width;
 				uint32_t end_y = start_y+8<height?start_y+8:height;
 				struct bloc_t *bloc = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
-				struct mcu_t *new_mcu = mcu_create(bloc, NULL, NULL, 8, 8);
+				struct mcu_t *new_mcu = mcu_create(bloc, NULL, NULL);
 				mcu_add(&mcus, new_mcu);
 				start_x += 8;
 			}
@@ -275,8 +262,6 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 				struct bloc_t *blocsR = NULL;
 				struct bloc_t *blocsG = NULL;
 				struct bloc_t *blocsB = NULL;
-
-				uint32_t *end_x = calloc(H1+1, sizeof(uint32_t));
 				end_x[0] = start_x;
 				for (uint32_t i = 1; i < H1+1; i++){
 					end_x[i] = start_x+8*i<width?start_x+8*i:width;
@@ -293,7 +278,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 						bloc_add(&blocsB, bloc_create_from_pixels(pixels[2], end_x[i], end_x[i+1], end_y[j], end_y[j+1]));
 					}
 				}
-				struct mcu_t *new_mcu = mcu_create(blocsR, blocsG, blocsB, 8*H1, 8*V1);
+				struct mcu_t *new_mcu = mcu_create(blocsR, blocsG, blocsB);
 				mcu_add(&mcus, new_mcu);
 				start_x += 8*H1;    
 			}
@@ -328,18 +313,23 @@ void mcu_quantification(struct mcu_t *mcu){
  * @param stream 
  * @param mcu 
  */
-void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
+void mcu_encode(struct bitstream *stream, struct mcu_t* mcu, 
+				struct huff_table *ht_DC_Y,    struct huff_table *ht_AC_Y, 
+				struct huff_table *ht_DC_CbCr, struct huff_table *ht_AC_CbCr){
 	struct mcu_t *current = mcu;
 	int16_t *precY_DC = calloc(1, sizeof(int16_t));
 	int16_t *precCb_DC = calloc(1, sizeof(int16_t));
 	int16_t *precCr_DC = calloc(1, sizeof(int16_t));
 	while (current != NULL){
-		*precY_DC = encode_vectors(stream, current->vectorY, Y, *precY_DC);
-		*precCb_DC = encode_vectors(stream, current->vectorCb, Cb, *precCb_DC);
-		*precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC); 
-		vectors_destroy(current->vectorY);
-		vectors_destroy(current->vectorCb);
-		vectors_destroy(current->vectorCr);
+		*precY_DC = encode_vectors(stream, current->vectorY, *precY_DC, ht_DC_Y, ht_AC_Y);
+		*precCb_DC = encode_vectors(stream, current->vectorCb, *precCb_DC, ht_DC_CbCr, ht_AC_CbCr);
+		*precCr_DC = encode_vectors(stream, current->vectorCr, *precCr_DC, ht_DC_CbCr, ht_AC_CbCr); 
+		vectors_destroy(&current->vectorY);
+		current->vectorY = NULL;
+		vectors_destroy(&current->vectorCb);
+		current->vectorCb = NULL;
+		vectors_destroy(&current->vectorCr);
+		current->vectorCr = NULL;
 		current = current->next;
 	}
 	free(precY_DC);
@@ -374,9 +364,12 @@ void mcu_dct(struct mcu_t* mcu){
 			frequential_bloc_add(&current->freqCr, current_freq);
 			current_bloc = bloc_get_next(current_bloc);
 		}
-		blocs_destroy(current->Y);
-		blocs_destroy(current->Cb);
-		blocs_destroy(current->Cr);
+		blocs_destroy(&current->Y);
+		current->Y = NULL;
+		blocs_destroy(&current->Cb);
+		current->Cb = NULL;
+		blocs_destroy(&current->Cr);
+		current->Cr = NULL;
 		current = current->next;
 	}
 }
@@ -408,9 +401,12 @@ void mcu_zigzag(struct mcu_t* mcu){
 			vector_add(&current->vectorCr, current_vector);
 			current_freq = frequential_bloc_get_next(current_freq);
 		}
-		frequential_blocs_destroy(current->freqY);
-		frequential_blocs_destroy(current->freqCb);
-		frequential_blocs_destroy(current->freqCr);
+		frequential_blocs_destroy(&current->freqY);
+		current->freqY = NULL;
+		frequential_blocs_destroy(&current->freqCb);
+		current->freqCb = NULL;
+		frequential_blocs_destroy(&current->freqCr);
+		current->freqCr = NULL;
 		current = current->next;
 	}
 }

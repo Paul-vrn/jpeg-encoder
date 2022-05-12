@@ -21,7 +21,7 @@ void vectors_quantificationY(struct vector_t *vectors);
 void vectors_quantificationY(struct vector_t *vectors);
 void vectors_quantificationCbCr(struct vector_t *vectors);
 
-void vectors_destroy(struct vector_t *vector);
+void vectors_destroy(struct vector_t **head);
 uint32_t get_bits_needed(int16_t number);
 
 

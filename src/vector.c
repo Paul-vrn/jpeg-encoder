@@ -147,12 +147,11 @@ void vectors_quantificationCbCr(struct vector_t *vectors){
  * @test✔️
  * @param vector 
  */
-void vectors_destroy(struct vector_t *vector){
-    struct vector_t *tmp = vector;
-    while (tmp != NULL){
-        struct vector_t *tmp2 = tmp->next;
-        free(tmp);
-        tmp = tmp2;
+void vectors_destroy(struct vector_t **head){
+    struct vector_t *current = *head;
+    while (current != NULL){
+        struct vector_t *next = current->next;
+        free(current);
+        current = next;
     }
-    vector = NULL;
 }

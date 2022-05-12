@@ -55,15 +55,15 @@ void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_b
  * 
  * @param frequential_blocs 
  */
-void frequential_blocs_destroy(struct frequential_bloc_t *frequential_blocs){
-    struct frequential_bloc_t *tmp = frequential_blocs;
-    while (tmp != NULL){
-        struct frequential_bloc_t *tmp2 = tmp->next;
-        free(tmp);
-        tmp = tmp2;
+void frequential_blocs_destroy(struct frequential_bloc_t **head){
+    struct frequential_bloc_t *current = *head;
+    while (current != NULL)
+    {
+        struct frequential_bloc_t *next = current->next;
+        free(current);
+        current = next;
     }
 }
-
 
 /**
  * @brief 

@@ -127,25 +127,16 @@ struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint3
 }
 
 /**
- * @brief Destroy a bloc
- * @test✔️
- * @param bloc 
- */
-void bloc_destroy(struct bloc_t *bloc) {
-	free(bloc);
-}
-
-/**
  * @brief Destroy blocs in the list
  * @test✔️
  * @param blocs 
  */
-void blocs_destroy(struct bloc_t *blocs){
-	struct bloc_t *bloc = blocs;
-	while (bloc != NULL) {
-		struct bloc_t *tmp = bloc;
-		bloc = bloc->next;
-		bloc_destroy(tmp);
+void blocs_destroy(struct bloc_t **head){
+	struct bloc_t *current = *head;
+	while (current != NULL) {
+		struct bloc_t *next = current->next;
+		free(current);
+		current = next;
 	}
 }
 
@@ -224,7 +215,7 @@ void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, 
 		free(res2[i]);
 	}
 	free(res2);
-	blocs_destroy(*blocs);
+	blocs_destroy(blocs);
 	*blocs = bloc_fusion;
 
 }
