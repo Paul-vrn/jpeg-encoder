@@ -30,6 +30,12 @@ int16_t frequential_bloc_get_matrice(struct frequential_bloc_t *frequential_bloc
 }
 
 
+/**
+ * @brief insert bloc in the list at the end
+ * 
+ * @param bloc 
+ * @param next 
+ */
 void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_bloc_t *next){
     struct frequential_bloc_t *tmp = *bloc;
     if (tmp == NULL){
@@ -44,7 +50,11 @@ void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_b
 
 
 
-
+/**
+ * @brief destroy a list of freq bloc
+ * 
+ * @param frequential_blocs 
+ */
 void frequential_blocs_destroy(struct frequential_bloc_t *frequential_blocs){
     struct frequential_bloc_t *tmp = frequential_blocs;
     while (tmp != NULL){
@@ -54,15 +64,19 @@ void frequential_blocs_destroy(struct frequential_bloc_t *frequential_blocs){
     }
 }
 
-//faire le DCT ici
 
+/**
+ * @brief 
+ * 
+ * @param matrice 
+ * @return struct frequential_bloc_t* 
+ */
 struct frequential_bloc_t *frequential_bloc_create(int16_t matrice[8][8]){
     struct frequential_bloc_t *bloc = calloc(1, sizeof(struct frequential_bloc_t));
     bloc->next = NULL;
     if (matrice != NULL){
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
-                //printf("%u\n", matrice[i][j]);
                 bloc->matrice[i][j] = matrice[i][j];
             }
         }
@@ -76,6 +90,11 @@ struct frequential_bloc_t *frequential_bloc_create(int16_t matrice[8][8]){
     return bloc;
 }
 
+/**
+ * @brief 
+ * 
+ * @param bloc 
+ */
 void frequential_bloc_print(struct frequential_bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -94,6 +113,14 @@ void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
 }
 
 
+/**
+ * @brief 
+ * 
+ * @param bloc_copy 
+ * @param i 
+ * @param j 
+ * @return float 
+ */
 float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/
     float n = 8;
@@ -150,6 +177,14 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 //         print("},", end="\n")    
 // print("}")
 
+/**
+ * @brief 
+ * 
+ * @param bloc_copy 
+ * @param i 
+ * @param j 
+ * @return float 
+ */
 float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 
     float n = 8;
@@ -175,6 +210,12 @@ float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     return resultat;
 }
 
+/**
+ * @brief 
+ * 
+ * @param bloc 
+ * @return struct frequential_bloc_t* 
+ */
 struct frequential_bloc_t *dct(struct bloc_t *bloc){
     int16_t new_bloc[8][8];
     int16_t bloc_copy[8][8];

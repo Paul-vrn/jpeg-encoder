@@ -94,31 +94,28 @@ int main(int argc, char *argv[])
     convert_RGB_to_YCbCr(matrice, height, width);
 
     printf("----- CREATE MCUS -----\n");
-    struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, H2, H3, V1, V2, V3);
-    //mcu_print(mcu_get_by_id(mcu, 66));
-    
+    struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, V1);
+    free(matrice); // à refaire
     printf("----- SOUS ECHANTILLONAGE ------\n");
     mcus_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
-    //mcu_print(mcu_get_by_id(mcu, 66));
 
 
     printf("----- TRANSFORMATION DCT ------\n");
     mcu_dct(mcu);
-    // mcu_print(mcu);
 
     printf("----- ZIG ZAG ------\n");
     mcu_zigzag(mcu);
-    // mcu_print(mcu);
 
     printf("----- QUANTIFICATION ------\n");
     mcu_quantification(mcu);
-    //mcu_print(mcu_get_by_id(mcu, 12));
-
 
     printf("----- ENCODAGE ------\n");
     mcu_encode(jpeg_get_bitstream(jpeg), mcu);
     
     jpeg_write_footer(jpeg); 
     
+    free(filename);
+    free(filename_out);
+    jpeg_destroy(jpeg);
     return EXIT_SUCCESS;
 }
