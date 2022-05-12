@@ -141,11 +141,37 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
 
 
     }
+    fclose(img);
+
     return matrixs;
 
 
 
 
+
+
+}
+
+
+void free_matrix(uint8_t ***matrix){
+
+    if (matrix[1] == NULL){
+
+        free(matrix[0][0]);
+        free(matrix[0]);
+
+    } else {
+
+        for(int i = 0; i < 3; i++){
+
+            free(matrix[i][0]);
+            free(matrix[i]);
+
+        }
+
+    }
+
+    free(matrix);
 
 
 }
