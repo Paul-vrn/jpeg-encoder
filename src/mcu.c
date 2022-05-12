@@ -393,19 +393,19 @@ void mcu_zigzag(struct mcu_t* mcu){
         struct frequential_bloc_t *current_freq = current->freqY;
         struct vector_t *current_vector = NULL;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorY, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCb;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorCb, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }
         current_freq = current->freqCr;
         while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
+            current_vector = create_vector_from_bloc(current_freq);
             vector_add(&current->vectorCr, current_vector);
             current_freq = frequential_bloc_get_next(current_freq);
         }

@@ -120,7 +120,7 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 }
 
 // On améliore la fonction qui crée les coefficients de la DCT
-// grâce à un tableau de produits des cosius créé sur python:
+// grâce à un tableau de produits des cosinus créé sur python:
 
 // import numpy as np
 

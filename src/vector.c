@@ -24,23 +24,6 @@ struct vector_t *vector_get_next(struct vector_t *vector)
     return vector->next;
 }
 
-struct vector_t* create_vector(int16_t tab[64]){
-    struct vector_t *vector = calloc(1, sizeof(struct vector_t));
-    for (int i = 0; i < 64; i++){
-        vector->vector[i] = tab[i];
-    }
-    vector->next = NULL;
-    return vector;
-}
-
-<<<<<<< HEAD
-void vector_print(struct vector_t *vector){
-    for (int i = 0; i < 64; i++) {
-        printf("%x ", vector->vector[i]);
-        if (i % 8 == 7) {
-=======
-
-
 void vector_add(struct vector_t **vector, struct vector_t *next){
     struct vector_t *tmp = *vector;
     if (tmp == NULL){
@@ -53,17 +36,24 @@ void vector_add(struct vector_t **vector, struct vector_t *next){
     }
 }
 
-void vector_print(struct vector_t *vector){
+struct vector_t* create_vector(int16_t tab[64]){
+    struct vector_t *vector = calloc(1, sizeof(struct vector_t));
     for (int i = 0; i < 64; i++){
+        vector->vector[i] = tab[i];
+    }
+    vector->next = NULL;
+    return vector;
+}
+
+void vector_print(struct vector_t *vector){
+    for (int i = 0; i < 64; i++) {
         printf("%x ", vector->vector[i]);
-        if (i % 8 == 7){
->>>>>>> master
+        if (i % 8 == 7) {
             printf("\n");
         }
     }
 }
-<<<<<<< HEAD
-=======
+
 void vectors_print(struct vector_t *vectors){
     struct vector_t *tmp = vectors;
     while (tmp != NULL){
@@ -71,7 +61,6 @@ void vectors_print(struct vector_t *vectors){
         tmp = tmp->next;
     }
 }
->>>>>>> master
 
 /**
  * @brief Create a vector from bloc object
@@ -120,7 +109,6 @@ struct vector_t *create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
     return Vvector;
 }
 
-<<<<<<< HEAD
 /**
  * @brief
  * @test❌ (valeur approximative)
@@ -131,12 +119,6 @@ void vector_quantificationY(struct vector_t *vector){
         vector->vector[i] = (int16_t) round(vector->vector[i] / quantification_table_Y[i]);
     }
 }
-=======
-
-// Fonction emprunté à Arthur Lebeurier en attendant que la notre fonctionne
-#define min(a,b) (((a)<(b))?(a):(b))
-#define max(a,b) (((a)>(b))?(a):(b))
->>>>>>> master
 
 struct vector_t* create_vector_from_bloc2(struct frequential_bloc_t *freq_bloc){
  	int cpt = 0;
