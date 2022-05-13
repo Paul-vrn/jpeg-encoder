@@ -114,7 +114,6 @@ int main(int argc, char *argv[])
 
 	printf("----- ENCODAGE ------\n");
 	mcu_encode(jpeg_get_bitstream(jpeg), mcu, ht_DC_Y, ht_AC_Y, ht_DC_Cb, ht_AC_Cb);
-	mcu_print(mcu_get_by_id(mcu, 12));
 	jpeg_write_footer(jpeg); 
 	
 	if (ht_DC_Y != NULL)

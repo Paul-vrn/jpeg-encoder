@@ -235,7 +235,8 @@ void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
  * @return struct mcu_t* list of mcu
  */
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t V1){
-	struct mcu_t *mcus = NULL;
+	struct mcu_t *head = NULL;
+	struct mcu_t *current = NULL;
 	if (pixels[1] == NULL){
 		//MCU 8x8
 		uint32_t start_x = 0;
@@ -246,8 +247,15 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 				uint32_t end_y = start_y+8<height?start_y+8:height;
 				struct bloc_t *bloc = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
 				struct mcu_t *new_mcu = mcu_create(bloc, NULL, NULL);
-				mcu_add(&mcus, new_mcu);
-				start_x += 8;
+				if (head == NULL){
+					head = new_mcu;
+					current = new_mcu;
+				} else {
+					current->next = new_mcu;
+					current = current->next;
+				}
+				start_x += 8;    
+
 			}
 			start_y += 8;
 			start_x = 0;
@@ -279,7 +287,13 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 					}
 				}
 				struct mcu_t *new_mcu = mcu_create(blocsR, blocsG, blocsB);
-				mcu_add(&mcus, new_mcu);
+				if (head == NULL){
+					head = new_mcu;
+					current = new_mcu;
+				} else {
+					current->next = new_mcu;
+					current = current->next;
+				}
 				start_x += 8*H1;    
 			}
 			start_y += 8*V1;
@@ -288,7 +302,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 		free(end_x);
 		free(end_y);
 	}
-	return mcus;
+	return head;
 }
 
 
