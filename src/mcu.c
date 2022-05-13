@@ -5,8 +5,8 @@
 #include "bloc.h"
 #include "frequential_bloc.h"
 #include "vector.h"
-#include "bitstream.h"
-#include "jpeg_writer.h"
+#include "bitstream_e.h"
+#include "jpeg_write.h"
 #include "encoding.h"
 
 struct mcu_t {
@@ -348,7 +348,7 @@ void mcu_quantification(struct mcu_t *mcu){
  * @param stream 
  * @param mcu 
  */
-void mcu_encode(struct bitstream *stream, struct mcu_t* mcu){
+void mcu_encode(struct bitstream1 *stream, struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     int16_t *precY_DC = calloc(1, sizeof(int16_t));
     int16_t *precCb_DC = calloc(1, sizeof(int16_t));
