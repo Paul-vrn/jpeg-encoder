@@ -1,0 +1,168 @@
+#ifndef JPEG_WRITE_H
+#define JPEG_WRITE_H
+
+#include <stdint.h>
+#include "huffman_tree.h"
+
+/********************/
+/* Types de données */
+/********************/
+
+/* Type énuméré représentant les composantes de couleur YCbCr. */
+enum color_component
+{
+    Y,
+    Cb,
+    Cr,
+    NB_COLOR_COMPONENTS
+};
+
+/*
+    Type énuméré représentant les types de composantes fréquentielles (DC ou AC).
+*/
+enum sample_type
+{
+    DC,
+    AC,
+    NB_SAMPLE_TYPES
+};
+
+/*
+    Type énuméré représentant la direction des facteurs d'échantillonnage (H
+    pour horizontal, V pour vertical).
+*/
+enum direction
+{
+    H,
+    V,
+    NB_DIRECTIONS
+};
+
+/*
+    Type opaque contenant l'intégralité des informations 
+    nécessaires à l'écriture de l'en-tête JPEG.
+*/
+struct jpeg1{
+
+    const char *filename;
+    const char *out_filename;
+    uint32_t height;
+    uint32_t width;
+    uint8_t nb_component;
+    uint8_t sample[3][2];
+    struct huff_table1 *huff[3][2];
+    uint8_t *qtable[3];
+
+};
+
+
+
+/***********************************************/
+/* Ouverture, fermeture et fonctions générales */
+/***********************************************/
+
+/* Alloue et retourne une nouvelle structure jpeg. */
+struct jpeg1 *jpeg_create1(void);
+
+/*
+    Détruit une structure jpeg. 
+    Toute la mémoire qui lui est associée est libérée.
+*/
+void jpeg_destroy1(struct jpeg1 *jpg);
+
+/*
+    Ecrit tout l'en-tête JPEG dans le fichier de sortie à partir des
+    informations contenues dans la structure jpeg passée en paramètre. 
+    En sortie, le bitstream est positionné juste après l'écriture de 
+    l'en-tête SOS, à l'emplacement du premier octet de données brutes à écrire.
+*/
+
+void jpeg_write_header1(struct jpeg1 *jpg);
+
+/* 
+    Ecrit le marqueur de fin du fichier jpeg
+*/
+
+void jpeg_write_footer1(struct jpeg1 *jpg);
+/*
+    Retourne le bitstream associé au fichier de sortie enregistré 
+    dans la structure jpeg.
+*/
+
+
+
+/****************************************************/
+/* Gestion des paramètres de l'encodeur via le jpeg */
+/****************************************************/
+
+/* Ecrit le nom de fichier PPM ppm_filename dans la structure jpeg. */
+void jpeg_set_ppm_filename1(struct jpeg1 *jpg,
+                                  const char *ppm_filename);
+
+/* Ecrit le nom du fichier de sortie jpeg_filename dans la structure jpeg. */
+void jpeg_set_jpeg_filename1(struct jpeg1 *jpg,
+                                   const char *jpeg_filename);
+
+
+
+/*
+    Ecrit la hauteur de l'image traitée, en nombre de pixels,
+    dans la structure jpeg.
+*/
+void jpeg_set_image_height1(struct jpeg1 *jpg,
+                                  uint32_t image_height);
+
+
+/*
+    Ecrit la largeur de l'image traitée, en nombre de pixels,
+    dans la structure jpeg.
+*/
+void jpeg_set_image_width1(struct jpeg1 *jpg,
+                                 uint32_t image_width);
+
+
+
+/*
+    Ecrit le nombre de composantes de couleur de l'image traitée
+    dans la structure jpeg.
+*/
+void jpeg_set_nb_components1(struct jpeg1 *jpg,
+                                   uint8_t nb_components);
+
+
+/*
+    Ecrit dans la structure jpeg le facteur d'échantillonnage 
+    sampling_factor
+    à utiliser pour la composante de couleur cc et la direction dir.
+*/
+void jpeg_set_sampling_factor1(struct jpeg1 *jpg,
+                                     enum color_component cc,
+                                     enum direction dir,
+                                     uint8_t sampling_factor);
+
+
+/*
+    Ecrit dans la structure jpeg la table de Huffman huff_table à utiliser
+    pour encoder les données de la composante fréquentielle acdc, pour la
+    composante de couleur cc.
+*/
+void jpeg_set_huffman_table1(struct jpeg1 *jpg,
+                                   enum sample_type acdc,
+                                   enum color_component cc,
+                                   struct huff_table1 *htable);
+
+
+
+/*
+    Ecrit dans la structure jpeg la table de quantification à utiliser
+    pour compresser les coefficients de la composante de couleur cc.
+*/
+void jpeg_set_quantization_table1(struct jpeg1 *jpg,
+                                        enum color_component cc,
+                                        uint8_t *qtable);
+
+
+
+struct bitstream1 *jpeg_get_bitstream1(struct jpeg1 *jpg);
+
+#endif /* JPEG_WRITE_H */
