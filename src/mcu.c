@@ -67,25 +67,38 @@ struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
 	return mcu->vectorCr;
 }
 
-struct mcu_t *mcu_get_by_id(struct mcu_t *mcu, uint32_t id)
+/**
+ * @brief get the i th mcu
+ * 
+ * @param mcu 
+ * @param i index in the list of mcu
+ * @return struct mcu_t* 
+ */
+struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
 {
-	uint32_t i = 0;
-	while (i < id && mcu != NULL){
-		if (i == id){
-			return mcu;
+	uint32_t j = 0;
+	while (j < i && head != NULL){
+		if (j == i){
+			return head;
 		}
-		mcu = mcu->next;
-		i++;
+		head = head->next;
+		j++;
 	}
-	return mcu;
+	return head;
 }
 
-uint32_t mcu_count(struct mcu_t *mcu)
+/**
+ * @brief count the number of mcu in the list
+ * 
+ * @param mcu 
+ * @return uint32_t 
+ */
+uint32_t mcu_count(struct mcu_t *head)
 {
 	uint32_t count = 0;
-	while (mcu != NULL) {
+	while (head != NULL) {
 		count++;
-		mcu = mcu->next;
+		head = head->next;
 	}
 	return count;
 }
@@ -112,6 +125,11 @@ struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr)
 	return mcu;
 }
 
+/**
+ * @brief destroy a mcu
+ * 
+ * @param mcu 
+ */
 void mcu_destroy(struct mcu_t *mcu){
 	blocs_destroy(&mcu->Y);
 	blocs_destroy(&mcu->Cb);
@@ -125,6 +143,11 @@ void mcu_destroy(struct mcu_t *mcu){
 	free(mcu);
 }
 
+/**
+ * @brief destroy a list of mcu
+ * 
+ * @param head first mcu of the list
+ */
 void mcus_destroy(struct mcu_t **head){
 	struct mcu_t *current = *head;
     while (current != NULL)
@@ -137,6 +160,11 @@ void mcus_destroy(struct mcu_t **head){
 }
 
 
+/**
+ * @brief print a mcu
+ * 
+ * @param mcu 
+ */
 void mcu_print(struct mcu_t *mcu){
 	printf("MCU:\n");
 	printf("----- BLOC -----\n");
@@ -179,6 +207,12 @@ void mcu_print(struct mcu_t *mcu){
 		vectors_print(mcu->vectorCr);
 	}
 }
+
+/**
+ * @brief print a list of mcu
+ * 
+ * @param mcu 
+ */
 void mcus_print(struct mcu_t *mcu){
 	while (mcu != NULL){
 		mcu_print(mcu);
