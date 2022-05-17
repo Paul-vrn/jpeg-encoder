@@ -52,10 +52,10 @@ uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
  * @param color 
  * @return int16_t 
  */
-int16_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, int16_t prec_DC, struct huff_table *ht){
-    int16_t valeur = vector_get(vector, 0) - prec_DC;
+uint32_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, uint32_t prec_DC, struct huff_table *ht){
+    int32_t valeur = vector_get(vector, 0) - prec_DC;
     int16_t magnitude = get_magnitude(valeur);
-    int16_t indice = get_indice_magnitude(valeur, magnitude);
+    uint32_t indice = get_indice_magnitude(valeur, magnitude);
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
     uint32_t value = huffman_table_get_path(ht, magnitude, nb_bits);
     bitstream_write_bits1(stream, value, *nb_bits, false);
@@ -68,7 +68,7 @@ int16_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, int16_t pr
 
 /**
  * @brief Construct a new codage RLE AC object
- * @test✔️ (à 90% sur) 
+ * @test✔️
  * @param vector 
  * @param color 
  */
@@ -77,7 +77,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
     uint8_t coef_0 = 0;
     uint8_t nb_F0 = 0;
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
-    int16_t value = 0;
+    uint32_t value = 0;
     uint32_t value_huff = 0;
     for (uint8_t i = 1; i < 64; i++){
         if (i == 63){
@@ -105,7 +105,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
                 }
                 value = vector_get(vector, i);
                 uint8_t magnitude = get_magnitude(value);
-                uint8_t index = get_indice_magnitude(value, magnitude);
+                uint32_t index = get_indice_magnitude(value, magnitude);
                 value_huff = (coef_0 << 4) + magnitude;
                 value_huff = huffman_table_get_path(ht, value_huff, nb_bits);
                 bitstream_write_bits1(stream, value_huff, *nb_bits, false);
