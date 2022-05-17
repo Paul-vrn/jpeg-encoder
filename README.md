@@ -17,6 +17,14 @@ Membres : Paul Vernin, Axel Perrin, Marc Felix-Henry
 - [x] shaun_the_sheep.ppm 
 - [x] biiiiiig.ppm (2min40 en 2x2,1x1,1x1)
 
+# Gantt
+
+![Gantt](./docs/Gantt.drawio.png)
+
+# Structures de données choisies
+
+![Structure de données](./docs/struct.drawio.png)
+
 # Expression fonctionnelle du besoin
 
 ## Lecture paramètre (stdin)
@@ -120,10 +128,3 @@ Sortie :
 
 Description : 
 
-# Structures de données choisies
-
-![Structure de données](./docs/struct.drawio.png)
-
-# Gantt
-
-![Gantt](./docs/Gantt.drawio.png)
