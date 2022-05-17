@@ -10,94 +10,97 @@
 #include "encoding.h"
 
 struct mcu_t {
-    struct bloc_t *Y;
-    struct bloc_t *Cb;
-    struct bloc_t *Cr;
-    struct frequential_bloc_t *freqY;
-    struct frequential_bloc_t *freqCb;
-    struct frequential_bloc_t *freqCr;
-    struct vector_t *vectorY;
-    struct vector_t *vectorCb;
-    struct vector_t *vectorCr;
-    struct mcu_t *next;
-    uint32_t largeur;
-    uint32_t hauteur;
+	struct bloc_t *Y;
+	struct bloc_t *Cb;
+	struct bloc_t *Cr;
+	struct frequential_bloc_t *freqY;
+	struct frequential_bloc_t *freqCb;
+	struct frequential_bloc_t *freqCr;
+	struct vector_t *vectorY;
+	struct vector_t *vectorCb;
+	struct vector_t *vectorCr;
+	struct mcu_t *next;
 };
 
 void mcu_set_next(struct mcu_t *mcu, struct mcu_t *next)
 {
-    mcu->next = next;
+	mcu->next = next;
 }
 void mcu_set_Y(struct mcu_t *mcu, struct bloc_t *Y)
 {
-    mcu->Y = Y;
+	mcu->Y = Y;
 }
 void mcu_set_Cb(struct mcu_t *mcu, struct bloc_t *Cb)
 {
-    mcu->Cb = Cb;
+	mcu->Cb = Cb;
 }
 void mcu_set_Cr(struct mcu_t *mcu, struct bloc_t *Cr)
 {
-    mcu->Cr = Cr;
-}
-void mcu_set_largeur(struct mcu_t *mcu, uint32_t largeur)
-{
-    mcu->largeur = largeur;
-}
-void mcu_set_hauteur(struct mcu_t *mcu, uint32_t hauteur)
-{
-    mcu->hauteur = hauteur;
+	mcu->Cr = Cr;
 }
 struct bloc_t* mcu_get_Y(struct mcu_t *mcu)
 {
-    return mcu->Y;
+	return mcu->Y;
 }
 struct bloc_t* mcu_get_Cb(struct mcu_t *mcu)
 {
-    return mcu->Cb;
+	return mcu->Cb;
 }
 struct bloc_t* mcu_get_Cr(struct mcu_t *mcu)
 {
-    return mcu->Cr;
+	return mcu->Cr;
 }
 struct mcu_t* mcu_get_next(struct mcu_t *mcu)
 {
-    return mcu->next;
+	return mcu->next;
 }
 struct vector_t* mcu_get_vectorY(struct mcu_t *mcu)
 {
-    return mcu->vectorY;
+	return mcu->vectorY;
 }
 struct vector_t* mcu_get_vectorCb(struct mcu_t *mcu)
 {
-    return mcu->vectorCb;
+	return mcu->vectorCb;
 }
 struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
 {
-    return mcu->vectorCr;
+	return mcu->vectorCr;
 }
 
-struct mcu_t *mcu_get_by_id(struct mcu_t *mcu, uint32_t id)
+/**
+ * @brief get the i th mcu
+ * 
+ * @param mcu 
+ * @param i index in the list of mcu
+ * @return struct mcu_t* 
+ */
+struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
 {
-    uint32_t i = 0;
-    while (i < id && mcu != NULL){
-        if (i == id){
-            return mcu;
-        }
-        mcu = mcu->next;
-        i++;
-    }
-    return mcu;
+	uint32_t j = 0;
+	while (j < i && head != NULL){
+		if (j == i){
+			return head;
+		}
+		head = head->next;
+		j++;
+	}
+	return head;
 }
 
-uint32_t mcu_count(struct mcu_t *mcu)
+/**
+ * @brief count the number of mcu in the list
+ * 
+ * @param mcu 
+ * @return uint32_t 
+ */
+uint32_t mcu_count(struct mcu_t *head)
 {
-    uint32_t count = 0;
-    while (mcu != NULL) {
-        count++;
-        mcu = mcu->next;
-    }
-    return count;
+	uint32_t count = 0;
+	while (head != NULL) {
+		count++;
+		head = head->next;
+	}
+	return count;
 }
 /**
  * @brief Create a mcu
@@ -107,247 +110,258 @@ uint32_t mcu_count(struct mcu_t *mcu)
  * @param Cr (bloc_t*) The Cr bloc
  * @return struct mcu_t* 
  */
-struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr, uint32_t largeur, uint32_t hauteur){
-    struct mcu_t *mcu = calloc(1, sizeof(struct mcu_t));
-    mcu->Y = Y;
-    mcu->Cb = Cb;
-    mcu->Cr = Cr;
-    mcu->next = NULL;
-    mcu->freqY = NULL;
-    mcu->freqCb = NULL;
-    mcu->freqCr = NULL;
-    mcu->largeur = largeur;
-    mcu->hauteur = hauteur;
-    return mcu;
+struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr){
+	struct mcu_t *mcu = calloc(1, sizeof(struct mcu_t));
+	mcu->Y = Y;
+	mcu->Cb = Cb;
+	mcu->Cr = Cr;
+	mcu->next = NULL;
+	mcu->freqY = NULL;
+	mcu->freqCb = NULL;
+	mcu->freqCr = NULL;
+	mcu->vectorY = NULL;
+	mcu->vectorCb = NULL;
+	mcu->vectorCr = NULL;
+	return mcu;
 }
 
 /**
- * @brief destroy mcu
- * @test✔️
- * @param mcu
+ * @brief destroy a mcu
+ * 
+ * @param mcu 
  */
 void mcu_destroy(struct mcu_t *mcu){
-    blocs_destroy(mcu->Y);
-    blocs_destroy(mcu->Cb);
-    blocs_destroy(mcu->Cr);
-    frequential_blocs_destroy(mcu->freqY);
-    frequential_blocs_destroy(mcu->freqCb);
-    frequential_blocs_destroy(mcu->freqCr);
-    vectors_destroy(mcu->vectorY);
-    vectors_destroy(mcu->vectorCb);
-    vectors_destroy(mcu->vectorCr);
-    free(mcu);
+	blocs_destroy(&mcu->Y);
+	blocs_destroy(&mcu->Cb);
+	blocs_destroy(&mcu->Cr);
+	frequential_blocs_destroy(&mcu->freqY);
+	frequential_blocs_destroy(&mcu->freqCb);
+	frequential_blocs_destroy(&mcu->freqCr);
+	vectors_destroy(&mcu->vectorY);
+	vectors_destroy(&mcu->vectorCb);
+	vectors_destroy(&mcu->vectorCr);
+	free(mcu);
 }
+
+/**
+ * @brief destroy a list of mcu
+ * 
+ * @param head first mcu of the list
+ */
+void mcus_destroy(struct mcu_t **head){
+	struct mcu_t *current = *head;
+    while (current != NULL)
+    {
+        struct mcu_t *next = current->next;
+		mcu_destroy(current);
+        current = next;
+    }
+
+}
+
+
+/**
+ * @brief print a mcu
+ * 
+ * @param mcu 
+ */
 void mcu_print(struct mcu_t *mcu){
-    printf("MCU:\n");
-    printf("----- BLOC -----\n");
-    if (mcu->Y != NULL){
-        printf("Y:\n");
-        blocs_print(mcu->Y);
-    }
-    if (mcu->Cb != NULL){
-        printf("Cb:\n");
-        blocs_print(mcu->Cb);
-    }
-    if (mcu->Cr != NULL){
-        printf("Cr:\n");
-        blocs_print(mcu->Cr);
-    }
-    printf("---- FREQ BLOC ----\n");
-    if (mcu->freqY != NULL){
-        printf("freqY:\n");
-        frequential_blocs_print(mcu->freqY);
-    }
-    if (mcu->freqCb != NULL){
-        printf("freqCb:\n");
-        frequential_blocs_print(mcu->freqCb);
-    }
-    if (mcu->freqCr != NULL){
-        printf("freqCr:\n");
-        frequential_blocs_print(mcu->freqCr);
-    }
-    printf("----- VECTORS -----\n");
-    if (mcu->vectorY != NULL){
-        printf("vectorY:\n");
-        vectors_print(mcu->vectorY);
-    }
-    if (mcu->vectorCb != NULL){
-        printf("vectorCb:\n");
-        vectors_print(mcu->vectorCb);
-    }
-    if (mcu->vectorCr != NULL){
-        printf("vectorCr:\n");
-        vectors_print(mcu->vectorCr);
-    }
+	printf("MCU:\n");
+	printf("----- BLOC -----\n");
+	if (mcu->Y != NULL){
+		printf("Y:\n");
+		blocs_print(mcu->Y);
+	}
+	if (mcu->Cb != NULL){
+		printf("Cb:\n");
+		blocs_print(mcu->Cb);
+	}
+	if (mcu->Cr != NULL){
+		printf("Cr:\n");
+		blocs_print(mcu->Cr);
+	}
+	printf("---- FREQ BLOC ----\n");
+	if (mcu->freqY != NULL){
+		printf("freqY:\n");
+		frequential_blocs_print(mcu->freqY);
+	}
+	if (mcu->freqCb != NULL){
+		printf("freqCb:\n");
+		frequential_blocs_print(mcu->freqCb);
+	}
+	if (mcu->freqCr != NULL){
+		printf("freqCr:\n");
+		frequential_blocs_print(mcu->freqCr);
+	}
+	printf("----- VECTORS -----\n");
+	if (mcu->vectorY != NULL){
+		printf("vectorY:\n");
+		vectors_print(mcu->vectorY);
+	}
+	if (mcu->vectorCb != NULL){
+		printf("vectorCb:\n");
+		vectors_print(mcu->vectorCb);
+	}
+	if (mcu->vectorCr != NULL){
+		printf("vectorCr:\n");
+		vectors_print(mcu->vectorCr);
+	}
 }
+
+/**
+ * @brief print a list of mcu
+ * 
+ * @param mcu 
+ */
 void mcus_print(struct mcu_t *mcu){
-    while (mcu != NULL){
-        mcu_print(mcu);
-        mcu = mcu->next;
-    }
+	while (mcu != NULL){
+		mcu_print(mcu);
+		mcu = mcu->next;
+	}
 }
 
 /**
- * @brief 
+ * @brief apply the subsampling to CB and Cr list of blocs if needed
  * 
  * @param mcu 
  */
-void mcu_sous_echantillonne(struct mcu_t *mcu){
-    blocs_fusion(&mcu->Cb);
-    blocs_fusion(&mcu->Cr);
+void mcu_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
+	if (H2 < H1 || V2 < V1){
+		blocs_fusion(&mcu->Cb, H1, V1, H2, V2);
+	}
+	if (H3 < H1 || V3 < V1){
+		blocs_fusion(&mcu->Cr, H1, V1, H3, V3);
+	}
 }
 
-void mcus_sous_echantillonne(struct mcu_t *mcu){
-    while (mcu != NULL){
-        mcu_sous_echantillonne(mcu);
-        mcu = mcu->next;
-    }
+void mcus_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
+	while (mcu != NULL){
+		mcu_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
+		mcu = mcu->next;
+	}
 }
 
-
+/**
+ * @brief insert a mcu in a mcu list at the end
+ * 
+ * @param mcu 
+ * @param next 
+ */
 void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
-    struct mcu_t *tmp = *mcu;
-    if (tmp == NULL){
-        *mcu = next;
-    }
-    else{
-        while (tmp->next != NULL)
-            tmp = tmp->next;
-        tmp->next = next;
-    }
+	struct mcu_t *tmp = *mcu;
+	if (tmp == NULL){
+		*mcu = next;
+	}
+	else{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = next;
+	}
 }
 /**
- * @brief 
- * @test✔️(gris) ✔️(RGB 4:4:4) ✔️(RGB 4:2:2) ~✔️(RGB 4:2:0)
- * @param pixels 
- * @param height 
- * @param width 
- * @param gris 
- * @return struct mcu_t* 
+ * @brief Create a list of mcu based on the mcu slicing parameters
+ * @test✔️
+ * @param pixels matrix of pixels
+ * @param height height of the image
+ * @param width width of the image
+ * @param H1 number of bloc 8x8 horizontally
+ * @param V1 number of bloc 8x8 vertically
+ * @return struct mcu_t* list of mcu
  */
-struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t H2, uint32_t H3, uint32_t V1, uint32_t V2, uint32_t V3){
-    
-    struct mcu_t *mcus = NULL;
-    if (pixels[1] == NULL){
-        //MCU 8x8
-        uint32_t start_x = 0;
-        uint32_t start_y = 0;
-        while (start_y < height){
-            while (start_x < width){
-                uint32_t end_x = start_x+8<width?start_x+8:width;
-                uint32_t end_y = start_y+8<height?start_y+8:height;
-                struct bloc_t *bloc = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
-                struct mcu_t *new_mcu = mcu_create(bloc, NULL, NULL, 8, 8);
-                mcu_add(&mcus, new_mcu);
-                start_x += 8;
-            }
-            start_y += 8;
-            start_x = 0;
-        }
-    } else {
-        if (H1 == 2 && V1 == 2 && H2 == 2 && V2 == 2 && H3 == 2 && V3 == 2 ){ // tested
-            //MCU 8x8
-            uint32_t start_x = 0;
-            uint32_t start_y = 0;
-            while (start_y < height){
-                while (start_x < width){
-                    uint32_t end_x = start_x+8<width?start_x+8:width;
-                    uint32_t end_y = start_y+8<height?start_y+8:height;
-                    struct bloc_t *blocR = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
-                    struct bloc_t *blocG = bloc_create_from_pixels(pixels[1], start_x, end_x, start_y, end_y);
-                    struct bloc_t *blocB = bloc_create_from_pixels(pixels[2], start_x, end_x, start_y, end_y);
-                    struct mcu_t *new_mcu = mcu_create(blocR, blocG, blocB, 8, 8);
-                    mcu_add(&mcus, new_mcu);
-                    start_x += 8;
-                }
-                start_y += 8;
-                start_x = 0;
-            }
-        } else if (H1 == 2 && V1 == 2 && H2 == 1 && V2 == 2 && H3 == 1 && V3 == 2){ // not work
-            //MCU 16x8
-            printf("test");
-            uint32_t start_x = 0;
-            uint32_t start_y = 0;
-            while (start_y < height){
-                while (start_x < width){
-                    uint32_t end_x1 = start_x+8<width?start_x+8:width;
-                    uint32_t end_x2 = start_x+16<width?start_x+16:width;
-                    uint32_t end_y = start_y+8<height?start_y+8:height;
-                    struct bloc_t *blocR = bloc_create_from_pixels(pixels[0], start_x, end_x1, start_y, end_y);
-                    struct bloc_t *blocG = bloc_create_from_pixels(pixels[1], start_x, end_x1, start_y, end_y);
-                    struct bloc_t *blocB = bloc_create_from_pixels(pixels[2], start_x, end_x1, start_y, end_y);
-                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], end_x1, end_x2, start_y, end_y));
-                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], end_x1, end_x2, start_y, end_y));
-                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], end_x1, end_x2, start_y, end_y));
-                    struct mcu_t *new_mcu = mcu_create(blocR, blocG, blocB, 16, 8);
-                    mcu_add(&mcus, new_mcu);
-                    start_x += 16;
-                }
-                start_y += 8;
-                start_x = 0;
-            }
-        } else if (H1 == 2 && V1 == 2 && H2 == 1 && V2 == 1 && H3 == 1 && V3 == 1){
-            //MCU 16x16
-            printf("decoupage 16x16");
-            uint32_t start_x = 0;
-            uint32_t start_y = 0;
-            while (start_y < height){
-                while (start_x < width){
-                    uint32_t end_x1 = start_x+8<width?start_x+8:width;
-                    uint32_t end_x2 = start_x+16<width?start_x+16:width;
-                    uint32_t end_y1 = start_y+8<height?start_y+8:height;
-                    uint32_t end_y2 = start_y+16<height?start_y+16:height;
-                    struct bloc_t *blocR = bloc_create_from_pixels(pixels[0], start_x, end_x1, start_y, end_y1);
-                    struct bloc_t *blocG = bloc_create_from_pixels(pixels[1], start_x, end_x1, start_y, end_y1);
-                    struct bloc_t *blocB = bloc_create_from_pixels(pixels[2], start_x, end_x1, start_y, end_y1);
-            
-                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], end_x1, end_x2, start_y, end_y1));
-                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], end_x1, end_x2, start_y, end_y1));
-                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], end_x1, end_x2, start_y, end_y1));
-            
-                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], start_x, end_x1, end_y1, end_y2));
-                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], start_x, end_x1, end_y1, end_y2));
-                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], start_x, end_x1, end_y1, end_y2));
-            
-                    bloc_add(&blocR, bloc_create_from_pixels(pixels[0], end_x1, end_x2, end_y1, end_y2));
-                    bloc_add(&blocG, bloc_create_from_pixels(pixels[1], end_x1, end_x2, end_y1, end_y2));
-                    bloc_add(&blocB, bloc_create_from_pixels(pixels[2], end_x1, end_x2, end_y1, end_y2));
-                    struct mcu_t *new_mcu = mcu_create(blocR, blocG, blocB, 16, 16);
-                    mcu_add(&mcus, new_mcu);
-                    start_x += 16;
-                }
-                start_y += 16;
-                start_x = 0;
-            }
-        } else {
-            printf("Error: unsupported MCU size\n");
-            exit(EXIT_FAILURE);
-        }
-    }
-    return mcus;
+struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t V1){
+	struct mcu_t *head = NULL;
+	struct mcu_t *current = NULL;
+	if (pixels[1] == NULL){
+		//MCU 8x8
+		uint32_t start_x = 0;
+		uint32_t start_y = 0;
+		while (start_y < height){
+			while (start_x < width){
+				uint32_t end_x = start_x+8<width?start_x+8:width;
+				uint32_t end_y = start_y+8<height?start_y+8:height;
+				struct bloc_t *bloc = bloc_create_from_pixels(pixels[0], start_x, end_x, start_y, end_y);
+				struct mcu_t *new_mcu = mcu_create(bloc, NULL, NULL);
+				if (head == NULL){
+					head = new_mcu;
+					current = new_mcu;
+				} else {
+					current->next = new_mcu;
+					current = current->next;
+				}
+				start_x += 8;    
+
+			}
+			start_y += 8;
+			start_x = 0;
+		}
+	} else {
+		uint32_t start_x = 0;
+		uint32_t start_y = 0;
+		uint32_t *end_x = calloc(H1+1, sizeof(uint32_t));
+		uint32_t *end_y = calloc(V1+1, sizeof(uint32_t));
+		while (start_y < height){
+			while (start_x < width){
+				struct bloc_t *blocsR = NULL;
+				struct bloc_t *blocsG = NULL;
+				struct bloc_t *blocsB = NULL;
+				end_x[0] = start_x;
+				for (uint32_t i = 1; i < H1+1; i++){
+					end_x[i] = start_x+8*i<width?start_x+8*i:width;
+				}
+				end_y[0] = start_y;
+				for (uint32_t i = 1; i < V1+1; i++){
+					end_y[i] = start_y+8*i<height?start_y+8*i:height;
+				}
+	
+				for(uint32_t j = 0; j < V1; j++){
+					for(uint32_t i = 0; i < H1; i++){
+						bloc_add(&blocsR, bloc_create_from_pixels(pixels[0], end_x[i], end_x[i+1], end_y[j], end_y[j+1]));
+						bloc_add(&blocsG, bloc_create_from_pixels(pixels[1], end_x[i], end_x[i+1], end_y[j], end_y[j+1]));
+						bloc_add(&blocsB, bloc_create_from_pixels(pixels[2], end_x[i], end_x[i+1], end_y[j], end_y[j+1]));
+					}
+				}
+				struct mcu_t *new_mcu = mcu_create(blocsR, blocsG, blocsB);
+				if (head == NULL){
+					head = new_mcu;
+					current = new_mcu;
+				} else {
+					current->next = new_mcu;
+					current = current->next;
+				}
+				start_x += 8*H1;    
+			}
+			start_y += 8*V1;
+			start_x = 0;
+		}
+		free(end_x);
+		free(end_y);
+	}
+	return head;
 }
 
+
 /**
- * @brief 
- * 
- * @param mcu 
+ * @brief function that apply quantification on each mcu
+ * @test✔️
+ * @param mcu head of the mcu list
  */
 void mcu_quantification(struct mcu_t *mcu){
-    struct mcu_t *current_mcu = mcu;
-    while (current_mcu != NULL){
-        vectors_quantificationY(current_mcu->vectorY);
-        vectors_quantificationCbCr(current_mcu->vectorCb);
-        vectors_quantificationCbCr(current_mcu->vectorCr);
-        current_mcu = current_mcu->next;
-    }
+	struct mcu_t *current_mcu = mcu;
+	while (current_mcu != NULL){
+		vectors_quantificationY(current_mcu->vectorY);
+		vectors_quantificationCbCr(current_mcu->vectorCb);
+		vectors_quantificationCbCr(current_mcu->vectorCr);
+		current_mcu = current_mcu->next;
+	}
 }
 
 /**
- * @brief Encode vectors in the stream
- * @test 
+ * @brief function that encode each mcu in the bitstream
+ * @test✔️
  * @param stream 
  * @param mcu 
  */
+<<<<<<< HEAD
 void mcu_encode(struct bitstream1 *stream, struct mcu_t* mcu){
     struct mcu_t *current = mcu;
     int16_t *precY_DC = calloc(1, sizeof(int16_t));
@@ -359,56 +373,102 @@ void mcu_encode(struct bitstream1 *stream, struct mcu_t* mcu){
         *precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC);        
         current = current->next;
     }
+=======
+void mcu_encode(struct bitstream *stream, struct mcu_t* mcu, 
+				struct huff_table *ht_DC_Y,    struct huff_table *ht_AC_Y, 
+				struct huff_table *ht_DC_CbCr, struct huff_table *ht_AC_CbCr){
+	struct mcu_t *current = mcu;
+	int16_t *precY_DC = calloc(1, sizeof(int16_t));
+	int16_t *precCb_DC = calloc(1, sizeof(int16_t));
+	int16_t *precCr_DC = calloc(1, sizeof(int16_t));
+	while (current != NULL){
+		*precY_DC = encode_vectors(stream, current->vectorY, *precY_DC, ht_DC_Y, ht_AC_Y);
+		*precCb_DC = encode_vectors(stream, current->vectorCb, *precCb_DC, ht_DC_CbCr, ht_AC_CbCr);
+		*precCr_DC = encode_vectors(stream, current->vectorCr, *precCr_DC, ht_DC_CbCr, ht_AC_CbCr); 
+		vectors_destroy(&current->vectorY);
+		current->vectorY = NULL;
+		vectors_destroy(&current->vectorCb);
+		current->vectorCb = NULL;
+		vectors_destroy(&current->vectorCr);
+		current->vectorCr = NULL;
+		current = current->next;
+	}
+	free(precY_DC);
+	free(precCb_DC);
+	free(precCr_DC);
+>>>>>>> master
 }
 
+/**
+ * @brief function that transform each bloc of each mcu into frequential bloc by applying the DCT
+ * @test✔️
+ * @param mcu head of the mcu list
+ */
 void mcu_dct(struct mcu_t* mcu){
-    struct mcu_t *current = mcu;
-    while (current != NULL){
-        struct bloc_t *current_bloc = current->Y;
-        struct frequential_bloc_t *current_freq = NULL;
-        while (current_bloc != NULL){
-            current_freq = dct(current_bloc);
-            frequential_bloc_add(&current->freqY, current_freq);
-            current_bloc = bloc_get_next(current_bloc);
-        }
-        current_bloc = current->Cb;
-        while (current_bloc != NULL){
-            current_freq = dct(current_bloc);
-            frequential_bloc_add(&current->freqCb, current_freq);
-            current_bloc = bloc_get_next(current_bloc);
-        }
-        current_bloc = current->Cr;
-        while (current_bloc != NULL){
-            current_freq = dct(current_bloc);
-            frequential_bloc_add(&current->freqCr, current_freq);
-            current_bloc = bloc_get_next(current_bloc);
-        }
-        current = current->next;
-    }
+	struct mcu_t *current = mcu;
+	while (current != NULL){
+		struct bloc_t *current_bloc = current->Y;
+		struct frequential_bloc_t *current_freq = NULL;
+		while (current_bloc != NULL){
+			current_freq = dct(current_bloc);
+			frequential_bloc_add(&current->freqY, current_freq);
+			current_bloc = bloc_get_next(current_bloc);
+		}
+		current_bloc = current->Cb;
+		while (current_bloc != NULL){
+			current_freq = dct(current_bloc);
+			frequential_bloc_add(&current->freqCb, current_freq);
+			current_bloc = bloc_get_next(current_bloc);
+		}
+		current_bloc = current->Cr;
+		while (current_bloc != NULL){
+			current_freq = dct(current_bloc);
+			frequential_bloc_add(&current->freqCr, current_freq);
+			current_bloc = bloc_get_next(current_bloc);
+		}
+		blocs_destroy(&current->Y);
+		current->Y = NULL;
+		blocs_destroy(&current->Cb);
+		current->Cb = NULL;
+		blocs_destroy(&current->Cr);
+		current->Cr = NULL;
+		current = current->next;
+	}
 }
 
+/**
+ * @brief function that transform each frequential bloc of each mcu into vector with the zigzag order
+ * @test✔️
+ * @param mcu head of the mcu list
+ */
 void mcu_zigzag(struct mcu_t* mcu){
-    struct mcu_t *current = mcu;
-    while (current != NULL){
-        struct frequential_bloc_t *current_freq = current->freqY;
-        struct vector_t *current_vector = NULL;
-        while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
-            vector_add(&current->vectorY, current_vector);
-            current_freq = frequential_bloc_get_next(current_freq);
-        }
-        current_freq = current->freqCb;
-        while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
-            vector_add(&current->vectorCb, current_vector);
-            current_freq = frequential_bloc_get_next(current_freq);
-        }
-        current_freq = current->freqCr;
-        while (current_freq != NULL){
-            current_vector = create_vector_from_bloc2(current_freq);
-            vector_add(&current->vectorCr, current_vector);
-            current_freq = frequential_bloc_get_next(current_freq);
-        }
-        current = current->next;
-    }
+	struct mcu_t *current = mcu;
+	while (current != NULL){
+		struct frequential_bloc_t *current_freq = current->freqY;
+		struct vector_t *current_vector = NULL;
+		while (current_freq != NULL){
+			current_vector = create_vector_from_bloc(current_freq);
+			vector_add(&current->vectorY, current_vector);
+			current_freq = frequential_bloc_get_next(current_freq);
+		}
+		current_freq = current->freqCb;
+		while (current_freq != NULL){
+			current_vector = create_vector_from_bloc(current_freq);
+			vector_add(&current->vectorCb, current_vector);
+			current_freq = frequential_bloc_get_next(current_freq);
+		}
+		current_freq = current->freqCr;
+		while (current_freq != NULL){
+			current_vector = create_vector_from_bloc(current_freq);
+			vector_add(&current->vectorCr, current_vector);
+			current_freq = frequential_bloc_get_next(current_freq);
+		}
+		frequential_blocs_destroy(&current->freqY);
+		current->freqY = NULL;
+		frequential_blocs_destroy(&current->freqCb);
+		current->freqCb = NULL;
+		frequential_blocs_destroy(&current->freqCr);
+		current->freqCr = NULL;
+		current = current->next;
+	}
 }

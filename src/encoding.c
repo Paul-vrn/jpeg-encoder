@@ -62,6 +62,7 @@ int16_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, int16_t pr
     //printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
     bitstream_write_bits1(stream, indice, magnitude, false);
     //printf("bitstream => writing %d over %d bits\n", indice, magnitude);
+    free(nb_bits);
     return vector_get(vector, 0);
 }
 
@@ -115,6 +116,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
             }
         }
     }
+    free(nb_bits);
 }
 
 /**
@@ -124,22 +126,10 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
  * @param vector 
  * @param color 
  */
-int16_t encode_vectors(struct bitstream1 *stream, struct vector_t *vector, enum color_component color, int16_t prec_DC){
+int16_t encode_vectors(struct bitstream1 *stream, struct vector_t *vector, int16_t prec_DC, struct huff_table *htDC, struct huff_table *htAC){
     struct vector_t *current_vector = vector;
-    struct huff_table *htDC = huffman_table_build(
-        htables_nb_symb_per_lengths[DC][(color == Y) ? Y:Cb],
-        htables_symbols[DC][(color == Y) ? Y:Cb],
-        htables_nb_symbols[DC][(color == Y) ? Y:Cb]
-    );
-    struct huff_table *htAC = huffman_table_build(
-        htables_nb_symb_per_lengths[AC][(color == Y) ? Y:Cb],
-        htables_symbols[AC][(color == Y) ? Y:Cb],
-        htables_nb_symbols[AC][(color == Y) ? Y:Cb]
-    );
     while (current_vector != NULL){
-        //printf("Codage DC :\n");
         prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);
-        //printf("Codage AC :\n");
         codage_AC(stream, current_vector, htAC);
         current_vector = vector_get_next(current_vector);
     }
