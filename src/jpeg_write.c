@@ -224,13 +224,13 @@ void jpeg_write_header1(struct jpeg1 *jpg){
     *pt = 0xdaff;
     fwrite(pt, 1, 2, fg);
     *pt = ((6 + 2*(uint16_t)jpg->nb_component)<<8) + ((6 + 2*(uint16_t)jpg->nb_component)>>8);
-    fwrite(pt, 1, 2, fg); //PB
+    fwrite(pt, 1, 2, fg); 
     *pt = (uint16_t)jpg->nb_component;
     fwrite(pt, 1, 1, fg);
     for (uint16_t i = 1; i < jpg->nb_component + 1; i++){
         *pt  = i;
         fwrite(pt, 1, 1, fg);
-        *pt = (i-1) + (i-1)*16;
+        *pt = (((i == 1) ? 0:1)) + (((i == 1) ? 0:1))*16;
         fwrite(pt, 1, 1, fg);
         
     }

@@ -40,7 +40,7 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
 
     uint8_t trash = 0;
     value = value - ((value>>nb_bits)<<nb_bits); 
-    
+
     if (stream->nb_bit_buff + nb_bits >= 8 && stream->nb_bit_buff + nb_bits < 16){
 
         stream->buff = (stream->buff<<(8-stream->nb_bit_buff)) + (value>>(stream->nb_bit_buff + nb_bits - 8));
@@ -51,8 +51,9 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
             fwrite(&trash, 1, 1, stream->fg);
 
         }
-        stream->nb_bit_buff = stream->nb_bit_buff + nb_bits - 8;
         stream->buff = value - ((value>>(stream->nb_bit_buff + nb_bits - 8))<<(stream->nb_bit_buff + nb_bits - 8));
+        stream->nb_bit_buff = stream->nb_bit_buff + nb_bits - 8;
+        
 
     } else if (stream->nb_bit_buff + nb_bits >= 16) {
     
@@ -63,15 +64,16 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
             fwrite(&trash, 1, 1, stream->fg);
 
         }
-        stream->buff = (value - ((value>>(stream->nb_bit_buff + nb_bits - 8))<<(stream->nb_bit_buff + nb_bits - 8)))>>(stream->nb_bit_buff + nb_bits - 8);
+        stream->buff = (value - ((value>>(stream->nb_bit_buff + nb_bits - 8))<<(stream->nb_bit_buff + nb_bits - 8)))>>(stream->nb_bit_buff + nb_bits - 16);
         fwrite(&(stream->buff), 1, 1, stream->fg);
         if ((uint8_t)stream->buff == 0xff){
 
             fwrite(&trash, 1, 1, stream->fg);
 
         }
-        stream->nb_bit_buff = stream->nb_bit_buff + nb_bits - 16;
         stream->buff = value - ((value>>(stream->nb_bit_buff + nb_bits - 16))<<(stream->nb_bit_buff + nb_bits - 16));
+        stream->nb_bit_buff = stream->nb_bit_buff + nb_bits - 16;
+        
 
     
     
@@ -81,6 +83,9 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
         stream->nb_bit_buff = stream->nb_bit_buff + nb_bits;
 
     }
+
+    // printf("nb_bit = %i\n", stream->nb_bit_buff);
+    // printf("buff = %u\n", stream->buff);
 
 }
 
