@@ -99,9 +99,9 @@ int main(int argc, char *argv[])
 	printf("----- CREATE MCUS -----\n");
 	struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, V1);
 	free_matrix(matrice);
+
 	printf("----- SOUS ECHANTILLONAGE ------\n");
 	mcus_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
-
 
 	printf("----- TRANSFORMATION DCT ------\n");
 	mcu_dct(mcu);
