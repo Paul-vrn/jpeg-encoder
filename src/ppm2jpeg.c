@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "jpeg_writer.h"
 #include <stdbool.h>
 #include "read_param.h"
 #include "read_pic.h"
@@ -12,6 +11,7 @@
 #include "huffman_tree.h"
 #include "qtables.h"
 #include "bitstream_e.h"
+#include "huffman.h"
 
 
 int main(int argc, char *argv[])
@@ -45,12 +45,12 @@ int main(int argc, char *argv[])
     jpeg_set_image_width1(jpeg, width);
     jpeg_set_image_height1(jpeg, height);
 
-	struct huff_table *ht_DC_Y1 = huffman_table_build1(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
-	struct huff_table *ht_AC_Y1 = huffman_table_build1(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
-	struct huff_table *ht_DC_Cb1 = NULL;
-	struct huff_table *ht_AC_Cb1 = NULL;
-	struct huff_table *ht_DC_Cr1 = NULL;
-	struct huff_table *ht_AC_Cr1 = NULL;
+	struct huff_table1 *ht_DC_Y1 = huffman_table_build1(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
+	struct huff_table1 *ht_AC_Y1 = huffman_table_build1(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
+	struct huff_table1 *ht_DC_Cb1 = NULL;
+	struct huff_table1 *ht_AC_Cb1 = NULL;
+	struct huff_table1 *ht_DC_Cr1 = NULL;
+	struct huff_table1 *ht_AC_Cr1 = NULL;
 
     struct huff_table *ht_DC_Y = huffman_table_build(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
 	struct huff_table *ht_AC_Y = huffman_table_build(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
@@ -80,29 +80,29 @@ int main(int argc, char *argv[])
 		jpeg_set_sampling_factor1(jpeg, Cr, H, H3);
 		jpeg_set_sampling_factor1(jpeg, Cr, V, V3);
 
-		jpeg_set_huffman_table1(jpeg, DC, Y, ht_DC_Y);
-		jpeg_set_huffman_table1(jpeg, AC, Y, ht_AC_Y);
+		jpeg_set_huffman_table1(jpeg, DC, Y, ht_DC_Y1);
+		jpeg_set_huffman_table1(jpeg, AC, Y, ht_AC_Y1);
 
 		ht_DC_Cb = huffman_table_build(htables_nb_symb_per_lengths[DC][Cb], htables_symbols[DC][Cb], htables_nb_symbols[DC][Cb]);
         ht_DC_Cb1 = huffman_table_build1(htables_nb_symb_per_lengths[DC][Cb], htables_symbols[DC][Cb], htables_nb_symbols[DC][Cb]);
-		jpeg_set_huffman_table(jpeg, DC, Cb, ht_DC_Cb1);
+		jpeg_set_huffman_table1(jpeg, DC, Cb, ht_DC_Cb1);
 		ht_AC_Cb = huffman_table_build(htables_nb_symb_per_lengths[AC][Cb], htables_symbols[AC][Cb], htables_nb_symbols[AC][Cb]);
         ht_AC_Cb1 = huffman_table_build1(htables_nb_symb_per_lengths[AC][Cb], htables_symbols[AC][Cb], htables_nb_symbols[AC][Cb]);
-		jpeg_set_huffman_table(jpeg, AC, Cb, ht_AC_Cb1);
+		jpeg_set_huffman_table1(jpeg, AC, Cb, ht_AC_Cb1);
 
 		ht_DC_Cr = huffman_table_build(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
         ht_DC_Cr1 = huffman_table_build1(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
-		jpeg_set_huffman_table(jpeg, DC, Cr, ht_DC_Cr1);
+		jpeg_set_huffman_table1(jpeg, DC, Cr, ht_DC_Cr1);
 		ht_AC_Cr = huffman_table_build(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
         ht_AC_Cr1 = huffman_table_build1(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
-		jpeg_set_huffman_table(jpeg, AC, Cr, ht_AC_Cr1);
+		jpeg_set_huffman_table1(jpeg, AC, Cr, ht_AC_Cr1);
 
-		jpeg_set_quantization_table(jpeg, Y, quantification_table_Y);
-		jpeg_set_quantization_table(jpeg, Cb, quantification_table_CbCr);
-		jpeg_set_quantization_table(jpeg, Cr, quantification_table_CbCr);
+		jpeg_set_quantization_table1(jpeg, Y, quantification_table_Y);
+		jpeg_set_quantization_table1(jpeg, Cb, quantification_table_CbCr);
+		jpeg_set_quantization_table1(jpeg, Cr, quantification_table_CbCr);
 
 	}
-	jpeg_write_header(jpeg);
+	jpeg_write_header1(jpeg);
 
 	printf("----- CONVERT RGB TO YCbCr -----\n");
 	convert_RGB_to_YCbCr(matrice, height, width);
@@ -126,25 +126,11 @@ int main(int argc, char *argv[])
 	printf("----- ENCODAGE ------\n");
     struct bitstream1 *stream = bitstream_create1(filename);
 	mcu_encode(stream, mcu, ht_DC_Y, ht_AC_Y, ht_DC_Cb, ht_AC_Cb);
-    
-	jpeg_write_footer(jpeg); 
+    bitstream_flush1(stream);
+    bitstream_destroy1(stream);
+
+	jpeg_write_footer1(jpeg); 
 	
-	if (ht_DC_Y != NULL)
-		huffman_table_destroy(ht_DC_Y);
-	if (ht_AC_Y != NULL)
-		huffman_table_destroy(ht_AC_Y);
-	if (ht_DC_Cb != NULL)
-		huffman_table_destroy(ht_DC_Cb);
-	if (ht_AC_Cb != NULL)
-		huffman_table_destroy(ht_AC_Cb);
-	if (ht_DC_Cr != NULL)
-		huffman_table_destroy(ht_DC_Cr);
-	if (ht_AC_Cr != NULL)
-		huffman_table_destroy(ht_AC_Cr);
-	free(filename);
-	if (filename_out != NULL)
-		free(filename_out);
-	mcus_destroy(&mcu);
-	jpeg_destroy(jpeg);
+	
 	return EXIT_SUCCESS;
 }

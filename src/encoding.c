@@ -6,7 +6,7 @@
 #include "bitstream_e.h"
 #include "vector.h"
 #include "mcu.h"
-#include "jpeg_writer.h"
+#include "jpeg_write.h"
 #include "huffman.h"
 
 /**

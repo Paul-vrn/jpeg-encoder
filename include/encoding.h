@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "htables.h"
-#include "bitstream.h"
+#include "bitstream_e.h"
 #include "vector.h"
 #include "mcu.h"
-#include "jpeg_writer.h"
+#include "jpeg_write.h"
 
 
 uint8_t get_magnitude(int16_t number);

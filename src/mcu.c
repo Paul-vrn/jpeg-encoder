@@ -361,20 +361,7 @@ void mcu_quantification(struct mcu_t *mcu){
  * @param stream 
  * @param mcu 
  */
-<<<<<<< HEAD
-void mcu_encode(struct bitstream1 *stream, struct mcu_t* mcu){
-    struct mcu_t *current = mcu;
-    int16_t *precY_DC = calloc(1, sizeof(int16_t));
-    int16_t *precCb_DC = calloc(1, sizeof(int16_t));
-    int16_t *precCr_DC = calloc(1, sizeof(int16_t));
-    while (current != NULL){
-        *precY_DC = encode_vectors(stream, current->vectorY, Y, *precY_DC);
-        *precCb_DC = encode_vectors(stream, current->vectorCb, Cb, *precCb_DC);
-        *precCr_DC = encode_vectors(stream, current->vectorCr, Cr, *precCr_DC);        
-        current = current->next;
-    }
-=======
-void mcu_encode(struct bitstream *stream, struct mcu_t* mcu, 
+void mcu_encode(struct bitstream1 *stream, struct mcu_t* mcu, 
 				struct huff_table *ht_DC_Y,    struct huff_table *ht_AC_Y, 
 				struct huff_table *ht_DC_CbCr, struct huff_table *ht_AC_CbCr){
 	struct mcu_t *current = mcu;
@@ -396,7 +383,6 @@ void mcu_encode(struct bitstream *stream, struct mcu_t* mcu,
 	free(precY_DC);
 	free(precCb_DC);
 	free(precCr_DC);
->>>>>>> master
 }
 
 /**
