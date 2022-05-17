@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
 	mcu_quantification(mcu);
 
 	printf("----- ENCODAGE ------\n");
-    struct bitstream1 *stream = bitstream_create1(filename);
+    struct bitstream1 *stream = bitstream_create1(filename_out);
 	mcu_encode(stream, mcu, ht_DC_Y, ht_AC_Y, ht_DC_Cb, ht_AC_Cb);
     bitstream_flush1(stream);
     bitstream_destroy1(stream);

@@ -185,7 +185,7 @@ void jpeg_write_header1(struct jpeg1 *jpg){
         fwrite(pt, 1, 1, fg);
         *pt = jpg->sample[i-1][0] + jpg->sample[i-1][1]*16;
         fwrite(pt, 1, 1, fg);
-        *pt = i - 1;
+        *pt = (i == 1) ? 0 : 1;
         fwrite(pt, 1, 1, fg);
     }
 

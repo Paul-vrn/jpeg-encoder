@@ -39,7 +39,7 @@ void bitstream_destroy1(struct bitstream1 *stream){
 void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb_bits, bool is_marker){
 
     uint8_t trash = 0;
-
+    
     if (stream->nb_bit_buff + nb_bits >= 8 && stream->nb_bit_buff + nb_bits < 16){
 
         stream->buff = (stream->buff<<(8-stream->nb_bit_buff)) + (value>>(stream->nb_bit_buff + nb_bits - 8));
