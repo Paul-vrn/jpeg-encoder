@@ -109,8 +109,7 @@ void jpeg_write_header1(struct jpeg1 *jpg){
     /* Marqueur de début d'image */
     uint16_t val = 0xd8ff;
     uint16_t *pt = &val;
-    fwrite(pt, 1, 2, fg);  
-
+    fwrite(pt, 1, 2, fg);
     /* Application Data */
     *pt = 0xe0ff;
     fwrite(pt, 1, 2, fg);
@@ -132,16 +131,33 @@ void jpeg_write_header1(struct jpeg1 *jpg){
     /* Commentaire */
     *pt = 0xfeff;
     fwrite(pt, 1, 2, fg);
-    *pt = 0x0000; // On part du principe qu'il n'y en a pas
+    *pt = 0x1000; // On part du principe qu'il n'y en a pas
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x333c;
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x6c20;
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x2065;
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x7270;
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x6a6f;
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x7465;
+    fwrite(pt, 1, 2, fg);
+    *pt = 0x4320;
     fwrite(pt, 1, 2, fg);
 
+
+
     /* Define Quantization Table */
-    for (uint16_t i = 0; i < jpg->nb_component; i++){
+    uint16_t loop = (jpg->nb_component == 1) ? 1 : 2;
+    for (uint16_t i = 0; i < loop; i++){
         *pt = 0xdbff;
         fwrite(pt, 1, 2, fg);
         *pt = 0x4300;
         fwrite(pt, 1, 2, fg);
-        *pt = i*16;
+        *pt = i;
         fwrite(pt, 1, 1, fg);
         for (int j = 0; j < 64; j++){
 
@@ -154,33 +170,33 @@ void jpeg_write_header1(struct jpeg1 *jpg){
     /* Start Of Frame */
     *pt = 0xc0ff;
     fwrite(pt, 1, 2, fg);
-    *pt = 0x0b00;
+    *pt = ((3*jpg->nb_component + 8)<<8) + ((3*jpg->nb_component + 8)>>8);
     fwrite(pt, 1, 2, fg);
     *pt = 0x08;
     fwrite(pt, 1, 1, fg);
-    *pt = (uint16_t)jpg->height; //PB
+    *pt = ((uint16_t)jpg->height<<8) + ((uint16_t)jpg->height>>8);
     fwrite(pt, 1, 2, fg);
-    *pt = (uint16_t)jpg->width; //PB
+    *pt = ((uint16_t)jpg->width<<8) + ((uint16_t)jpg->width>>8);
     fwrite(pt, 1, 2, fg);
     *pt = (uint16_t)jpg->nb_component;
     fwrite(pt, 1, 1, fg);
-    for (uint16_t i = 0; i < jpg->nb_component; i++){
+    for (uint16_t i = 1; i < jpg->nb_component + 1; i++){
         *pt = i;
         fwrite(pt, 1, 1, fg);
-        *pt = jpg->sample[i][0] + jpg->sample[i][1]*16;
+        *pt = jpg->sample[i-1][0] + jpg->sample[i-1][1]*16;
         fwrite(pt, 1, 1, fg);
-        *pt = i;
+        *pt = i - 1;
         fwrite(pt, 1, 1, fg);
     }
 
     /* Define Huffman Table */
-    for (uint16_t i = 0; i < (uint16_t)jpg->nb_component; i++){
+    for (uint16_t i = 0; i < loop; i++){
         for(uint16_t j = 0; j < NB_SAMPLE_TYPES; j++){
 
             *pt = 0xc4ff;
             fwrite(pt, 1, 2, fg);
 
-            *pt = 2 + 17 + (uint16_t)jpg->huff[i][j]->nb_symbols; //PB
+            *pt = ((2 + 17 + (uint16_t)jpg->huff[i][j]->nb_symbols)<<8) + ((2 + 17 + (uint16_t)jpg->huff[i][j]->nb_symbols)>>8); //PB
             fwrite(pt, 1, 2, fg);
 
             *pt = j*16 + i;
@@ -207,22 +223,24 @@ void jpeg_write_header1(struct jpeg1 *jpg){
     /* Start Of Scan */
     *pt = 0xdaff;
     fwrite(pt, 1, 2, fg);
-    *pt = 6 + 2*(uint16_t)jpg->nb_component;
+    *pt = ((6 + 2*(uint16_t)jpg->nb_component)<<8) + ((6 + 2*(uint16_t)jpg->nb_component)>>8);
     fwrite(pt, 1, 2, fg); //PB
     *pt = (uint16_t)jpg->nb_component;
     fwrite(pt, 1, 1, fg);
-    for (uint16_t i = 0; i < jpg->nb_component; i++){
+    for (uint16_t i = 1; i < jpg->nb_component + 1; i++){
         *pt  = i;
         fwrite(pt, 1, 1, fg);
-        *pt = i + i*16;
+        *pt = (i-1) + (i-1)*16;
         fwrite(pt, 1, 1, fg);
-        *pt = 0;
-        fwrite(pt, 1, 1, fg);
-        *pt = 63;
-        fwrite(pt, 1, 1, fg);
-        *pt = 0;
-        fwrite(pt, 1, 1, fg);
+        
     }
+
+    *pt = 0;
+    fwrite(pt, 1, 1, fg);
+    *pt = 63;
+    fwrite(pt, 1, 1, fg);
+    *pt = 0;
+    fwrite(pt, 1, 1, fg);
 
     fclose(fg);
 

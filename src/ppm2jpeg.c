@@ -36,59 +36,59 @@ int main(int argc, char *argv[])
     // Lecture des fichiers
 
 
-    struct jpeg *jpeg = jpeg_create();
+    struct jpeg1 *jpeg = jpeg_create1();
 
     /* ------ SET HEADER JPEG ------ */
 
-    jpeg_set_ppm_filename(jpeg, filename);
-    jpeg_set_jpeg_filename(jpeg, filename_out);
-    jpeg_set_image_width(jpeg, width);
-    jpeg_set_image_height(jpeg, height);
+    jpeg_set_ppm_filename1(jpeg, filename);
+    jpeg_set_jpeg_filename1(jpeg, filename_out);
+    jpeg_set_image_width1(jpeg, width);
+    jpeg_set_image_height1(jpeg, height);
 
     if (type == 5){
 
-        jpeg_set_nb_components(jpeg, 1);
-        jpeg_set_sampling_factor(jpeg, Y, H, H1);
-        jpeg_set_sampling_factor(jpeg, Y, V, V1);
-        struct huff_table *htable_DC_Y = huffman_table_build(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
-        jpeg_set_huffman_table(jpeg, DC, Y, htable_DC_Y);
-        struct huff_table *htable_AC_Y = huffman_table_build(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
-        jpeg_set_huffman_table(jpeg, AC, Y, htable_AC_Y);
+        jpeg_set_nb_components1(jpeg, 1);
+        jpeg_set_sampling_factor1(jpeg, Y, H, H1);
+        jpeg_set_sampling_factor1(jpeg, Y, V, V1);
+        struct huff_table1 *htable_DC_Y = huffman_table_build1(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
+        jpeg_set_huffman_table1(jpeg, DC, Y, htable_DC_Y);
+        struct huff_table1 *htable_AC_Y = huffman_table_build1(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
+        jpeg_set_huffman_table1(jpeg, AC, Y, htable_AC_Y);
  
-        jpeg_set_quantization_table(jpeg, Y, quantification_table_Y);
+        jpeg_set_quantization_table1(jpeg, Y, quantification_table_Y);
 
     } else if (type == 6){
 
-        jpeg_set_nb_components(jpeg, 3);
+        jpeg_set_nb_components1(jpeg, 3);
 
-        jpeg_set_sampling_factor(jpeg, Y, H, H1);
-        jpeg_set_sampling_factor(jpeg, Y, V, V1);
-        jpeg_set_sampling_factor(jpeg, Cb, H, H2);
-        jpeg_set_sampling_factor(jpeg, Cb, V, V2);
-        jpeg_set_sampling_factor(jpeg, Cr, H, H3);
-        jpeg_set_sampling_factor(jpeg, Cr, V, V3);
+        jpeg_set_sampling_factor1(jpeg, Y, H, H1);
+        jpeg_set_sampling_factor1(jpeg, Y, V, V1);
+        jpeg_set_sampling_factor1(jpeg, Cb, H, H2);
+        jpeg_set_sampling_factor1(jpeg, Cb, V, V2);
+        jpeg_set_sampling_factor1(jpeg, Cr, H, H3);
+        jpeg_set_sampling_factor1(jpeg, Cr, V, V3);
 
-        struct huff_table *htable_DC_Y = huffman_table_build(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
-        jpeg_set_huffman_table(jpeg, DC, Y, htable_DC_Y);
-        struct huff_table *htable_AC_Y = huffman_table_build(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
-        jpeg_set_huffman_table(jpeg, AC, Y, htable_AC_Y);
+        struct huff_table1 *htable_DC_Y = huffman_table_build1(htables_nb_symb_per_lengths[DC][Y], htables_symbols[DC][Y], htables_nb_symbols[DC][Y]);
+        jpeg_set_huffman_table1(jpeg, DC, Y, htable_DC_Y);
+        struct huff_table1 *htable_AC_Y = huffman_table_build1(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
+        jpeg_set_huffman_table1(jpeg, AC, Y, htable_AC_Y);
 
-        struct huff_table *htable_DC_Cb = huffman_table_build(htables_nb_symb_per_lengths[DC][Cb], htables_symbols[DC][Cb], htables_nb_symbols[DC][Cb]);
-        jpeg_set_huffman_table(jpeg, DC, Cb, htable_DC_Cb);
-        struct huff_table *htable_AC_Cb = huffman_table_build(htables_nb_symb_per_lengths[AC][Cb], htables_symbols[AC][Cb], htables_nb_symbols[AC][Cb]);
-        jpeg_set_huffman_table(jpeg, AC, Cb, htable_AC_Cb);
+        struct huff_table1 *htable_DC_Cb = huffman_table_build1(htables_nb_symb_per_lengths[DC][Cb], htables_symbols[DC][Cb], htables_nb_symbols[DC][Cb]);
+        jpeg_set_huffman_table1(jpeg, DC, Cb, htable_DC_Cb);
+        struct huff_table1 *htable_AC_Cb = huffman_table_build1(htables_nb_symb_per_lengths[AC][Cb], htables_symbols[AC][Cb], htables_nb_symbols[AC][Cb]);
+        jpeg_set_huffman_table1(jpeg, AC, Cb, htable_AC_Cb);
 
-        struct huff_table *htable_DC_Cr = huffman_table_build(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
-        jpeg_set_huffman_table(jpeg, DC, Cr, htable_DC_Cr);
-        struct huff_table *htable_AC_Cr = huffman_table_build(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
-        jpeg_set_huffman_table(jpeg, AC, Cr, htable_AC_Cr);
+        struct huff_table1 *htable_DC_Cr = huffman_table_build1(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
+        jpeg_set_huffman_table1(jpeg, DC, Cr, htable_DC_Cr);
+        struct huff_table1 *htable_AC_Cr = huffman_table_build1(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
+        jpeg_set_huffman_table1(jpeg, AC, Cr, htable_AC_Cr);
 
-        jpeg_set_quantization_table(jpeg, Y, quantification_table_Y);
-        jpeg_set_quantization_table(jpeg, Cb, quantification_table_CbCr);
-        jpeg_set_quantization_table(jpeg, Cr, quantification_table_CbCr);
+        jpeg_set_quantization_table1(jpeg, Y, quantification_table_Y);
+        jpeg_set_quantization_table1(jpeg, Cb, quantification_table_CbCr);
+        jpeg_set_quantization_table1(jpeg, Cr, quantification_table_CbCr);
 
     }
-    jpeg_write_header(jpeg);
+    jpeg_write_header1(jpeg);
 
     printf("----- CONVERT RGB TO YCbCr -----\n");
     convert_RGB_to_YCbCr(matrice, height, width);
@@ -116,9 +116,13 @@ int main(int argc, char *argv[])
 
 
     printf("----- ENCODAGE ------\n");
-    mcu_encode(jpeg_get_bitstream(jpeg), mcu);
+    struct bitstream1 *bitstream = jpeg_get_bitstream1(jpeg);
+    mcu_encode(bitstream, mcu);
+    bitstream_flush1(bitstream);
+    bitstream_destroy1(bitstream);
+
     
-    jpeg_write_footer(jpeg); 
+    jpeg_write_footer1(jpeg); 
     
     return EXIT_SUCCESS;
 }

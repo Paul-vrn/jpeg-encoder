@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdint.h>
 #include "htables.h"
-#include "bitstream.h"
+#include "bitstream_e.h"
 #include "vector.h"
 #include "mcu.h"
 #include "jpeg_writer.h"

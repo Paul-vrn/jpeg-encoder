@@ -38,10 +38,18 @@ void bitstream_destroy1(struct bitstream1 *stream){
 
 void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb_bits, bool is_marker){
 
+    uint8_t trash = 0;
+
     if (stream->nb_bit_buff + nb_bits >= 8 && stream->nb_bit_buff + nb_bits < 16){
 
         stream->buff = (stream->buff<<(8-stream->nb_bit_buff)) + (value>>(stream->nb_bit_buff + nb_bits - 8));
         fwrite(&(stream->buff), 1, 1, stream->fg);
+        if (stream->buff == 0xff){
+
+
+            fwrite(&trash, 1, 1, stream->fg);
+
+        }
         stream->nb_bit_buff = stream->nb_bit_buff + nb_bits - 8;
         stream->buff = value - ((value>>(stream->nb_bit_buff + nb_bits - 8))<<(stream->nb_bit_buff + nb_bits - 8));
 
@@ -49,8 +57,18 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
     
         stream->buff = (stream->buff<<(8-stream->nb_bit_buff)) + (value>>(stream->nb_bit_buff + nb_bits - 8));
         fwrite(&(stream->buff), 1, 1, stream->fg);
+        if (stream->buff == 0xff){
+
+            fwrite(&trash, 1, 1, stream->fg);
+
+        }
         stream->buff = value - ((value>>(stream->nb_bit_buff + nb_bits - 8))<<(stream->nb_bit_buff + nb_bits - 8));
         fwrite(&(stream->buff), 1, 1, stream->fg);
+        if (stream->buff == 0xff){
+
+            fwrite(&trash, 1, 1, stream->fg);
+
+        }
         stream->nb_bit_buff = stream->nb_bit_buff + nb_bits - 16;
         stream->buff = value - ((value>>(stream->nb_bit_buff + nb_bits - 16))<<(stream->nb_bit_buff + nb_bits - 16));
 
@@ -60,6 +78,17 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
 
         stream->buff = (stream->buff<<nb_bits) + value;
         stream->nb_bit_buff = stream->nb_bit_buff + nb_bits;
+
+    }
+
+}
+
+void bitstream_flush1(struct bitstream1 *stream){
+
+    if (stream->nb_bit_buff != 0){
+
+        stream->buff = (stream->buff<<(8 - stream->nb_bit_buff));
+        fwrite(&(stream->buff), 1, 1, stream->fg);
 
     }
 
