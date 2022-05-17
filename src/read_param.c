@@ -45,7 +45,15 @@ void read_param(int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, u
 
             if (strcmp(argv[i], "--help") == 0){
 
-                printf("help\n");
+                printf("ppm2jpeg permet de convertir une image au format ppm/pgm en une image jpeg\n");
+                printf("Le programme prend minimum le chemin vers l'image ppm en entrée\n");
+                printf("2 options suplementaire sont disponible :\n\n");
+                printf("    1. --args=h1xv1,h2xv2,h3xv3 permet de définir les facteur de sous echantillonage (par défaut 1x1,1x1,1x1) avec :\n");
+                printf("            - h1 et v1 pour Y\n");
+                printf("            - h2 et v2 pour Cb\n");
+                printf("            - h3 et v3 pour Cr\n\n");
+                printf("    2. --outfile= permet de définir le nom du fichier ppm qui sera sinon nom_fichier_ppm.jpg\n");
+
 
             } else if (strcmp(out, "--outfile=") == 0){
 
@@ -65,6 +73,24 @@ void read_param(int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, u
                 *V2 = arg[6] - '0';
                 *H3 = arg[8] - '0';
                 *V3 = arg[10] - '0';
+
+                if (*H1<1 || *H1>4 || *V1<1 || *V1>4 || *H2<1 || *H2>4 || *V2<1 || *V2>4 || *H3<1 || *H3>4 || *V3<1 || *V3>4){
+
+                    printf("Les facteurs d'échantillonage doivent tous etre compris entre 1 et 4\n");
+
+                }
+
+                if ((*H1 * *V1) + (*H2 * *V2) + (*H3 * *V3) > 10){
+
+                    printf("La somme de h1*v1, h2*v2 et h3*v3 ne doit pas exceder 10\n");
+
+                }
+
+                if (*H1%*H2 != 0 || *H1%*H3 != 0 || *V1%*V2 != 0 || *V1%*V3 != 0){
+
+                    printf("Les facteurs d'échantillonnage des chrominances doivent diviser parfaitement ceux de la luminance\n");
+
+                }
 
             } else if (strcmp(in, ".ppm") == 0 || strcmp(in, ".pgm") == 0){
 

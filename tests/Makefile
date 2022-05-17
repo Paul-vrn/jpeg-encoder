@@ -42,6 +42,9 @@ write: write.o ../obj/jpeg_write.o ../obj/huffman_tree.o \
 frequential_bloc: frequential_bloc.o ../obj/frequential_bloc.o ../obj/bloc.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
+bitstream: bitstream.o ../obj/bitstream_e.o ../obj_prof/bitstream_prof.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $^ -o $@
 
