@@ -39,8 +39,7 @@ enum direction
 };
 
 /*
-    Type opaque contenant l'intégralité des informations 
-    nécessaires à l'écriture de l'en-tête JPEG.
+    Strucuture contenant toute les information pour écrire l'entête jpeg
 */
 struct jpeg{
 
@@ -71,10 +70,7 @@ struct jpeg *jpeg_create(void);
 void jpeg_destroy(struct jpeg *jpg);
 
 /*
-    Ecrit tout l'en-tête JPEG dans le fichier de sortie à partir des
-    informations contenues dans la structure jpeg passée en paramètre. 
-    En sortie, le bitstream est positionné juste après l'écriture de 
-    l'en-tête SOS, à l'emplacement du premier octet de données brutes à écrire.
+    Ecrit l'entête jpeg a partir des paramètre présent dans la strucuture jpeg
 */
 
 void jpeg_write_header(struct jpeg *jpg);
@@ -84,11 +80,6 @@ void jpeg_write_header(struct jpeg *jpg);
 */
 
 void jpeg_write_footer(struct jpeg *jpg);
-/*
-    Retourne le bitstream associé au fichier de sortie enregistré 
-    dans la structure jpeg.
-*/
-
 
 
 /****************************************************/
@@ -161,8 +152,9 @@ void jpeg_set_quantization_table(struct jpeg *jpg,
                                         enum color_component cc,
                                         uint8_t *qtable);
 
+/*
 
-
+*/
 struct bitstream1 *jpeg_get_bitstream(struct jpeg *jpg);
 
 #endif /* JPEG_WRITER_H_ */
