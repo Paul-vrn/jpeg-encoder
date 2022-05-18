@@ -53,8 +53,6 @@ int main(int argc, char *argv[])
 	struct huff_table *ht_AC_Y = huffman_table_build(htables_nb_symb_per_lengths[AC][Y], htables_symbols[AC][Y], htables_nb_symbols[AC][Y]);
 	struct huff_table *ht_DC_Cb = NULL;
 	struct huff_table *ht_AC_Cb = NULL;
-	struct huff_table *ht_DC_Cr = NULL;
-	struct huff_table *ht_AC_Cr = NULL;
 
 	if (type == 5){
 
@@ -87,10 +85,8 @@ int main(int argc, char *argv[])
         ht_AC_Cb1 = huffman_table_build1(htables_nb_symb_per_lengths[AC][Cb], htables_symbols[AC][Cb], htables_nb_symbols[AC][Cb]);
 		jpeg_set_huffman_table1(jpeg, AC, Cb, ht_AC_Cb1);
 
-		ht_DC_Cr = huffman_table_build(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
         ht_DC_Cr1 = huffman_table_build1(htables_nb_symb_per_lengths[DC][Cr], htables_symbols[DC][Cr], htables_nb_symbols[DC][Cr]);
 		jpeg_set_huffman_table1(jpeg, DC, Cr, ht_DC_Cr1);
-		ht_AC_Cr = huffman_table_build(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
         ht_AC_Cr1 = huffman_table_build1(htables_nb_symb_per_lengths[AC][Cr], htables_symbols[AC][Cr], htables_nb_symbols[AC][Cr]);
 		jpeg_set_huffman_table1(jpeg, AC, Cr, ht_AC_Cr1);
 
