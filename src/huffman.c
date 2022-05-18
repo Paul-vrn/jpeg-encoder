@@ -26,14 +26,21 @@ struct huff_table{
     uint32_t *huffcode_table;
 
 };
-
+/**
+ * @brief A struct to create the huffman tree that is used
+ *  later to get the huffman codes of symbols. 
+ */
 struct node
 {
     uint8_t used;
     struct node *left;
     struct node *right;
 };
-
+/**
+ * @brief Create a Node object
+ * @param none: no parameter, create a new node empty
+ * @return struct node* 
+ */
 struct node *createNode()
 {
     struct node *node = calloc(1, sizeof(struct node));
@@ -43,6 +50,11 @@ struct node *createNode()
     return node;
 }
 
+/**
+ * @brief Free the memory of all nodes of a tree
+ * @param node: the root of the tree
+ * @return none
+ */
 void tree_destroy(struct node *node)
 {
     if (node->left != NULL)
@@ -52,10 +64,17 @@ void tree_destroy(struct node *node)
     free(node);
 }
 
-
-
-
-
+/**
+ * @brief Create an tree composed of nodes, the objetive of this fonction
+ * is actually to create the uint32_t huffcode_table that is needed.
+ * @param currentNode 
+ * @param code = huffman code of the current node
+ * @param depth = used to know the depth of the tree, the depth is the number of bits used to encode the current node
+ * @param huffcode_table 
+ * @param index = index of the huffcode_table
+ * @return true = 1
+ * @return false = 0
+ */
 bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t *huffcode_table, uint32_t *index){
     if(depth==0){
         if(currentNode->used==0){
@@ -66,7 +85,7 @@ bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t 
         }
         return 0;
     }
-    if (currentNode->used == 1){
+    if (currentNode->used == 1){   //Le code de Huffman est préfixé, donc pas de fils pour un noeud utilisé
 
         return 0;
 
@@ -93,7 +112,7 @@ bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t 
 }
 
 /**
- * @brief 
+ * @brief Create the huffman tree and consequently the huffman code table
  * 
  * @param nb_symb_per_lengths 
  * @param symbols 
@@ -115,6 +134,14 @@ uint32_t *huffcode_table_build(struct huff_table *hufftable)
     return huffcode_table;
 }
 
+/**
+ * @brief When called, return the huffman code of a symbol
+ * 
+ * @param ht 
+ * @param value 
+ * @param nb_bits 
+ * @return uint32_t 
+ */
 uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *nb_bits){
 
     for(uint32_t i=0; i<ht->nb_symbols; i++){
@@ -132,7 +159,14 @@ uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *n
     return 0;
 }
 
-
+/**
+ * @brief Create the huffman table structure
+ * 
+ * @param nb_symb_per_lengths 
+ * @param symbols 
+ * @param nb_symbols 
+ * @return struct huff_table* 
+ */
 struct huff_table *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols){
 
     struct huff_table *table = calloc(1, sizeof(struct huff_table));
