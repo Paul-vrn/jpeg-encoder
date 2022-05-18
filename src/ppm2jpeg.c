@@ -32,10 +32,7 @@ int main(int argc, char *argv[])
 	read_param(argc, argv, &H1, &V1, &H2, &V2, &H3, &V3, &filename_out, &filename);
 
 	uint8_t ***matrice = creat_matrix(&height, &width, &type, &filename);
-	// lecture  des paramètres
-	// Lecture des fichiers
-
-
+	
 	struct jpeg *jpeg = jpeg_create();
 
 	/* ------ SET HEADER JPEG ------ */
@@ -93,29 +90,31 @@ int main(int argc, char *argv[])
 	}
 	jpeg_write_header(jpeg);
 
-	printf("----- CONVERT RGB TO YCbCr -----\n");
+	/* ------ CONVERT RGB TO YCbCr ------ */
 	convert_RGB_to_YCbCr(matrice, height, width);
 
-	printf("----- CREATE MCUS -----\n");
+	/* ------ CREATE MCU ------ */
 	struct mcu_t *mcu = decoupage_mcu(matrice, height, width, H1, V1);
 	free_matrix(matrice);
 
-	printf("----- SOUS ECHANTILLONAGE ------\n");
-	mcus_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
+	/* ------ DOWNSAMPLING ------ */
+	mcus_downsampling(mcu, H1, V1, H2, V2, H3, V3);
 
-	printf("----- TRANSFORMATION DCT ------\n");
+	/* ------ DCT ------ */
 	mcu_dct(mcu);
 
-	printf("----- ZIG ZAG ------\n");
+	/* ------ ZIG ZAG ------ */
 	mcu_zigzag(mcu);
 
-	printf("----- QUANTIFICATION ------\n");
+	/* ------ QUANTIFICATION ------ */
 	mcu_quantification(mcu);
 
-	printf("----- ENCODAGE ------\n");
+	/* ------ ENCODING ------ */
 	mcu_encode(jpeg_get_bitstream(jpeg), mcu, ht_DC_Y, ht_AC_Y, ht_DC_Cb, ht_AC_Cb);
-	jpeg_write_footer(jpeg); 
-	
+
+	jpeg_write_footer(jpeg); 	
+
+	/* ------ FREE MEMORY ------ */
 	if (ht_DC_Y != NULL)
 		huffman_table_destroy(ht_DC_Y);
 	if (ht_AC_Y != NULL)

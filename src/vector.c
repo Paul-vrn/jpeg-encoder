@@ -13,10 +13,24 @@ struct vector_t {
 };
 
 
+/**
+ * @brief getter of the index value of the vector
+ * 
+ * @param vector 
+ * @param index 
+ * @return int16_t 
+ */
 int16_t vector_get(struct vector_t *vector, uint32_t index)
 {
     return vector->vector[index];
 }
+
+/**
+ * @brief getter of the next vector
+ * 
+ * @param vector 
+ * @return struct vector_t* 
+ */
 struct vector_t *vector_get_next(struct vector_t *vector)
 {
     return vector->next;

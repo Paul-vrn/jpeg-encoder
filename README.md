@@ -9,13 +9,16 @@ Membres : Paul Vernin, Axel Perrin, Marc Felix-Henry
 - [x] invader.pgm
 - [x] gris.pgm
 - [x] bisou.pgm
-- [x] complexite.pgm (en ~1min)
+- [x] complexite.pgm
 - [x] zig-zag.ppm
-- [x] thumbs.ppm 
-- [x] horizontal.ppm 
-- [x] vertical.ppm 
-- [x] shaun_the_sheep.ppm 
-- [x] biiiiiig.ppm (2min40 en 2x2,1x1,1x1)
+- [x] thumbs.ppm
+- [x] horizontal.ppm
+- [x] vertical.ppm
+- [x] shaun_the_sheep.ppm
+- [x] biiiiiig.ppm (15s)
+- [x] Réécriture jpeg_writer
+- [x] Réécriture bitstream
+- [ ] Réécriture huffman
 
 # Gantt
 

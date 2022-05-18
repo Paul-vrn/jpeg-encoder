@@ -22,50 +22,6 @@ struct mcu_t {
 	struct mcu_t *next;
 };
 
-void mcu_set_next(struct mcu_t *mcu, struct mcu_t *next)
-{
-	mcu->next = next;
-}
-void mcu_set_Y(struct mcu_t *mcu, struct bloc_t *Y)
-{
-	mcu->Y = Y;
-}
-void mcu_set_Cb(struct mcu_t *mcu, struct bloc_t *Cb)
-{
-	mcu->Cb = Cb;
-}
-void mcu_set_Cr(struct mcu_t *mcu, struct bloc_t *Cr)
-{
-	mcu->Cr = Cr;
-}
-struct bloc_t* mcu_get_Y(struct mcu_t *mcu)
-{
-	return mcu->Y;
-}
-struct bloc_t* mcu_get_Cb(struct mcu_t *mcu)
-{
-	return mcu->Cb;
-}
-struct bloc_t* mcu_get_Cr(struct mcu_t *mcu)
-{
-	return mcu->Cr;
-}
-struct mcu_t* mcu_get_next(struct mcu_t *mcu)
-{
-	return mcu->next;
-}
-struct vector_t* mcu_get_vectorY(struct mcu_t *mcu)
-{
-	return mcu->vectorY;
-}
-struct vector_t* mcu_get_vectorCb(struct mcu_t *mcu)
-{
-	return mcu->vectorCb;
-}
-struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
-{
-	return mcu->vectorCr;
-}
 
 /**
  * @brief get the i th mcu
@@ -77,7 +33,7 @@ struct vector_t* mcu_get_vectorCr(struct mcu_t *mcu)
 struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
 {
 	uint32_t j = 0;
-	while (j < i && head != NULL){
+	while (j < i && head->next != NULL){
 		if (j == i){
 			return head;
 		}
@@ -87,21 +43,6 @@ struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
 	return head;
 }
 
-/**
- * @brief count the number of mcu in the list
- * 
- * @param mcu 
- * @return uint32_t 
- */
-uint32_t mcu_count(struct mcu_t *head)
-{
-	uint32_t count = 0;
-	while (head != NULL) {
-		count++;
-		head = head->next;
-	}
-	return count;
-}
 /**
  * @brief Create a mcu
  * @test✔️
@@ -225,7 +166,7 @@ void mcus_print(struct mcu_t *mcu){
  * 
  * @param mcu 
  */
-void mcu_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
+void mcu_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
 	if (H2 < H1 || V2 < V1){
 		blocs_fusion(&mcu->Cb, H1, V1, H2, V2);
 	}
@@ -234,9 +175,9 @@ void mcu_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_
 	}
 }
 
-void mcus_sous_echantillonne(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
+void mcus_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
 	while (mcu != NULL){
-		mcu_sous_echantillonne(mcu, H1, V1, H2, V2, H3, V3);
+		mcu_downsampling(mcu, H1, V1, H2, V2, H3, V3);
 		mcu = mcu->next;
 	}
 }
