@@ -17,6 +17,8 @@
 #include "mcu.h"
 #include "htables.h"
 #include "qtables.h"
+#include "bitstream.h"
+
 
 
 int main(int argc, char *argv[])

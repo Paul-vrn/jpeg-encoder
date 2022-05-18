@@ -13,7 +13,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
+/**
+ * @brief A struct to store the different usfull informations to build the huffman tree.
+ *  The tree is then store in the form of a list.
+ * 
+ */
 struct huff_table{
 
     uint8_t *htables_nb_symb_per_lengths;
@@ -88,6 +92,14 @@ bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t 
 
 }
 
+/**
+ * @brief 
+ * 
+ * @param nb_symb_per_lengths 
+ * @param symbols 
+ * @param nb_symbols 
+ * @return struct huff_table* 
+ */
 uint32_t *huffcode_table_build(struct huff_table *hufftable)
 {
     uint32_t index = 0;
@@ -136,19 +148,35 @@ struct huff_table *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *sy
 }
 
 
-
+/**
+ * @brief Return the list of symbols in the huffman tree.
+ * 
+ * @param ht 
+ * @return uint8_t* 
+ */
 uint8_t *huffman_table_get_symbols(struct huff_table *ht){
 
     return ht->htables_symbols;
 
 }
 
+/**
+ * @brief Return the list of number of symbols per length in the huffman tree.
+ * 
+ * @param ht 
+ * @return uint8_t* 
+ */
 uint8_t *huffman_table_get_length_vector(struct huff_table *ht){
 
     return ht->htables_nb_symb_per_lengths;
 
 }
 
+/**
+ * @brief Free the memory allocated to the huffman tree.
+ * 
+ * @param ht 
+ */
 void huffman_table_destroy(struct huff_table *ht){
     free(ht);
 }

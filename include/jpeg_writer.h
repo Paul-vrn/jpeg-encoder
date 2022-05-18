@@ -4,11 +4,12 @@
 #include <stdint.h>
 #include "huffman.h"
 
-/********************/
-/* Types de données */
-/********************/
 
-/* Type énuméré représentant les composantes de couleur YCbCr. */
+
+/**
+ * @brief An Enumerated type describing the differents color types
+ * 
+ */
 enum color_component
 {
     Y,
@@ -17,9 +18,10 @@ enum color_component
     NB_COLOR_COMPONENTS
 };
 
-/*
-    Type énuméré représentant les types de composantes fréquentielles (DC ou AC).
-*/
+/**
+ * @brief An enumerated type descriping the differents sample types
+ * 
+ */
 enum sample_type
 {
     DC,
@@ -27,10 +29,10 @@ enum sample_type
     NB_SAMPLE_TYPES
 };
 
-/*
-    Type énuméré représentant la direction des facteurs d'échantillonnage (H
-    pour horizontal, V pour vertical).
-*/
+/**
+ * @brief An enumerated type describing the differents types of sampling factors
+ * 
+ */
 enum direction
 {
     H,
@@ -38,9 +40,10 @@ enum direction
     NB_DIRECTIONS
 };
 
-/*
-    Strucuture contenant toute les information pour écrire l'entête jpeg
-*/
+/**
+ * @brief A struct describing the JPEG image with all its header informations
+ * 
+ */
 struct jpeg{
 
     const char *filename;
@@ -56,87 +59,108 @@ struct jpeg{
 
 
 
-/***********************************************/
-/* Ouverture, fermeture et fonctions générales */
-/***********************************************/
-
-/* Alloue et retourne une nouvelle structure jpeg. */
+/**
+ * @brief Allocate and return a new jpeg structure
+ * 
+ * @return struct jpeg* 
+ */
 struct jpeg *jpeg_create(void);
 
-/*
-    Détruit une structure jpeg. 
-    Toute la mémoire qui lui est associée est libérée.
-*/
+/**
+ * @brief Destroy and free a jpeg structure
+ * 
+ * @param jpg 
+ */
 void jpeg_destroy(struct jpeg *jpg);
 
-/*
-    Ecrit l'entête jpeg a partir des paramètre présent dans la strucuture jpeg
-*/
-
+/**
+ * @brief Write the header in a .jpg file from a jpeg structure
+ * 
+ * @param jpg 
+ */
 void jpeg_write_header(struct jpeg *jpg);
 
-/* 
-    Ecrit le marqueur de fin du fichier jpeg
-*/
-
+/**
+ * @brief Write the footer in a .jpg file from a jpeg structure
+ * 
+ * @param jpg 
+ */
 void jpeg_write_footer(struct jpeg *jpg);
 
 
-/****************************************************/
-/* Gestion des paramètres de l'encodeur via le jpeg */
-/****************************************************/
-
-/* Ecrit le nom de fichier PPM ppm_filename dans la structure jpeg. */
+/**
+ * @brief Add the filname of the inpute ppm file to the jpeg structure
+ * 
+ * @param jpg 
+ */ 
 void jpeg_set_ppm_filename(struct jpeg *jpg,
                                   const char *ppm_filename);
 
-/* Ecrit le nom du fichier de sortie jpeg_filename dans la structure jpeg. */
+
+/**
+ * @brief Add the filename of the outpute jpeg file to the jpeg structure
+ * 
+ * @param jpg 
+ * @param jpeg_filename 
+ */
 void jpeg_set_jpeg_filename(struct jpeg *jpg,
                                    const char *jpeg_filename);
 
 
 
-/*
-    Ecrit la hauteur de l'image traitée, en nombre de pixels,
-    dans la structure jpeg.
-*/
+/**
+ * @brief Set the height of the image to the jpeg structure
+ * 
+ * @param jpg 
+ * @param image_height 
+ */
 void jpeg_set_image_height(struct jpeg *jpg,
                                   uint32_t image_height);
 
 
-/*
-    Ecrit la largeur de l'image traitée, en nombre de pixels,
-    dans la structure jpeg.
-*/
+/**
+ * @brief Set the width of the image to the jpeg structure
+ * 
+ * @param jpg 
+ * @param image_width 
+ */
 void jpeg_set_image_width(struct jpeg *jpg,
                                  uint32_t image_width);
 
 
 
-/*
-    Ecrit le nombre de composantes de couleur de l'image traitée
-    dans la structure jpeg.
-*/
+/**
+ * @brief Set the number of color components to the jpeg structure
+ * 
+ * @param jpg 
+ * @param nb_components 
+ */
 void jpeg_set_nb_components(struct jpeg *jpg,
                                    uint8_t nb_components);
 
 
-/*
-    Ecrit dans la structure jpeg le facteur d'échantillonnage 
-    sampling_factor
-    à utiliser pour la composante de couleur cc et la direction dir.
-*/
+/**
+ * @brief Set the sampling factor for a given color component and a given direction to the jpeg structure
+ * 
+ * @param jpg 
+ * @param cc 
+ * @param dir 
+ * @param sampling_factor 
+ */
 void jpeg_set_sampling_factor(struct jpeg *jpg,
                                      enum color_component cc,
                                      enum direction dir,
                                      uint8_t sampling_factor);
 
 
-/*
-    Ecrit dans la structure jpeg la table de Huffman huff_table à utiliser
-    pour encoder les données de la composante fréquentielle acdc, pour la
-    composante de couleur cc.
-*/
+/**
+ * @brief Set the huffman table for a given color component and a given sample type to the jpeg structure
+ * 
+ * @param jpg 
+ * @param acdc 
+ * @param cc 
+ * @param htable 
+ */
 void jpeg_set_huffman_table(struct jpeg *jpg,
                                    enum sample_type acdc,
                                    enum color_component cc,
@@ -144,17 +168,24 @@ void jpeg_set_huffman_table(struct jpeg *jpg,
 
 
 
-/*
-    Ecrit dans la structure jpeg la table de quantification à utiliser
-    pour compresser les coefficients de la composante de couleur cc.
-*/
+/**
+ * @brief Set the quantization table for a given color component to the jpeg structure
+ * 
+ * @param jpg 
+ * @param cc 
+ * @param qtable 
+ */
 void jpeg_set_quantization_table(struct jpeg *jpg,
                                         enum color_component cc,
                                         uint8_t *qtable);
 
-/*
 
-*/
+/**
+ * @brief Creat a new bitstream from a jpeg structure
+ * 
+ * @param jpg 
+ * @return struct bitstream1* 
+ */
 struct bitstream1 *jpeg_get_bitstream(struct jpeg *jpg);
 
 #endif /* JPEG_WRITER_H_ */
