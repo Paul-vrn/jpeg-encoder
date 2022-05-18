@@ -4,7 +4,7 @@
 
 /**
  * @brief Convert an RGB matrix to YCbCr matrix
- * @test❌ (valeurs approximatives différente de -1)
+ * @test✔️ (valeurs approximatives)
  * @param matrice The RGB matrix
  * @param height The height of the matrix
  * @param width The width of the matrix

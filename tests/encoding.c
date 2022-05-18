@@ -49,7 +49,6 @@ void test_huffman_DC()
     struct bitstream *bt = bitstream_create("test.jpeg");
     int16_t *prec = calloc(1, sizeof(int16_t));
     *prec = 0xffc6;
-    *prec = encode_vectors(bt, vect, Y, *prec);
     printf("%d\n", *prec);
 }
 

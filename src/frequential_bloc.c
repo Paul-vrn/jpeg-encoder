@@ -7,7 +7,7 @@
 #include <costable.h>
 
 /**
- * @brief 
+ * @brief structure to represent a bloc containing frequential values
  * 
  */
 struct frequential_bloc_t {
@@ -15,11 +15,23 @@ struct frequential_bloc_t {
     int16_t matrice[8][8];
 };
 
+/**
+ * @brief setter of the next freq bloc
+ * 
+ * @param frequential_bloc 
+ * @param next 
+ */
 void frequential_bloc_set_next(struct frequential_bloc_t *frequential_bloc, struct frequential_bloc_t *next)
 {
     frequential_bloc->next = next;
 }
 
+/**
+ * @brief getter of the next freq bloc
+ * 
+ * @param bloc 
+ * @return struct frequential_bloc_t* 
+ */
 struct frequential_bloc_t* frequential_bloc_get_next(struct frequential_bloc_t *bloc)
 {
     return bloc->next;
@@ -48,8 +60,6 @@ void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_b
     }
 }
 
-
-
 /**
  * @brief destroy a list of freq bloc
  * 
@@ -67,7 +77,7 @@ void frequential_blocs_destroy(struct frequential_bloc_t **head){
 
 /**
  * @brief create a frequentiel bloc from a matrice or NULL
- * 
+ * @test✔️
  * @param matrice 
  * @return struct frequential_bloc_t* 
  */
@@ -120,7 +130,7 @@ void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
 
 /**
  * @brief 
- * 
+ * @test✔️
  * @param bloc_copy 
  * @param i 
  * @param j 
@@ -151,40 +161,9 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     return resultat;
 }
 
-// On améliore la fonction qui crée les coefficients de la DCT
-// grâce à un tableau de produits des cosius créé sur python:
-
-// import numpy as np
-
-// MAT1 = np.zeros((8, 8))
-
-// for i in range(8):
-//     for j in range(8):
-//         MAT1[i][j] = np.cos((2*i+1)*j*np.pi/16)
-
-// MAT2 = np.zeros((64, 64))
-
-// for i in range(8):
-//     for x in range(8):
-//         for j in range(8):
-//             for y in range(8):
-//                 MAT2[8*i+x][8*j+y] = MAT1[x][i] * MAT1[y][j]
-
-// print("{")
-// for i in range(8):
-//     for x in range(8):
-//         print("{")
-//         for j in range(8):
-            
-//             for y in range(8):
-//                 print(MAT2[8*i+x][j*8+y], end=", ")
-            
-//         print("},", end="\n")    
-// print("}")
-
 /**
  * @brief 
- * 
+ * @test✔️
  * @param bloc_copy 
  * @param i 
  * @param j 
@@ -196,7 +175,6 @@ float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
     float resultat = 0.0;
     for(uint32_t x = 0; x < 8; x++){
         for(uint32_t y = 0; y < 8 ; y++){
-            //printf("%d", bloc_copy[x][y]);
             resultat += (float)(bloc_copy[x][y]) * costables[8*i+x][8*j+y];
         }
     }
@@ -217,7 +195,7 @@ float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 
 /**
  * @brief apply the DCT on a bloc and return the result as a frequential bloc
- * 
+ * @test✔️
  * @param bloc 
  * @return struct frequential_bloc_t* 
  */

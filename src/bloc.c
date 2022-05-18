@@ -6,7 +6,7 @@
 #include <math.h>
 
 /**
- * @brief 
+ * @brief strcture to represent a bloc containing values of pixels (YCbCr)
  * 
  */
 struct bloc_t {

@@ -59,9 +59,7 @@ uint32_t codage_DC(struct bitstream *stream, struct vector_t *vector, uint32_t p
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
     uint32_t value = huffman_table_get_path(ht, magnitude, nb_bits);
     bitstream_write_bits(stream, value, *nb_bits, false);
-    //printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
     bitstream_write_bits(stream, indice, magnitude, false);
-    //printf("bitstream => writing %d over %d bits\n", indice, magnitude);
     free(nb_bits);
     return vector_get(vector, 0);
 }
@@ -81,14 +79,12 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
     uint32_t value_huff = 0;
     for (uint8_t i = 1; i < 64; i++){
         if (i == 63){
-            //printf("value = endofblock\n");
             value = 0x00;
             value_huff = huffman_table_get_path(ht, value, nb_bits);
             bitstream_write_bits(stream, value_huff, *nb_bits, false);
-            //printf("bitstream => writing %d over %d bits\n", value, *nb_bits);
         } else {
             if (vector_get(vector, i) == 0)
-            { // si bloque == 0
+            {
                 coef_0++;
                 if (coef_0 >= 16)
                 {   
@@ -100,7 +96,6 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
                     value = 0xF0;
                     value_huff = huffman_table_get_path(ht, value, nb_bits);
                     bitstream_write_bits(stream, value_huff, *nb_bits, false);
-                    //printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
                     nb_F0--;
                 }
                 value = vector_get(vector, i);
@@ -109,9 +104,7 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
                 value_huff = (coef_0 << 4) + magnitude;
                 value_huff = huffman_table_get_path(ht, value_huff, nb_bits);
                 bitstream_write_bits(stream, value_huff, *nb_bits, false);
-                //printf("bitstream => writing %d over %d bits\n", value_huff, *nb_bits);
                 bitstream_write_bits(stream, index, magnitude, false);
-                //printf("bitstream => writing %d over %d bits\n", index, magnitude);
                 coef_0 = 0;
             }
         }
