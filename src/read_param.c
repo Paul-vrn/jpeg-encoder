@@ -1,3 +1,13 @@
+/**
+ * @file read_param.c
+ * @author Axel Perrin
+ * @brief file to read the parameters of command line
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -84,7 +94,7 @@ void read_param(int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, u
                 }
 
             } else if (strcmp(in, ".ppm") == 0 || strcmp(in, ".pgm") == 0){
-                *INFILE = calloc(len, sizeof(char));
+                *INFILE = calloc(len+1, sizeof(char));
                 strcpy(*INFILE, argv[i]);
             } else  {
                 printf("Le paramètre suivant n'est pas bon : %s (utiliser --help pour plus d'informations)\n", argv[i]);
@@ -95,7 +105,7 @@ void read_param(int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, u
             printf("Le programme prend au moins en argument un fichier ppm/pgm a convertir\n");
         } else if (*OUTFILE == NULL){
             int len = strlen(*INFILE);
-            *OUTFILE = calloc(len, sizeof(char));
+            *OUTFILE = calloc(len+1, sizeof(char));
             strcpy(*OUTFILE, *INFILE);
             (*OUTFILE)[len-1] = 'g';
             (*OUTFILE)[len-2] = 'p';

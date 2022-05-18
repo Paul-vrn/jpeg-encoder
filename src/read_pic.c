@@ -1,3 +1,13 @@
+/**
+ * @file read_pic.c
+ * @author Axel Perrin (axel.perrin@grenoble-inp.org)
+ * @brief file to read pixels of the ppm/pgm image
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

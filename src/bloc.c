@@ -1,3 +1,13 @@
+/**
+ * @file bloc.c
+ * @author team 18
+ * @brief file containing every functions related to the bloc type and his usage in create MCU and downsampling.
+ * @version 0.1
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -6,12 +16,12 @@
 #include <math.h>
 
 /**
- * @brief strcture to represent a bloc containing values of pixels (YCbCr)
+ * @brief structure to represent a bloc containing values of pixels (YCbCr)
  * 
  */
 struct bloc_t {
-	struct bloc_t *next;
-	uint8_t matrice[8][8];
+	struct bloc_t *next; /** next bloc*/
+	uint8_t matrice[8][8]; /** matrix 8x8 to store values of the bloc */
 };
 
 void bloc_set_next(struct bloc_t *bloc, struct bloc_t *next)
@@ -33,6 +43,12 @@ uint8_t bloc_get_matrice(struct bloc_t *bloc, uint32_t i, uint32_t j){
 	return bloc->matrice[i][j];
 }
 
+/**
+ * @brief add the bloc to the bloc list at the end
+ * 
+ * @param bloc 
+ * @param next 
+ */
 void bloc_add(struct bloc_t **bloc, struct bloc_t *next){
 	struct bloc_t *tmp = *bloc;
 	if (tmp == NULL){
@@ -87,6 +103,7 @@ struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint3
 	bloc->next = NULL;
 	uint32_t k = 0;
 	uint32_t l = 0;
+	/* place pixels in the bloc */
 	for (uint32_t i = start_y; i < end_y; i++){
 		for (uint32_t j = start_x; j < end_x; j++){
 			bloc->matrice[k][l] = pixels[i][j];
@@ -97,7 +114,7 @@ struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint3
 	}
 	if (end_x-start_x==8 && end_y-start_y==8){
 		return bloc;
-	}
+	} /* else the range of pixels is smaller than 8, so we must fill the rest of the bloc*/
 	k = 0;
 	l = end_x - start_x;
 	for (uint32_t i = start_y; i < end_y; i++){ 
@@ -175,14 +192,15 @@ void blocs_print(struct bloc_t *blocs){
  * @param blocs 
  */
 void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2){
-	uint8_t res[8*V1][8*H1];
+	uint8_t big_matrix[8*V1][8*H1];
 	struct bloc_t *current_bloc = *blocs;
 
+	/* Create a big matrix of size H1xV1, containing every blocs side by side*/
 	for (uint32_t i = 0; i < V1; i++) {
 		for (uint32_t j = 0; j < H1; j++) {
 			for(uint32_t k = 0; k < 8; k++) {
 				for(uint32_t l = 0; l < 8; l++) {
-					res[i*8+k][j*8+l] = current_bloc->matrice[k][l];
+					big_matrix[i*8+k][j*8+l] = current_bloc->matrice[k][l];
 				}
 			}
 			current_bloc = current_bloc->next;
@@ -191,49 +209,33 @@ void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, 
 	uint32_t value = 0;
 	V1 = (uint8_t) V1/V2;
 	H1 = (uint8_t) H1/H2;
-	uint8_t **res2 = calloc(V2*8, sizeof(uint8_t*));
+	/* Create a new matrix H2xV2, where the downsampling is operated */
+	uint8_t **downsampling_matrix = calloc(V2*8, sizeof(uint8_t*));
 	for (uint32_t i = 0; i < V2*8; i++) {
-		res2[i] = calloc(H2*8, sizeof(uint8_t));
+		downsampling_matrix[i] = calloc(H2*8, sizeof(uint8_t));
 		for (uint32_t j = 0; j < H2*8; j++) {
 			value = 0;
 			for (uint32_t k = i*V1; k < (i*V1+V1); k++) {
 				for (uint32_t l = j*H1; l < (j*H1+H1); l++) {
-					value += res[k][l];
+					value += big_matrix[k][l];
 				}
 			}
 			value = value/(V1*H1);
-			res2[i][j] = (uint8_t) value;
+			downsampling_matrix[i][j] = (uint8_t) value;
 		}
 	}
 	struct bloc_t *bloc_fusion = NULL;
+	/* Create blocs from the small matrix */
 	for (uint32_t i = 0; i < V2; i++) {
 		for (uint32_t j = 0; j < H2; j++) {
-			bloc_add(&bloc_fusion, bloc_create_from_pixels(res2, j*8, j*8+8, i*8, i*8+8));
+			bloc_add(&bloc_fusion, bloc_create_from_pixels(downsampling_matrix, j*8, j*8+8, i*8, i*8+8));
 		}
 	}
 	for(uint32_t i = 0; i < V2*8; i++) {
-		free(res2[i]);
+		free(downsampling_matrix[i]);
 	}
-	free(res2);
+	free(downsampling_matrix);
 	blocs_destroy(blocs);
 	*blocs = bloc_fusion;
 
-}
-
-/**
- * @brief compare two blocs 
- * @test✔️
- * @param bloc1 
- * @param bloc2 
- * @return true if blocs are equal, false otherwise
- */
-bool compare_blocs(struct bloc_t *bloc1, struct bloc_t *bloc2){
-	for (uint32_t i = 0; i < 8; i++) {
-		for (uint32_t j = 0; j < 8; j++) {
-			if (bloc1->matrice[i][j] != bloc2->matrice[i][j]){
-				return false;
-			}
-		}
-	} 
-	return true;
 }

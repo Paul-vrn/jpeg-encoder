@@ -1,3 +1,13 @@
+/**
+ * @file encoding.c
+ * @author your name (you@domain.com)
+ * @brief file containing every function related to encoding the image
+ * @version 0.1
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -11,7 +21,7 @@
 #include "huffman_tree.h"
 
 /**
- * @brief
+ * @brief return the magnitude of the number
  * @test✔️
  * @param vector 
  */
@@ -29,8 +39,8 @@ uint8_t get_magnitude(int16_t number){
 
 
 /**
- * @brief
- * @test✔️ (~)
+ * @brief return the indice of the magnitude of the number
+ * @test✔️
  * @param number
  * @param magnitude 
  */
@@ -45,7 +55,7 @@ uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
 }
 
 /**
- * @brief 
+ * @brief encode the DC value in the stream
  * @test✔️ 
  * @param vector 
  * @param stream 
@@ -66,7 +76,7 @@ uint32_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, uint32_t 
 }
 
 /**
- * @brief Construct a new codage RLE AC object
+ * @brief encode the AC values in the stream
  * @test✔️
  * @param vector 
  * @param color 
@@ -114,7 +124,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
 }
 
 /**
- * @brief 
+ * @brief encode the vectors in the stream
  * @test✔️
  * @param stream 
  * @param vector 

@@ -10,7 +10,6 @@
 #include "mcu.h"
 #include "jpeg_writer.h"
 
-
 uint8_t get_magnitude(int16_t number);
 uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude);
 uint32_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, uint32_t prec_DC, struct huff_table *ht);

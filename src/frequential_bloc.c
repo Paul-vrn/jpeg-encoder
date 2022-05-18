@@ -1,3 +1,13 @@
+/**
+ * @file frequential_bloc.c
+ * @author Paul Vernin (paul.vernin@grenoble-inp.org) and Marc Félix-Henry (marc.felix-henry@grenoble-inp.org)
+ * @brief file containing every functions related to the frequential bloc type and his usage in DCT.
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -127,9 +137,8 @@ void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
     }
 }
 
-
 /**
- * @brief 
+ * @brief calculate the coeficient for every value of the bloc
  * @test✔️
  * @param bloc_copy 
  * @param i 
@@ -137,39 +146,6 @@ void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
  * @return float 
  */
 float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
-    float pi = 3.14159265358;/*9793238462643383279502884197169399375105820;*/
-    float n = 8;
-    float resultat = 0.0;
-    for(uint32_t x = 0; x < 8; x++){
-        for(uint32_t y = 0; y < 8 ; y++){
-            //printf("%d", bloc_copy[x][y]);
-            resultat += (float)(bloc_copy[x][y]) * cosf(((2*(float)(x)+1)*(float)(i)*pi)/((float)(2*n))) * cosf(((2*(float)(y)+1)*(float)j*pi)/((float)(2*n))); 
-        }
-    }
-    if(i==0 && j==0){
-        resultat *= (2/n) * 1/2; 
-    }
-    else if(i==0){
-        resultat *= (2/n) * 1/sqrt(2);
-    }
-    else if(j==0){
-        resultat *= (2/n) * 1/sqrt(2); 
-    }
-    else{
-        resultat *= (2/n);
-    }
-    return resultat;
-}
-
-/**
- * @brief 
- * @test✔️
- * @param bloc_copy 
- * @param i 
- * @param j 
- * @return float 
- */
-float coef_dct2(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 
     float n = 8;
     float resultat = 0.0;
@@ -209,7 +185,7 @@ struct frequential_bloc_t *dct(struct bloc_t *bloc){
     }
     for(uint32_t i=0; i<8; i++){
         for(uint32_t j=0; j<8; j++){
-            new_bloc[i][j] = (int16_t)coef_dct2(bloc_copy, i, j);
+            new_bloc[i][j] = (int16_t)coef_dct(bloc_copy, i, j);
         }
     }
     struct frequential_bloc_t *blocc = frequential_bloc_create(new_bloc);

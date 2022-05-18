@@ -1,3 +1,13 @@
+/**
+ * @file mcu.c
+ * @author Paul Vernin (paul.vernin@grenoble-inp.org)
+ * @brief 
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -9,17 +19,21 @@
 #include "jpeg_writer.h"
 #include "encoding.h"
 
+/**
+ * @brief structure to represent a MCU
+ * 
+ */
 struct mcu_t {
-	struct bloc_t *Y;
-	struct bloc_t *Cb;
-	struct bloc_t *Cr;
-	struct frequential_bloc_t *freqY;
-	struct frequential_bloc_t *freqCb;
-	struct frequential_bloc_t *freqCr;
-	struct vector_t *vectorY;
-	struct vector_t *vectorCb;
-	struct vector_t *vectorCr;
-	struct mcu_t *next;
+	struct bloc_t *Y; /** list of blocs for Y component in the MCU*/
+	struct bloc_t *Cb; /** list of blocs for Cb component in the MCU*/
+	struct bloc_t *Cr; /** list of blocs for Cr component in the MCU*/
+	struct frequential_bloc_t *freqY; /** list of frequential blocs for Y component in the MCU*/
+	struct frequential_bloc_t *freqCb; /** list of frequential blocs for Cb component in the MCU*/
+	struct frequential_bloc_t *freqCr; /** list of frequential blocs for Cr component in the MCU*/
+	struct vector_t *vectorY; /** vectors for the Y component in the MCU*/
+	struct vector_t *vectorCb; /** vectors for the Cb component in the MCU*/
+	struct vector_t *vectorCr; /** vectors for the Cr component in the MCU*/
+	struct mcu_t *next; /** pointer to the next mcu in the chained list*/
 };
 
 
@@ -167,6 +181,8 @@ void mcus_print(struct mcu_t *mcu){
  * @param mcu 
  */
 void mcu_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
+	if (mcu->Cb == NULL)
+		return;
 	if (H2 < H1 || V2 < V1){
 		blocs_fusion(&mcu->Cb, H1, V1, H2, V2);
 	}

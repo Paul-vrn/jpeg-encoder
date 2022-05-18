@@ -1,3 +1,13 @@
+/**
+ * @file jpeg_writer.c
+ * @author Axel Perrin (axel.perrin@grenoble-inp.org)
+ * @brief File to write the header of the jpeg image
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>

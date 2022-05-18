@@ -1,3 +1,13 @@
+/**
+ * @file huffman_tree.c
+ * @author Marc Félix-Henry (marc.felix-henry@grenoble-inp.org)
+ * @brief file to create the huffman tree
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -27,6 +37,20 @@ struct node *createNode()
     node->left = NULL;
     node->right = NULL;
     return node;
+}
+
+
+void huffman_table_destroy1(struct huff_table1 *ht){
+        free(ht);
+}
+
+void tree_destroy(struct node *node)
+{
+    if (node->left != NULL)
+        tree_destroy(node->left);
+    if (node->right != NULL)
+        tree_destroy(node->right);
+    free(node);
 }
 
 
@@ -75,6 +99,7 @@ void huffcode_table_build1(struct huff_table1 *hufftable)
         }
     hufftable->huffcode_table = huffcode_table;
     }
+    tree_destroy(root);
 }
 
 uint32_t huffman_table_get_path1(struct huff_table1 *ht, uint8_t value, uint8_t *nb_bits){
@@ -115,10 +140,3 @@ uint8_t *huffman_table_get_length_vector1(struct huff_table1 *ht){
     return ht->htables_nb_symb_per_lengths;
 
 }
-
-void huffman_table_destroy1(struct huff_table1 *ht){
-
-    free(ht);
-}
-
-

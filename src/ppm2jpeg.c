@@ -1,3 +1,13 @@
+/**
+ * @file ppm2jpeg.c
+ * @author team 18
+ * @brief main function of the program
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>

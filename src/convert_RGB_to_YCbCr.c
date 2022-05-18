@@ -1,3 +1,13 @@
+/**
+ * @file convert_RGB_to_YCbCr.c
+ * @author Paul Vernin (paul.vernin@grenoble-inp.org)
+ * @brief file containing the functions to convert RGB to YCbCr
+ * @version 1.0
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
