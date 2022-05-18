@@ -8,6 +8,7 @@
 #include "mcu.h"
 #include "jpeg_write.h"
 #include "huffman.h"
+#include "huffman_tree.h"
 
 /**
  * @brief

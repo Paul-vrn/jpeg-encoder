@@ -45,6 +45,9 @@ frequential_bloc: frequential_bloc.o ../obj/frequential_bloc.o ../obj/bloc.o
 bitstream: bitstream.o ../obj/bitstream_e.o ../obj_prof/bitstream_prof.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
+huff_path: huff_path.o ../obj/huffman_tree.o ../obj_prof/huffman_prof.o ../obj_prof/htables_prof.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $^ -o $@
 
