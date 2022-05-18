@@ -3,10 +3,10 @@
 #include <math.h>
 #include <stdint.h>
 #include "htables.h"
-#include "bitstream_e.h"
+#include "bitstream.h"
 #include "vector.h"
 #include "mcu.h"
-#include "jpeg_write.h"
+#include "jpeg_writer.h"
 #include "huffman.h"
 #include "huffman_tree.h"
 

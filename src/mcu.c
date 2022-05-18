@@ -5,8 +5,8 @@
 #include "bloc.h"
 #include "frequential_bloc.h"
 #include "vector.h"
-#include "bitstream_e.h"
-#include "jpeg_write.h"
+#include "bitstream.h"
+#include "jpeg_writer.h"
 #include "encoding.h"
 
 struct mcu_t {

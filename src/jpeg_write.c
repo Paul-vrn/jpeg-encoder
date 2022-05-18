@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "huffman_tree.h"
-#include "bitstream_e.h"
+#include "bitstream.h"
 
 
 

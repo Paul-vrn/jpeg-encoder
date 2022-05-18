@@ -5,12 +5,12 @@
 #include "read_param.h"
 #include "read_pic.h"
 #include "convert_RGB_to_YCbCr.h"
-#include "jpeg_write.h"
+#include "jpeg_writer.h"
 #include "mcu.h"
 #include "htables.h"
 #include "huffman_tree.h"
 #include "qtables.h"
-#include "bitstream_e.h"
+#include "bitstream.h"
 #include "huffman.h"
 
 
