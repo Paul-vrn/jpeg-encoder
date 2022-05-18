@@ -1,0 +1,4 @@
+<map id="jpeg" name="jpeg">
+<area shape="rect" id="node1" title="A struct describing the JPEG image with all its header informations." alt="" coords="24,95,75,121"/>
+<area shape="rect" id="node2" href="$structhuff__table.html" title="A struct to store the different usfull informations to build the huffman tree. The tree is then store..." alt="" coords="5,5,93,32"/>
+</map>
