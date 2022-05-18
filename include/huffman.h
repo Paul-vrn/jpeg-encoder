@@ -1,5 +1,5 @@
-#ifndef _HUFFMAN_TREE_H_
-#define _HUFFMAN_TREE_H_
+#ifndef _HUFFMAN_H_
+#define _HUFFMAN_H_
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -26,4 +26,4 @@ uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *n
 
 
 
-#endif /* _HUFFMAN_TREE_ */
+#endif /* _HUFFMAN_H_ */

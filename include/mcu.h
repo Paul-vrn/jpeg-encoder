@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include "bloc.h"
 #include "frequential_bloc.h"
+#include "bitstream.h"
+#include "huffman.h"
 
 struct mcu_t;
 

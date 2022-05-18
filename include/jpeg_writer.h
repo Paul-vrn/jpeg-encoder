@@ -1,5 +1,5 @@
-#ifndef JPEG_WRITER_H
-#define JPEG_WRITER_H
+#ifndef JPEG_WRITER_H_
+#define JPEG_WRITER_H_
 
 #include <stdint.h>
 #include "huffman.h"
@@ -165,4 +165,4 @@ void jpeg_set_quantization_table(struct jpeg *jpg,
 
 struct bitstream1 *jpeg_get_bitstream(struct jpeg *jpg);
 
-#endif /* JPEG_WRITER_H */
+#endif /* JPEG_WRITER_H_ */
