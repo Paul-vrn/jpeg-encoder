@@ -8,7 +8,13 @@
     Type opaque représentant le flux d'octets à écrire dans le fichier JPEG de
     sortie (appelé bitstream dans le sujet).
 */
-struct bitstream;
+struct bitstream{
+
+    FILE *fg;
+    uint32_t buff;
+    int nb_bit_buff;
+
+};
 
 /* Retourne un nouveau bitstream prêt à écrire dans le fichier filename. */
 extern struct bitstream *bitstream_create(const char *filename);
