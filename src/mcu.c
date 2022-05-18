@@ -1,7 +1,7 @@
 /**
  * @file mcu.c
  * @author Paul Vernin (paul.vernin@grenoble-inp.org)
- * @brief 
+ * @brief file containing every functions related to the MCU
  * @version 1.0
  * @date 2022-05-18
  * 

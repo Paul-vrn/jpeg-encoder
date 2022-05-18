@@ -19,8 +19,13 @@
 #include "qtables.h"
 #include "bitstream.h"
 
-
-
+/**
+ * @brief main function of the program	
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int exit code
+ */
 int main(int argc, char *argv[])
 {
 	uint32_t height = 0;

@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="peepo_coffee.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Converter PPM/PGM to JPEG
    </div>
@@ -73,6 +73,9 @@ $(function() {
 <div class="title">mcu.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>file containing every functions related to the MCU  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
@@ -88,7 +91,7 @@ Include dependency graph for mcu.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="mcu_8c__incl.png" border="0" usemap="#src_2mcu_8c" alt=""/></div>
 <map name="src_2mcu_8c" id="src_2mcu_8c">
-<area shape="rect" title=" " alt="" coords="289,5,373,32"/>
+<area shape="rect" title="file containing every functions related to the MCU" alt="" coords="289,5,373,32"/>
 <area shape="rect" title=" " alt="" coords="227,155,298,181"/>
 <area shape="rect" title=" " alt="" coords="323,155,389,181"/>
 <area shape="rect" title=" " alt="" coords="499,379,570,405"/>
@@ -114,7 +117,7 @@ Data Structures</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a982963745aee46f9cfb7b55d611d7de1"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structmcu__t.html">mcu_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mcu_8c.html#a982963745aee46f9cfb7b55d611d7de1">mcu_get_by_id</a> (struct <a class="el" href="structmcu__t.html">mcu_t</a> *head, uint32_t i)</td></tr>
-<tr class="memdesc:a982963745aee46f9cfb7b55d611d7de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the i th mcu *  <a href="mcu_8c.html#a982963745aee46f9cfb7b55d611d7de1">More...</a><br /></td></tr>
+<tr class="memdesc:a982963745aee46f9cfb7b55d611d7de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter of the i th mcu in the chained list  <a href="mcu_8c.html#a982963745aee46f9cfb7b55d611d7de1">More...</a><br /></td></tr>
 <tr class="separator:a982963745aee46f9cfb7b55d611d7de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae892c1fa6ae576c16687b7b176f6eb36"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structmcu__t.html">mcu_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mcu_8c.html#ae892c1fa6ae576c16687b7b176f6eb36">mcu_create</a> (struct <a class="el" href="structbloc__t.html">bloc_t</a> *Y, struct <a class="el" href="structbloc__t.html">bloc_t</a> *Cb, struct <a class="el" href="structbloc__t.html">bloc_t</a> *Cr)</td></tr>
 <tr class="memdesc:ae892c1fa6ae576c16687b7b176f6eb36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a mcu.  <a href="mcu_8c.html#ae892c1fa6ae576c16687b7b176f6eb36">More...</a><br /></td></tr>
@@ -132,10 +135,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a537bff96e3fa778bf0bd52159df941c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">print a list of mcu  <a href="mcu_8c.html#a537bff96e3fa778bf0bd52159df941c9">More...</a><br /></td></tr>
 <tr class="separator:a537bff96e3fa778bf0bd52159df941c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89aa0960e0b7ccfb758406f307a6306c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mcu_8c.html#a89aa0960e0b7ccfb758406f307a6306c">mcu_downsampling</a> (struct <a class="el" href="structmcu__t.html">mcu_t</a> *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3)</td></tr>
-<tr class="memdesc:a89aa0960e0b7ccfb758406f307a6306c"><td class="mdescLeft">&#160;</td><td class="mdescRight">apply the subsampling to CB and Cr list of blocs if needed  <a href="mcu_8c.html#a89aa0960e0b7ccfb758406f307a6306c">More...</a><br /></td></tr>
+<tr class="memdesc:a89aa0960e0b7ccfb758406f307a6306c"><td class="mdescLeft">&#160;</td><td class="mdescRight">apply the downsampling to the mcu  <a href="mcu_8c.html#a89aa0960e0b7ccfb758406f307a6306c">More...</a><br /></td></tr>
 <tr class="separator:a89aa0960e0b7ccfb758406f307a6306c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d4dffe130eeac7c561104da276c5d1f"><td class="memItemLeft" align="right" valign="top"><a id="a6d4dffe130eeac7c561104da276c5d1f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b> (struct <a class="el" href="structmcu__t.html">mcu_t</a> *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3)</td></tr>
+<tr class="memitem:a6d4dffe130eeac7c561104da276c5d1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mcu_8c.html#a6d4dffe130eeac7c561104da276c5d1f">mcus_downsampling</a> (struct <a class="el" href="structmcu__t.html">mcu_t</a> *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3)</td></tr>
+<tr class="memdesc:a6d4dffe130eeac7c561104da276c5d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">apply the downsampling to the mcu  <a href="mcu_8c.html#a6d4dffe130eeac7c561104da276c5d1f">More...</a><br /></td></tr>
 <tr class="separator:a6d4dffe130eeac7c561104da276c5d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaf19d4f15ffde133507a7ef05ea1a09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mcu_8c.html#aaaf19d4f15ffde133507a7ef05ea1a09">mcu_add</a> (struct <a class="el" href="structmcu__t.html">mcu_t</a> **mcu, struct <a class="el" href="structmcu__t.html">mcu_t</a> *next)</td></tr>
 <tr class="memdesc:aaaf19d4f15ffde133507a7ef05ea1a09"><td class="mdescLeft">&#160;</td><td class="mdescRight">insert a mcu in a mcu list at the end  <a href="mcu_8c.html#aaaf19d4f15ffde133507a7ef05ea1a09">More...</a><br /></td></tr>
@@ -157,7 +160,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 <tr class="separator:ab6fff637b6ad8adc81cf6d09f5196787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Paul Vernin (<a href="#" onclick="location.href='mai'+'lto:'+'pau'+'l.'+'ver'+'ni'+'n@g'+'re'+'nob'+'le'+'-in'+'p.'+'org'; return false;">paul.<span style="display: none;">.nosp@m.</span>vern<span style="display: none;">.nosp@m.</span>in@gr<span style="display: none;">.nosp@m.</span>enob<span style="display: none;">.nosp@m.</span>le-in<span style="display: none;">.nosp@m.</span>p.or<span style="display: none;">.nosp@m.</span>g</a>) </dd></dl>
+<div class="textblock"><p>file containing every functions related to the MCU </p>
+<dl class="section author"><dt>Author</dt><dd>Paul Vernin (<a href="#" onclick="location.href='mai'+'lto:'+'pau'+'l.'+'ver'+'ni'+'n@g'+'re'+'nob'+'le'+'-in'+'p.'+'org'; return false;">paul.<span style="display: none;">.nosp@m.</span>vern<span style="display: none;">.nosp@m.</span>in@gr<span style="display: none;">.nosp@m.</span>enob<span style="display: none;">.nosp@m.</span>le-in<span style="display: none;">.nosp@m.</span>p.or<span style="display: none;">.nosp@m.</span>g</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2022-05-18</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
@@ -207,14 +211,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 </div><div class="memdoc">
 
 <p>Create a list of mcu based on the mcu slicing parameters. </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000017">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000020">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pixels</td><td>matrix of pixels </td></tr>
     <tr><td class="paramname">height</td><td>height of the image </td></tr>
     <tr><td class="paramname">width</td><td>width of the image </td></tr>
-    <tr><td class="paramname">H1</td><td>number of bloc 8x8 horizontally </td></tr>
-    <tr><td class="paramname">V1</td><td>number of bloc 8x8 vertically </td></tr>
+    <tr><td class="paramname">H1</td><td>number of blocs Y horizontally </td></tr>
+    <tr><td class="paramname">V1</td><td>number of blocs Y vertically </td></tr>
   </table>
   </dd>
 </dl>
@@ -251,8 +255,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 <p>insert a mcu in a mcu list at the end </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mcu</td><td></td></tr>
-    <tr><td class="paramname">next</td><td></td></tr>
+    <tr><td class="paramname">mcu</td><td>the mcu </td></tr>
+    <tr><td class="paramname">next</td><td>the next mcu </td></tr>
   </table>
   </dd>
 </dl>
@@ -292,7 +296,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 </div><div class="memdoc">
 
 <p>Create a mcu. </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000016">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000017">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Y</td><td>(bloc_t*) The Y bloc </td></tr>
@@ -301,7 +305,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>struct mcu_t* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>struct mcu_t* the mcu </dd></dl>
 
 </div>
 </div>
@@ -322,7 +326,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 </div><div class="memdoc">
 
 <p>function that transform each bloc of each mcu into frequential bloc by applying the DCT </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000020">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000023">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mcu</td><td>head of the mcu list </td></tr>
@@ -351,7 +355,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 <p>destroy a mcu </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mcu</td><td></td></tr>
+    <tr><td class="paramname">mcu</td><td>the mcu </td></tr>
   </table>
   </dd>
 </dl>
@@ -414,10 +418,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
       </table>
 </div><div class="memdoc">
 
-<p>apply the subsampling to CB and Cr list of blocs if needed </p>
+<p>apply the downsampling to the mcu </p>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000018">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mcu</td><td></td></tr>
+    <tr><td class="paramname">mcu</td><td>the mcu </td></tr>
   </table>
   </dd>
 </dl>
@@ -475,11 +480,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 </div><div class="memdoc">
 
 <p>function that encode each mcu in the bitstream </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000019">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000022">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stream</td><td></td></tr>
-    <tr><td class="paramname">mcu</td><td></td></tr>
+    <tr><td class="paramname">stream</td><td>the bitstream </td></tr>
+    <tr><td class="paramname">mcu</td><td>head of the mcu list </td></tr>
   </table>
   </dd>
 </dl>
@@ -512,17 +517,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
       </table>
 </div><div class="memdoc">
 
-<p>get the i th mcu * </p>
+<p>getter of the i th mcu in the chained list </p>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000016">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stream</td><td></td></tr>
-    <tr><td class="paramname">vector</td><td></td></tr>
-    <tr><td class="paramname">mcu</td><td></td></tr>
-    <tr><td class="paramname">i</td><td>index in the list of mcu </td></tr>
+    <tr><td class="paramname">head</td><td>the head of the chained list </td></tr>
+    <tr><td class="paramname">i</td><td>the index </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>struct mcu_t* </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>struct mcu_t* the i th mcu or the last mcu if i is too big </dd></dl>
 
 </div>
 </div>
@@ -545,7 +549,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 <p>print a mcu </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mcu</td><td></td></tr>
+    <tr><td class="paramname">mcu</td><td>the mcu </td></tr>
   </table>
   </dd>
 </dl>
@@ -569,7 +573,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 </div><div class="memdoc">
 
 <p>function that apply quantification on each mcu </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000018">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000021">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mcu</td><td>head of the mcu list </td></tr>
@@ -596,7 +600,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 </div><div class="memdoc">
 
 <p>function that transform each frequential bloc of each mcu into vector with the zigzag order </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000021">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000024">Test:</a></b></dt><dd>✔️ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mcu</td><td>head of the mcu list </td></tr>
@@ -625,7 +629,80 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 <p>destroy a list of mcu </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">head</td><td>first mcu of the list </td></tr>
+    <tr><td class="paramname">head</td><td>the head of the list </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6d4dffe130eeac7c561104da276c5d1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d4dffe130eeac7c561104da276c5d1f">&#9670;&nbsp;</a></span>mcus_downsampling()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mcus_downsampling </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structmcu__t.html">mcu_t</a> *&#160;</td>
+          <td class="paramname"><em>mcu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>H1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>V1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>H2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>V2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>H3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>V3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>apply the downsampling to the mcu </p>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000019">Test:</a></b></dt><dd>✔️ </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mcu</td><td>the mcu </td></tr>
+    <tr><td class="paramname">H1</td><td>number of blocs Y horizontally </td></tr>
+    <tr><td class="paramname">V1</td><td>number of blocs Y vertically </td></tr>
+    <tr><td class="paramname">H2</td><td>number of blocs Cb horizontally </td></tr>
+    <tr><td class="paramname">V2</td><td>number of blocs Cb vertically </td></tr>
+    <tr><td class="paramname">H3</td><td>number of blocs Cr horizontally </td></tr>
+    <tr><td class="paramname">V3</td><td>number of blocs Cr vertically </td></tr>
   </table>
   </dd>
 </dl>
@@ -651,7 +728,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mcus_downsampling</b>
 <p>print a list of mcu </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mcu</td><td></td></tr>
+    <tr><td class="paramname">mcu</td><td>the head of the list </td></tr>
   </table>
   </dd>
 </dl>

@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="peepo_coffee.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Converter PPM/PGM to JPEG
    </div>
@@ -100,11 +100,12 @@ Include dependency graph for jpeg_writer.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjpeg.html">jpeg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A struct describing the JPEG image with all its header informations.  <a href="structjpeg.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a50de11d7b7e674402f3039167c475e3b"><td class="memItemLeft" align="right" valign="top"><a id="a50de11d7b7e674402f3039167c475e3b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>color_component</b> { <br />
+<tr class="memitem:a50de11d7b7e674402f3039167c475e3b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a> { <br />
 &#160;&#160;<b>Y</b>, 
 <b>Cb</b>, 
 <b>Cr</b>, 
@@ -116,8 +117,9 @@ Enumerations</h2></td></tr>
 <b>NB_COLOR_COMPONENTS</b>
 <br />
  }</td></tr>
+<tr class="memdesc:a50de11d7b7e674402f3039167c475e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">An Enumerated type describing the differents color types.  <a href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">More...</a><br /></td></tr>
 <tr class="separator:a50de11d7b7e674402f3039167c475e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c43762301ea03a626634314636cc07c"><td class="memItemLeft" align="right" valign="top"><a id="a1c43762301ea03a626634314636cc07c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>sample_type</b> { <br />
+<tr class="memitem:a1c43762301ea03a626634314636cc07c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a1c43762301ea03a626634314636cc07c">sample_type</a> { <br />
 &#160;&#160;<b>DC</b>, 
 <b>AC</b>, 
 <b>NB_SAMPLE_TYPES</b>, 
@@ -127,8 +129,9 @@ Enumerations</h2></td></tr>
 <b>NB_SAMPLE_TYPES</b>
 <br />
  }</td></tr>
+<tr class="memdesc:a1c43762301ea03a626634314636cc07c"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enumerated type descriping the differents sample types.  <a href="jpeg__writer_8c.html#a1c43762301ea03a626634314636cc07c">More...</a><br /></td></tr>
 <tr class="separator:a1c43762301ea03a626634314636cc07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99f26e6ee9fcd62f75203b5402df8098"><td class="memItemLeft" align="right" valign="top"><a id="a99f26e6ee9fcd62f75203b5402df8098"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>direction</b> { <br />
+<tr class="memitem:a99f26e6ee9fcd62f75203b5402df8098"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a99f26e6ee9fcd62f75203b5402df8098">direction</a> { <br />
 &#160;&#160;<b>H</b>, 
 <b>V</b>, 
 <b>NB_DIRECTIONS</b>, 
@@ -138,48 +141,49 @@ Enumerations</h2></td></tr>
 <b>NB_DIRECTIONS</b>
 <br />
  }</td></tr>
+<tr class="memdesc:a99f26e6ee9fcd62f75203b5402df8098"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enumerated type describing the differents types of sampling factors.  <a href="jpeg__writer_8c.html#a99f26e6ee9fcd62f75203b5402df8098">More...</a><br /></td></tr>
 <tr class="separator:a99f26e6ee9fcd62f75203b5402df8098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adfd00fef059830e74d306f08c2fa8d38"><td class="memItemLeft" align="right" valign="top"><a id="adfd00fef059830e74d306f08c2fa8d38"></a>
-struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_create</b> (void)</td></tr>
+<tr class="memitem:adfd00fef059830e74d306f08c2fa8d38"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#adfd00fef059830e74d306f08c2fa8d38">jpeg_create</a> (void)</td></tr>
+<tr class="memdesc:adfd00fef059830e74d306f08c2fa8d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate and return a new jpeg structure.  <a href="jpeg__writer_8c.html#adfd00fef059830e74d306f08c2fa8d38">More...</a><br /></td></tr>
 <tr class="separator:adfd00fef059830e74d306f08c2fa8d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac58a5a7dc5ec557492298fb738180177"><td class="memItemLeft" align="right" valign="top"><a id="ac58a5a7dc5ec557492298fb738180177"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_destroy</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memitem:ac58a5a7dc5ec557492298fb738180177"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#ac58a5a7dc5ec557492298fb738180177">jpeg_destroy</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memdesc:ac58a5a7dc5ec557492298fb738180177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy and free a jpeg structure.  <a href="jpeg__writer_8c.html#ac58a5a7dc5ec557492298fb738180177">More...</a><br /></td></tr>
 <tr class="separator:ac58a5a7dc5ec557492298fb738180177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf5f41a96b15688426e86f3ad69a2c53"><td class="memItemLeft" align="right" valign="top"><a id="aaf5f41a96b15688426e86f3ad69a2c53"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_ppm_filename</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, const char *ppm_filename)</td></tr>
+<tr class="memitem:aaf5f41a96b15688426e86f3ad69a2c53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#aaf5f41a96b15688426e86f3ad69a2c53">jpeg_set_ppm_filename</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, const char *ppm_filename)</td></tr>
+<tr class="memdesc:aaf5f41a96b15688426e86f3ad69a2c53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the filname of the inpute ppm file to the jpeg structure.  <a href="jpeg__writer_8c.html#aaf5f41a96b15688426e86f3ad69a2c53">More...</a><br /></td></tr>
 <tr class="separator:aaf5f41a96b15688426e86f3ad69a2c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87e4c7ce59ded19ecde71e1ee4b445cd"><td class="memItemLeft" align="right" valign="top"><a id="a87e4c7ce59ded19ecde71e1ee4b445cd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_jpeg_filename</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, const char *jpeg_filename)</td></tr>
+<tr class="memitem:a87e4c7ce59ded19ecde71e1ee4b445cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a87e4c7ce59ded19ecde71e1ee4b445cd">jpeg_set_jpeg_filename</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, const char *jpeg_filename)</td></tr>
+<tr class="memdesc:a87e4c7ce59ded19ecde71e1ee4b445cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the filename of the outpute jpeg file to the jpeg structure.  <a href="jpeg__writer_8c.html#a87e4c7ce59ded19ecde71e1ee4b445cd">More...</a><br /></td></tr>
 <tr class="separator:a87e4c7ce59ded19ecde71e1ee4b445cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a858b2c3b3a5d42bc2177012aa7c13b15"><td class="memItemLeft" align="right" valign="top"><a id="a858b2c3b3a5d42bc2177012aa7c13b15"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_image_height</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, uint32_t image_height)</td></tr>
+<tr class="memitem:a858b2c3b3a5d42bc2177012aa7c13b15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a858b2c3b3a5d42bc2177012aa7c13b15">jpeg_set_image_height</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, uint32_t image_height)</td></tr>
+<tr class="memdesc:a858b2c3b3a5d42bc2177012aa7c13b15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the height of the image to the jpeg structure.  <a href="jpeg__writer_8c.html#a858b2c3b3a5d42bc2177012aa7c13b15">More...</a><br /></td></tr>
 <tr class="separator:a858b2c3b3a5d42bc2177012aa7c13b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48416c250d72ea73d777aad0f8b6d444"><td class="memItemLeft" align="right" valign="top"><a id="a48416c250d72ea73d777aad0f8b6d444"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_image_width</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, uint32_t image_width)</td></tr>
+<tr class="memitem:a48416c250d72ea73d777aad0f8b6d444"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a48416c250d72ea73d777aad0f8b6d444">jpeg_set_image_width</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, uint32_t image_width)</td></tr>
+<tr class="memdesc:a48416c250d72ea73d777aad0f8b6d444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the width of the image to the jpeg structure.  <a href="jpeg__writer_8c.html#a48416c250d72ea73d777aad0f8b6d444">More...</a><br /></td></tr>
 <tr class="separator:a48416c250d72ea73d777aad0f8b6d444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c2fc3cd89dd6dae3ca2f951976e9792"><td class="memItemLeft" align="right" valign="top"><a id="a6c2fc3cd89dd6dae3ca2f951976e9792"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_nb_components</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, uint8_t nb_components)</td></tr>
+<tr class="memitem:a6c2fc3cd89dd6dae3ca2f951976e9792"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a6c2fc3cd89dd6dae3ca2f951976e9792">jpeg_set_nb_components</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, uint8_t nb_components)</td></tr>
+<tr class="memdesc:a6c2fc3cd89dd6dae3ca2f951976e9792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of color components to the jpeg structure.  <a href="jpeg__writer_8c.html#a6c2fc3cd89dd6dae3ca2f951976e9792">More...</a><br /></td></tr>
 <tr class="separator:a6c2fc3cd89dd6dae3ca2f951976e9792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbc4b67949691cece416f7cf800dd96b"><td class="memItemLeft" align="right" valign="top"><a id="afbc4b67949691cece416f7cf800dd96b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_sampling_factor</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, enum color_component cc, enum direction dir, uint8_t sampling_factor)</td></tr>
+<tr class="memitem:afbc4b67949691cece416f7cf800dd96b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#afbc4b67949691cece416f7cf800dd96b">jpeg_set_sampling_factor</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a> cc, enum <a class="el" href="jpeg__writer_8c.html#a99f26e6ee9fcd62f75203b5402df8098">direction</a> dir, uint8_t sampling_factor)</td></tr>
+<tr class="memdesc:afbc4b67949691cece416f7cf800dd96b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the sampling factor for a given color component and a given direction to the jpeg structure.  <a href="jpeg__writer_8c.html#afbc4b67949691cece416f7cf800dd96b">More...</a><br /></td></tr>
 <tr class="separator:afbc4b67949691cece416f7cf800dd96b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acef21aeb49dca02c452bc25c9615e259"><td class="memItemLeft" align="right" valign="top"><a id="acef21aeb49dca02c452bc25c9615e259"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_huffman_table</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, enum sample_type acdc, enum color_component cc, struct <a class="el" href="structhuff__table.html">huff_table</a> *htable)</td></tr>
+<tr class="memitem:acef21aeb49dca02c452bc25c9615e259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#acef21aeb49dca02c452bc25c9615e259">jpeg_set_huffman_table</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, enum <a class="el" href="jpeg__writer_8c.html#a1c43762301ea03a626634314636cc07c">sample_type</a> acdc, enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a> cc, struct <a class="el" href="structhuff__table.html">huff_table</a> *htable)</td></tr>
+<tr class="memdesc:acef21aeb49dca02c452bc25c9615e259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the huffman table for a given color component and a given sample type to the jpeg structure.  <a href="jpeg__writer_8c.html#acef21aeb49dca02c452bc25c9615e259">More...</a><br /></td></tr>
 <tr class="separator:acef21aeb49dca02c452bc25c9615e259"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a743216291c004da4d8ee69e77cb4d9e8"><td class="memItemLeft" align="right" valign="top"><a id="a743216291c004da4d8ee69e77cb4d9e8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_set_quantization_table</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, enum color_component cc, uint8_t *qtable)</td></tr>
+<tr class="memitem:a743216291c004da4d8ee69e77cb4d9e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a743216291c004da4d8ee69e77cb4d9e8">jpeg_set_quantization_table</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg, enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a> cc, uint8_t *qtable)</td></tr>
+<tr class="memdesc:a743216291c004da4d8ee69e77cb4d9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the quantization table for a given color component to the jpeg structure.  <a href="jpeg__writer_8c.html#a743216291c004da4d8ee69e77cb4d9e8">More...</a><br /></td></tr>
 <tr class="separator:a743216291c004da4d8ee69e77cb4d9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6562d46568305b06b03f8ffd1f85c552"><td class="memItemLeft" align="right" valign="top"><a id="a6562d46568305b06b03f8ffd1f85c552"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_write_header</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memitem:a6562d46568305b06b03f8ffd1f85c552"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a6562d46568305b06b03f8ffd1f85c552">jpeg_write_header</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memdesc:a6562d46568305b06b03f8ffd1f85c552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the header in a .jpg file from a jpeg structure.  <a href="jpeg__writer_8c.html#a6562d46568305b06b03f8ffd1f85c552">More...</a><br /></td></tr>
 <tr class="separator:a6562d46568305b06b03f8ffd1f85c552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc4d6cabac3c3e21bd6ebbbdc6405028"><td class="memItemLeft" align="right" valign="top"><a id="adc4d6cabac3c3e21bd6ebbbdc6405028"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_write_footer</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memitem:adc4d6cabac3c3e21bd6ebbbdc6405028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#adc4d6cabac3c3e21bd6ebbbdc6405028">jpeg_write_footer</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memdesc:adc4d6cabac3c3e21bd6ebbbdc6405028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the footer in a .jpg file from a jpeg structure.  <a href="jpeg__writer_8c.html#adc4d6cabac3c3e21bd6ebbbdc6405028">More...</a><br /></td></tr>
 <tr class="separator:adc4d6cabac3c3e21bd6ebbbdc6405028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aad572855659f863ca5bf97252f848f"><td class="memItemLeft" align="right" valign="top"><a id="a4aad572855659f863ca5bf97252f848f"></a>
-struct <a class="el" href="structbitstream.html">bitstream</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>jpeg_get_bitstream</b> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memitem:a4aad572855659f863ca5bf97252f848f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structbitstream.html">bitstream</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpeg__writer_8c.html#a4aad572855659f863ca5bf97252f848f">jpeg_get_bitstream</a> (struct <a class="el" href="structjpeg.html">jpeg</a> *jpg)</td></tr>
+<tr class="memdesc:a4aad572855659f863ca5bf97252f848f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creat a new bitstream from a jpeg structure.  <a href="jpeg__writer_8c.html#a4aad572855659f863ca5bf97252f848f">More...</a><br /></td></tr>
 <tr class="separator:a4aad572855659f863ca5bf97252f848f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -188,7 +192,513 @@ struct <a class="el" href="structbitstream.html">bitstream</a> *&#160;</td><td c
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2022-05-18</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a50de11d7b7e674402f3039167c475e3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50de11d7b7e674402f3039167c475e3b">&#9670;&nbsp;</a></span>color_component</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An Enumerated type describing the differents color types. </p>
+
+</div>
+</div>
+<a id="a99f26e6ee9fcd62f75203b5402df8098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99f26e6ee9fcd62f75203b5402df8098">&#9670;&nbsp;</a></span>direction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="jpeg__writer_8c.html#a99f26e6ee9fcd62f75203b5402df8098">direction</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An enumerated type describing the differents types of sampling factors. </p>
+
+</div>
+</div>
+<a id="a1c43762301ea03a626634314636cc07c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c43762301ea03a626634314636cc07c">&#9670;&nbsp;</a></span>sample_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="jpeg__writer_8c.html#a1c43762301ea03a626634314636cc07c">sample_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An enumerated type descriping the differents sample types. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="adfd00fef059830e74d306f08c2fa8d38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfd00fef059830e74d306f08c2fa8d38">&#9670;&nbsp;</a></span>jpeg_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structjpeg.html">jpeg</a>* jpeg_create </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate and return a new jpeg structure. </p>
+<dl class="section return"><dt>Returns</dt><dd>struct jpeg* </dd></dl>
+
+</div>
+</div>
+<a id="ac58a5a7dc5ec557492298fb738180177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac58a5a7dc5ec557492298fb738180177">&#9670;&nbsp;</a></span>jpeg_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_destroy </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroy and free a jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4aad572855659f863ca5bf97252f848f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aad572855659f863ca5bf97252f848f">&#9670;&nbsp;</a></span>jpeg_get_bitstream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structbitstream.html">bitstream</a>* jpeg_get_bitstream </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creat a new bitstream from a jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>struct bitstream1* </dd></dl>
+
+</div>
+</div>
+<a id="acef21aeb49dca02c452bc25c9615e259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acef21aeb49dca02c452bc25c9615e259">&#9670;&nbsp;</a></span>jpeg_set_huffman_table()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_huffman_table </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="jpeg__writer_8c.html#a1c43762301ea03a626634314636cc07c">sample_type</a>&#160;</td>
+          <td class="paramname"><em>acdc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a>&#160;</td>
+          <td class="paramname"><em>cc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structhuff__table.html">huff_table</a> *&#160;</td>
+          <td class="paramname"><em>htable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the huffman table for a given color component and a given sample type to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">acdc</td><td></td></tr>
+    <tr><td class="paramname">cc</td><td></td></tr>
+    <tr><td class="paramname">htable</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a858b2c3b3a5d42bc2177012aa7c13b15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a858b2c3b3a5d42bc2177012aa7c13b15">&#9670;&nbsp;</a></span>jpeg_set_image_height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_image_height </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>image_height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the height of the image to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">image_height</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a48416c250d72ea73d777aad0f8b6d444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48416c250d72ea73d777aad0f8b6d444">&#9670;&nbsp;</a></span>jpeg_set_image_width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_image_width </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>image_width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the width of the image to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">image_width</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a87e4c7ce59ded19ecde71e1ee4b445cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e4c7ce59ded19ecde71e1ee4b445cd">&#9670;&nbsp;</a></span>jpeg_set_jpeg_filename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_jpeg_filename </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>jpeg_filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add the filename of the outpute jpeg file to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">jpeg_filename</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6c2fc3cd89dd6dae3ca2f951976e9792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c2fc3cd89dd6dae3ca2f951976e9792">&#9670;&nbsp;</a></span>jpeg_set_nb_components()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_nb_components </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>nb_components</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the number of color components to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">nb_components</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aaf5f41a96b15688426e86f3ad69a2c53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf5f41a96b15688426e86f3ad69a2c53">&#9670;&nbsp;</a></span>jpeg_set_ppm_filename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_ppm_filename </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>ppm_filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add the filname of the inpute ppm file to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a743216291c004da4d8ee69e77cb4d9e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743216291c004da4d8ee69e77cb4d9e8">&#9670;&nbsp;</a></span>jpeg_set_quantization_table()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_quantization_table </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a>&#160;</td>
+          <td class="paramname"><em>cc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>qtable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the quantization table for a given color component to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">cc</td><td></td></tr>
+    <tr><td class="paramname">qtable</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afbc4b67949691cece416f7cf800dd96b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc4b67949691cece416f7cf800dd96b">&#9670;&nbsp;</a></span>jpeg_set_sampling_factor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_set_sampling_factor </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="jpeg__writer_8c.html#a50de11d7b7e674402f3039167c475e3b">color_component</a>&#160;</td>
+          <td class="paramname"><em>cc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="jpeg__writer_8c.html#a99f26e6ee9fcd62f75203b5402df8098">direction</a>&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>sampling_factor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the sampling factor for a given color component and a given direction to the jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramname">cc</td><td></td></tr>
+    <tr><td class="paramname">dir</td><td></td></tr>
+    <tr><td class="paramname">sampling_factor</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adc4d6cabac3c3e21bd6ebbbdc6405028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc4d6cabac3c3e21bd6ebbbdc6405028">&#9670;&nbsp;</a></span>jpeg_write_footer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_write_footer </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write the footer in a .jpg file from a jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6562d46568305b06b03f8ffd1f85c552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6562d46568305b06b03f8ffd1f85c552">&#9670;&nbsp;</a></span>jpeg_write_header()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpeg_write_header </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structjpeg.html">jpeg</a> *&#160;</td>
+          <td class="paramname"><em>jpg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write the header in a .jpg file from a jpeg structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">jpg</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

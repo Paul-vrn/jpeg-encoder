@@ -55,12 +55,12 @@ struct node *createNode()
  * @param node: the root of the tree
  * @return none
  */
-void tree_destroy(struct node *node)
+void node_destroy(struct node *node)
 {
     if (node->left != NULL)
-        tree_destroy(node->left);
+        node_destroy(node->left);
     if (node->right != NULL)
-        tree_destroy(node->right);
+        node_destroy(node->right);
     free(node);
 }
 
@@ -131,15 +131,16 @@ uint32_t *huffcode_table_build(struct huff_table *hufftable)
         }
     
     }
+    node_destroy(root);
     return huffcode_table;
 }
 
 /**
  * @brief When called, return the huffman code of a symbol
  * 
- * @param ht 
- * @param value 
- * @param nb_bits 
+ * @param[in] ht huffman table
+ * @param[in] value symbol
+ * @param[out] nb_bits number of bits used to encode the symbol
  * @return uint32_t 
  */
 uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *nb_bits){
@@ -156,16 +157,18 @@ uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *n
             return ht->huffcode_table[i];
         }
     }
+
     return 0;
 }
+
 
 /**
  * @brief Create the huffman table structure
  * 
- * @param nb_symb_per_lengths 
- * @param symbols 
- * @param nb_symbols 
- * @return struct huff_table* 
+ * @param nb_symb_per_lengths length of each symbol
+ * @param symbols pointer to the symbols
+ * @param nb_symbols number of symbols
+ * @return struct huff_table* huffman table
  */
 struct huff_table *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols){
 
@@ -212,6 +215,7 @@ uint8_t *huffman_table_get_length_vector(struct huff_table *ht){
  * @param ht 
  */
 void huffman_table_destroy(struct huff_table *ht){
+    free(ht->huffcode_table);
     free(ht);
 }
 

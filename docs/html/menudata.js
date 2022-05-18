@@ -39,8 +39,10 @@ var menudata={children:[
 {text:"e",url:"globals.html#index_e"},
 {text:"f",url:"globals.html#index_f"},
 {text:"g",url:"globals.html#index_g"},
+{text:"j",url:"globals.html#index_j"},
 {text:"m",url:"globals.html#index_m"},
 {text:"r",url:"globals.html#index_r"},
+{text:"s",url:"globals.html#index_s"},
 {text:"v",url:"globals.html#index_v"}]},
 {text:"Functions",url:"globals_func.html",children:[
 {text:"b",url:"globals_func.html#index_b"},
@@ -49,6 +51,8 @@ var menudata={children:[
 {text:"e",url:"globals_func.html#index_e"},
 {text:"f",url:"globals_func.html#index_f"},
 {text:"g",url:"globals_func.html#index_g"},
+{text:"j",url:"globals_func.html#index_j"},
 {text:"m",url:"globals_func.html#index_m"},
 {text:"r",url:"globals_func.html#index_r"},
-{text:"v",url:"globals_func.html#index_v"}]}]}]}]}
+{text:"v",url:"globals_func.html#index_v"}]},
+{text:"Enumerations",url:"globals_enum.html"}]}]}]}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Converter PPM/PGM to JPEG: Main Page</title>
+<title>Converter PPM/PGM to JPEG: team18</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="peepo_coffee.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Converter PPM/PGM to JPEG
    </div>
@@ -61,11 +61,131 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Converter PPM/PGM to JPEG Documentation</div>  </div>
+<div class="title">team18 </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p>Membres de l'équipe : Paul Vernin, Axel Perrin, Marc Felix-Henry</p>
+<p>Sujet : <a href="https://formationc.pages.ensimag.fr/projet/jpeg/jpeg/">https://formationc.pages.ensimag.fr/projet/jpeg/jpeg/</a></p>
+<p>Documentation : <a href="./team18/docs/html/index.html">/docs/html/index.html</a></p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Progression</h1>
+<hr  />
+<ul>
+<li>[x] invader.pgm</li>
+<li>[x] gris.pgm</li>
+<li>[x] bisou.pgm</li>
+<li>[x] complexite.pgm</li>
+<li>[x] zig-zag.ppm</li>
+<li>[x] thumbs.ppm</li>
+<li>[x] horizontal.ppm</li>
+<li>[x] vertical.ppm</li>
+<li>[x] shaun_the_sheep.ppm</li>
+<li>[x] biiiiiig.ppm (15s)</li>
+<li>[x] Réécriture jpeg_writer</li>
+<li>[x] Réécriture bitstream</li>
+<li>[ ] Réécriture huffman</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Gantt</h1>
+<hr  />
+<div class="image">
+<img src="Gantt.drawio.png" alt=""/>
+<div class="caption">
+Gantt</div></div>
+   <h1><a class="anchor" id="autotoc_md5"></a>
+Structures de données choisies</h1>
+<hr  />
+<div class="image">
+<img src="struct.drawio.png" alt=""/>
+<div class="caption">
+Structure de données</div></div>
+   <h1><a class="anchor" id="autotoc_md7"></a>
+Arborescence du projet</h1>
+<div class="fragment"><div class="line">.</div>
+<div class="line">├── config_doxygen</div>
+<div class="line">├── Makefile</div>
+<div class="line">├── README.md</div>
+<div class="line">├── ppm2jpeg // executable to launch the program</div>
+<div class="line">├── src/ // contient tous les fichiers .c</div>
+<div class="line">├── include/ // contient tous les fichiers .h</div>
+<div class="line">├── obj/ // contient tous les fichiers compilés</div>
+<div class="line">│</div>
+<div class="line">├── tests/</div>
+<div class="line">│   ├── Makefile</div>
+<div class="line">│   ├── *.c // test &quot;&quot;unitaire&quot;&quot;</div>
+<div class="line">│   └── test.sh // compare notre conversion avec celle de l&#39;enseignant</div>
+<div class="line">│</div>
+<div class="line">└── docs/ // documentation du projet</div>
+<div class="line">    ├── html/ // contient la documentation du projet (généré avec doxygen)</div>
+<div class="line">    ├── Gantt.drawio.png</div>
+<div class="line">    ├── itu-t81.pdf</div>
+<div class="line">    └── struct.Drawio.png // structures utilisées</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+Expression fonctionnelle du besoin</h1>
+<hr  />
+<h2><a class="anchor" id="autotoc_md10"></a>
+Lecture paramètre (stdin)</h2>
+<p>Prérequis : -</p>
+<p>Entrée : <code>argv</code></p>
+<p>Sortie : <code>void</code></p>
+<p>Description : La fonction va réaliser les actions données en paramètre et remplir des variables globales\ (soit variables globales du fichier ppm2jpeg soit des variables passés en paramètre qu'on passera dans les autres fonctions qui en ont besoin)</p>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Lecture du fichier</h2>
+<p>Prérequis : Lecture paramètre</p>
+<p>Entrée : <code>void</code> (variable global contenant nom du fichier ppm)</p>
+<p>Sortie : <code>uint8_t[]</code> (tableaux contenant les pixels (data))</p>
+<p>Description : La fonction lit le fichier ppm/pgm et va changer des variables globales en fonction de l'entête de l'image, puis il va lire la partie "data" et la mettre dans un tableau de <code>uint8_t[]</code> qu'il va retourner.</p>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Conversion RGB vers YCbCr</h2>
+<p>Prérequis : Lecture du fichier</p>
+<p>Entrée : <code>*uint8_t[]</code></p>
+<p>Sortie : <code>void</code></p>
+<p>Description : Change tous les pixels de RGB vers YCbCr. Si PGM rien à changer</p>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Découpage de l'image en MCUs</h2>
+<p>Prérequis : Conversion RGB vers YCbCr</p>
+<p>Entrée : <code>uint8_t[]</code></p>
+<p>Sortie : <code>*mcu</code> (liste chainée de de <code>MCU</code> contenant des blocs Y, Cb, Cr)</p>
+<p>Description : En fonction du fichier (PPM/PGM) découper les pixels en MCUs, en fonction de l'échantillonage le MCU contient 1, 2 ou 4 bloc (Y, Cr, Cb).</p>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Sous-échantillonnage de l'image</h2>
+<p>Prérequis : Découpage de l'image en MCUs</p>
+<p>Entrée : <code>*mcu</code></p>
+<p>Sortie : <code>void</code></p>
+<p>Description : Dans chaque MCU, en fonction de l'échantillonage, on va fusionner les Cb0, Cb1,... en un unique Cb0 (pareil pour Cr). On fera des free des anciens blocs pour pas gaspiller de la mémoire.</p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Transformation DCT</h2>
+<p>Prérequis : Sous échantillonage de l'image</p>
+<p>Entrée : <code>*mcu</code></p>
+<p>Sortie : <code>void</code></p>
+<p>Description : Module qui prend la liste de MCU et applique la DCT à chaque bloc de chaque MCU. Il va mettre les nouvelles valeurs dans les "freqential_bloc" de tailles int16_t.</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Zig-zag</h2>
+<p>Prérequis : Transformation DCT</p>
+<p>Entrée : <code>*mcu</code></p>
+<p>Sortie : <code>void</code></p>
+<p>Description : Pour chaque frenquential_bloc de chaque mcu, crée un "vector_t" correspondant avec les valeurs triées en mode zig-zag</p>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Quantification</h2>
+<p>Prérequis : Zig-zag</p>
+<p>Entrée : <code>*uint8_t[][64]</code></p>
+<p>Sortie : <code>void</code></p>
+<p>Description : applique les tableaux de quantification à chaque vecteurs.</p>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Codage DC et AC (RLE)</h2>
+<p>Prérequis : Quantification</p>
+<p>Entrée :</p>
+<p>Sortie :</p>
+<p>Description :</p>
+<h2><a class="anchor" id="autotoc_md19"></a>
+Encodage Huffman</h2>
+<p>Prérequis : Quantification</p>
+<p>Entrée :</p>
+<p>Sortie :</p>
+<p>Description : </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -17,16 +17,16 @@
  * @brief Read the parameters from the command line and store them in the function parameters.
  *  These parameters need to be initialized before calling the function.
  * 
- * @param argc 
- * @param argv 
- * @param H1 
- * @param V1 
- * @param H2 
- * @param V2 
- * @param H3 
- * @param V3 
- * @param OUTFILE 
- * @param INFILE 
+ * @param argc the number of parameters
+ * @param argv the parameters
+ * @param H1 number of blocs Y horizontallly
+ * @param V1 number of blocs Y vertically
+ * @param H2 number of blocs Cb horizontallly
+ * @param V2 number of blocs Cb vertically
+ * @param H3 number of blocs Cr horizontallly
+ * @param V3 number of blocs Cr vertically
+ * @param OUTFILE name of the output file
+ * @param INFILE name of the input file
  */
 void read_param(int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, uint8_t *V2, uint8_t *H3, uint8_t *V3, char **OUTFILE, char **INFILE){
 

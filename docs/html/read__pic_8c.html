@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="peepo_coffee.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Converter PPM/PGM to JPEG
    </div>
@@ -95,10 +95,10 @@ Include dependency graph for read_pic.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa63949a8741afc3a6cd4a929672525f3"><td class="memItemLeft" align="right" valign="top">uint8_t ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="read__pic_8c.html#aa63949a8741afc3a6cd4a929672525f3">creat_matrix</a> (uint32_t *height, uint32_t *width, uint8_t *type, char **filename)</td></tr>
-<tr class="memdesc:aa63949a8741afc3a6cd4a929672525f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to read the image  <a href="read__pic_8c.html#aa63949a8741afc3a6cd4a929672525f3">More...</a><br /></td></tr>
+<tr class="memdesc:aa63949a8741afc3a6cd4a929672525f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creat 3 matrixes from the input ppm pictures. If the picture is a ppm file the 3 matrixes are for R, G and B. If the picture is a pgm file the first matrixe is for gray level and the others two are NULL.  <a href="read__pic_8c.html#aa63949a8741afc3a6cd4a929672525f3">More...</a><br /></td></tr>
 <tr class="separator:aa63949a8741afc3a6cd4a929672525f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a328ae323222b5bba19f066649110609e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="read__pic_8c.html#a328ae323222b5bba19f066649110609e">free_matrix</a> (uint8_t ***matrix)</td></tr>
-<tr class="memdesc:a328ae323222b5bba19f066649110609e"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to free memory used to store the matrix  <a href="read__pic_8c.html#a328ae323222b5bba19f066649110609e">More...</a><br /></td></tr>
+<tr class="memdesc:a328ae323222b5bba19f066649110609e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the memory allocated for the matrixes.  <a href="read__pic_8c.html#a328ae323222b5bba19f066649110609e">More...</a><br /></td></tr>
 <tr class="separator:a328ae323222b5bba19f066649110609e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -146,16 +146,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>function to read the image </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000023">Test:</a></b></dt><dd>✔️ </dd></dl>
+<p>Creat 3 matrixes from the input ppm pictures. If the picture is a ppm file the 3 matrixes are for R, G and B. If the picture is a pgm file the first matrixe is for gray level and the others two are NULL. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">argc</td><td></td></tr>
-    <tr><td class="paramname">argv</td><td></td></tr>
+    <tr><td class="paramname">height</td><td></td></tr>
+    <tr><td class="paramname">width</td><td></td></tr>
+    <tr><td class="paramname">type</td><td></td></tr>
+    <tr><td class="paramname">filename</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>uint8_t*** 3 matrix for each composant of the image (R, G, B) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t*** </dd></dl>
 
 </div>
 </div>
@@ -175,8 +176,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>function to free memory used to store the matrix </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000024">Test:</a></b></dt><dd>✔️ </dd></dl>
+<p>Free the memory allocated for the matrixes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">matrix</td><td></td></tr>

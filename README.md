@@ -8,7 +8,7 @@ Documentation : [/docs/html/index.html](./team18/docs/html/index.html)
 
 ## Progression
 
---- 
+---
 
 - [x] invader.pgm
 - [x] gris.pgm
@@ -22,7 +22,7 @@ Documentation : [/docs/html/index.html](./team18/docs/html/index.html)
 - [x] biiiiiig.ppm (15s)
 - [x] Réécriture jpeg_writer
 - [x] Réécriture bitstream
-- [ ] Réécriture huffman
+- [x] Réécriture huffman
 
 ## Gantt
 

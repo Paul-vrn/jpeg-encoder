@@ -1,15 +1,16 @@
 var searchData=
 [
-  ['mcu_5fadd_129',['mcu_add',['../mcu_8c.html#aaaf19d4f15ffde133507a7ef05ea1a09',1,'mcu.c']]],
-  ['mcu_5fcreate_130',['mcu_create',['../mcu_8c.html#ae892c1fa6ae576c16687b7b176f6eb36',1,'mcu.c']]],
-  ['mcu_5fdct_131',['mcu_dct',['../mcu_8c.html#a758569b60364d01d79ac7af3ec80c26a',1,'mcu.c']]],
-  ['mcu_5fdestroy_132',['mcu_destroy',['../mcu_8c.html#abc049c0b0156782ada7ea948e33281de',1,'mcu.c']]],
-  ['mcu_5fdownsampling_133',['mcu_downsampling',['../mcu_8c.html#a89aa0960e0b7ccfb758406f307a6306c',1,'mcu.c']]],
-  ['mcu_5fencode_134',['mcu_encode',['../mcu_8c.html#aa079ec6d37c30348cf10d7eea85d3800',1,'mcu.c']]],
-  ['mcu_5fget_5fby_5fid_135',['mcu_get_by_id',['../mcu_8c.html#a982963745aee46f9cfb7b55d611d7de1',1,'mcu.c']]],
-  ['mcu_5fprint_136',['mcu_print',['../mcu_8c.html#a065bb0b944c12f0ebc8277f2c4987a45',1,'mcu.c']]],
-  ['mcu_5fquantification_137',['mcu_quantification',['../mcu_8c.html#a1808c0ce698bd005246748e236c018d6',1,'mcu.c']]],
-  ['mcu_5fzigzag_138',['mcu_zigzag',['../mcu_8c.html#ab6fff637b6ad8adc81cf6d09f5196787',1,'mcu.c']]],
-  ['mcus_5fdestroy_139',['mcus_destroy',['../mcu_8c.html#a89f334867adaf8d253cb94a2169991cd',1,'mcu.c']]],
-  ['mcus_5fprint_140',['mcus_print',['../mcu_8c.html#a537bff96e3fa778bf0bd52159df941c9',1,'mcu.c']]]
+  ['jpeg_5fcreate_156',['jpeg_create',['../jpeg__writer_8c.html#adfd00fef059830e74d306f08c2fa8d38',1,'jpeg_writer.c']]],
+  ['jpeg_5fdestroy_157',['jpeg_destroy',['../jpeg__writer_8c.html#ac58a5a7dc5ec557492298fb738180177',1,'jpeg_writer.c']]],
+  ['jpeg_5fget_5fbitstream_158',['jpeg_get_bitstream',['../jpeg__writer_8c.html#a4aad572855659f863ca5bf97252f848f',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fhuffman_5ftable_159',['jpeg_set_huffman_table',['../jpeg__writer_8c.html#acef21aeb49dca02c452bc25c9615e259',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fimage_5fheight_160',['jpeg_set_image_height',['../jpeg__writer_8c.html#a858b2c3b3a5d42bc2177012aa7c13b15',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fimage_5fwidth_161',['jpeg_set_image_width',['../jpeg__writer_8c.html#a48416c250d72ea73d777aad0f8b6d444',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fjpeg_5ffilename_162',['jpeg_set_jpeg_filename',['../jpeg__writer_8c.html#a87e4c7ce59ded19ecde71e1ee4b445cd',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fnb_5fcomponents_163',['jpeg_set_nb_components',['../jpeg__writer_8c.html#a6c2fc3cd89dd6dae3ca2f951976e9792',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fppm_5ffilename_164',['jpeg_set_ppm_filename',['../jpeg__writer_8c.html#aaf5f41a96b15688426e86f3ad69a2c53',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fquantization_5ftable_165',['jpeg_set_quantization_table',['../jpeg__writer_8c.html#a743216291c004da4d8ee69e77cb4d9e8',1,'jpeg_writer.c']]],
+  ['jpeg_5fset_5fsampling_5ffactor_166',['jpeg_set_sampling_factor',['../jpeg__writer_8c.html#afbc4b67949691cece416f7cf800dd96b',1,'jpeg_writer.c']]],
+  ['jpeg_5fwrite_5ffooter_167',['jpeg_write_footer',['../jpeg__writer_8c.html#adc4d6cabac3c3e21bd6ebbbdc6405028',1,'jpeg_writer.c']]],
+  ['jpeg_5fwrite_5fheader_168',['jpeg_write_header',['../jpeg__writer_8c.html#a6562d46568305b06b03f8ffd1f85c552',1,'jpeg_writer.c']]]
 ];

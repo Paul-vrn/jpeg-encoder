@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="peepo_coffee.gif"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Converter PPM/PGM to JPEG
    </div>
@@ -95,7 +95,7 @@ Include dependency graph for read_param.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa46e652795139ae9dfeb1f23c77f7455"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="read__param_8c.html#aa46e652795139ae9dfeb1f23c77f7455">read_param</a> (int argc, char *argv[], uint8_t *H1, uint8_t *V1, uint8_t *H2, uint8_t *V2, uint8_t *H3, uint8_t *V3, char **OUTFILE, char **INFILE)</td></tr>
-<tr class="memdesc:aa46e652795139ae9dfeb1f23c77f7455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lis les paramètre d'entré du programme et modifie des variables global qui seront utilisées dans les autres programmes.  <a href="read__param_8c.html#aa46e652795139ae9dfeb1f23c77f7455">More...</a><br /></td></tr>
+<tr class="memdesc:aa46e652795139ae9dfeb1f23c77f7455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the parameters from the command line and store them in the function parameters. These parameters need to be initialized before calling the function.  <a href="read__param_8c.html#aa46e652795139ae9dfeb1f23c77f7455">More...</a><br /></td></tr>
 <tr class="separator:aa46e652795139ae9dfeb1f23c77f7455"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -179,12 +179,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Lis les paramètre d'entré du programme et modifie des variables global qui seront utilisées dans les autres programmes. </p>
-<dl class="test"><dt><b><a class="el" href="test.html#_test000022">Test:</a></b></dt><dd>✔️ </dd></dl>
+<p>Read the parameters from the command line and store them in the function parameters. These parameters need to be initialized before calling the function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">argc</td><td></td></tr>
-    <tr><td class="paramname">argv</td><td></td></tr>
+    <tr><td class="paramname">argc</td><td>the number of parameters </td></tr>
+    <tr><td class="paramname">argv</td><td>the parameters </td></tr>
+    <tr><td class="paramname">H1</td><td>number of blocs Y horizontallly </td></tr>
+    <tr><td class="paramname">V1</td><td>number of blocs Y vertically </td></tr>
+    <tr><td class="paramname">H2</td><td>number of blocs Cb horizontallly </td></tr>
+    <tr><td class="paramname">V2</td><td>number of blocs Cb vertically </td></tr>
+    <tr><td class="paramname">H3</td><td>number of blocs Cr horizontallly </td></tr>
+    <tr><td class="paramname">V3</td><td>number of blocs Cr vertically </td></tr>
+    <tr><td class="paramname">OUTFILE</td><td>name of the output file </td></tr>
+    <tr><td class="paramname">INFILE</td><td>name of the input file </td></tr>
   </table>
   </dd>
 </dl>
