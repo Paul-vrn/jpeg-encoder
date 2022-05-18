@@ -18,7 +18,6 @@
 #include "mcu.h"
 #include "jpeg_writer.h"
 #include "huffman.h"
-#include "huffman_tree.h"
 
 /**
  * @brief return the magnitude of the number
@@ -63,14 +62,14 @@ uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
  * @param color 
  * @return int16_t 
  */
-uint32_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, uint32_t prec_DC, struct huff_table *ht){
+uint32_t codage_DC(struct bitstream *stream, struct vector_t *vector, uint32_t prec_DC, struct huff_table *ht){
     int32_t valeur = vector_get(vector, 0) - prec_DC;
     int16_t magnitude = get_magnitude(valeur);
     uint32_t indice = get_indice_magnitude(valeur, magnitude);
     uint8_t *nb_bits = calloc(1, sizeof(uint8_t));
     uint32_t value = huffman_table_get_path(ht, magnitude, nb_bits);
-    bitstream_write_bits1(stream, value, *nb_bits, false);
-    bitstream_write_bits1(stream, indice, magnitude, false);
+    bitstream_write_bits(stream, value, *nb_bits);
+    bitstream_write_bits(stream, indice, magnitude);
     free(nb_bits);
     return vector_get(vector, 0);
 }
@@ -81,7 +80,7 @@ uint32_t codage_DC(struct bitstream1 *stream, struct vector_t *vector, uint32_t 
  * @param vector 
  * @param color 
  */
-void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_table *ht )
+void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_table *ht )
 {
     uint8_t coef_0 = 0;
     uint8_t nb_F0 = 0;
@@ -92,7 +91,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
         if (i == 63){
             value = 0x00;
             value_huff = huffman_table_get_path(ht, value, nb_bits);
-            bitstream_write_bits1(stream, value_huff, *nb_bits, false);
+            bitstream_write_bits(stream, value_huff, *nb_bits);
         } else {
             if (vector_get(vector, i) == 0)
             {
@@ -106,7 +105,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
                 while(nb_F0 > 0){
                     value = 0xF0;
                     value_huff = huffman_table_get_path(ht, value, nb_bits);
-                    bitstream_write_bits1(stream, value_huff, *nb_bits, false);
+                    bitstream_write_bits(stream, value_huff, *nb_bits);
                     nb_F0--;
                 }
                 value = vector_get(vector, i);
@@ -114,8 +113,8 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
                 uint32_t index = get_indice_magnitude(value, magnitude);
                 value_huff = (coef_0 << 4) + magnitude;
                 value_huff = huffman_table_get_path(ht, value_huff, nb_bits);
-                bitstream_write_bits1(stream, value_huff, *nb_bits, false);
-                bitstream_write_bits1(stream, index, magnitude, false);
+                bitstream_write_bits(stream, value_huff, *nb_bits);
+                bitstream_write_bits(stream, index, magnitude);
                 coef_0 = 0;
             }
         }
@@ -130,7 +129,7 @@ void codage_AC(struct bitstream1 *stream, struct vector_t *vector, struct huff_t
  * @param vector 
  * @param color 
  */
-int16_t encode_vectors(struct bitstream1 *stream, struct vector_t *vector, int16_t prec_DC, struct huff_table *htDC, struct huff_table *htAC){
+int16_t encode_vectors(struct bitstream *stream, struct vector_t *vector, int16_t prec_DC, struct huff_table *htDC, struct huff_table *htAC){
     struct vector_t *current_vector = vector;
     while (current_vector != NULL){
         prec_DC = codage_DC(stream, current_vector, prec_DC, htDC);

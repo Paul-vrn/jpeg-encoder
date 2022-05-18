@@ -14,7 +14,7 @@
 #include <stdbool.h>
 
 
-struct huff_table1{
+struct huff_table{
 
     uint8_t *htables_nb_symb_per_lengths;
     uint8_t *htables_symbols;
@@ -39,11 +39,6 @@ struct node *createNode()
     return node;
 }
 
-
-void huffman_table_destroy1(struct huff_table1 *ht){
-        free(ht);
-}
-
 void tree_destroy(struct node *node)
 {
     if (node->left != NULL)
@@ -66,12 +61,18 @@ bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t 
             return 1;
         }
         return 0;
-}
+    }
+    if (currentNode->used == 1){
+
+        return 0;
+
+    }
+
     /*Test gauche*/
     if(currentNode->left==NULL){
         currentNode->left = createNode();
     }
-    if(recursif(currentNode->left, code<<1, depth-1, huffcode_table, index)){
+    if(recursif(currentNode->left, code<<1, depth-1, huffcode_table, index) == 1){
         return 1;
     }
 
@@ -79,7 +80,7 @@ bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t 
     if(currentNode->right==NULL){
         currentNode->right = createNode();
     }
-    if(recursif(currentNode->right, (code<<1)|1, depth-1, huffcode_table, index)){
+    if(recursif(currentNode->right, (code<<1)+ 1, depth-1, huffcode_table, index) == 1){
         return 1;
     }
 
@@ -87,25 +88,32 @@ bool recursif(struct node *currentNode, uint32_t code, uint32_t depth, uint32_t 
 
 }
 
-void huffcode_table_build1(struct huff_table1 *hufftable)
+uint32_t *huffcode_table_build(struct huff_table *hufftable)
 {
     uint32_t index = 0;
-    uint32_t huffcode_table[hufftable->nb_symbols];
+    uint32_t *huffcode_table = calloc(hufftable->nb_symbols, sizeof(uint32_t));
     struct node *root = createNode();
     for(uint32_t i=0; i<16; i++){
         for(uint32_t j=0; j<hufftable->htables_nb_symb_per_lengths[i]; j++){
-            recursif(root, 0, i+1, huffcode_table, &index);
+            recursif(root, (uint32_t)0, i+1, huffcode_table, &index);
             
         }
-    hufftable->huffcode_table = huffcode_table;
+    
     }
-    tree_destroy(root);
+    return huffcode_table;
 }
 
-uint32_t huffman_table_get_path1(struct huff_table1 *ht, uint8_t value, uint8_t *nb_bits){
+uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *nb_bits){
+
     for(uint32_t i=0; i<ht->nb_symbols; i++){
         if(ht->htables_symbols[i]==value){
-            *nb_bits = ht->htables_nb_symb_per_lengths[i];
+            int32_t k = i;
+            uint32_t cpt = 0;
+            while(k>=0){
+                k -= ht->htables_nb_symb_per_lengths[cpt];
+                cpt += 1;
+            }
+            *nb_bits = cpt;
             return ht->huffcode_table[i];
         }
     }
@@ -113,15 +121,15 @@ uint32_t huffman_table_get_path1(struct huff_table1 *ht, uint8_t value, uint8_t 
 }
 
 
-struct huff_table1 *huffman_table_build1(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols){
+struct huff_table *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols){
 
-    struct huff_table1 *table = calloc(1, sizeof(struct huff_table1));
+    struct huff_table *table = calloc(1, sizeof(struct huff_table));
 
     table->htables_nb_symb_per_lengths = nb_symb_per_lengths;
     table->htables_symbols = symbols;
     table->nb_symbols = nb_symbols;
     // table->huffcode_table = calloc(nb_symbols, sizeof(uint32_t));
-    huffcode_table_build1(table);
+    table->huffcode_table = huffcode_table_build(table);
 
     return table;
 
@@ -129,14 +137,20 @@ struct huff_table1 *huffman_table_build1(uint8_t *nb_symb_per_lengths, uint8_t *
 
 
 
-uint8_t *huffman_table_get_symbols1(struct huff_table1 *ht){
+uint8_t *huffman_table_get_symbols(struct huff_table *ht){
 
     return ht->htables_symbols;
 
 }
 
-uint8_t *huffman_table_get_length_vector1(struct huff_table1 *ht){
+uint8_t *huffman_table_get_length_vector(struct huff_table *ht){
 
     return ht->htables_nb_symb_per_lengths;
 
 }
+
+void huffman_table_destroy(struct huff_table *ht){
+    free(ht);
+}
+
+

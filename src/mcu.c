@@ -318,7 +318,7 @@ void mcu_quantification(struct mcu_t *mcu){
  * @param stream 
  * @param mcu 
  */
-void mcu_encode(struct bitstream1 *stream, struct mcu_t* mcu, 
+void mcu_encode(struct bitstream *stream, struct mcu_t* mcu, 
 				struct huff_table *ht_DC_Y,    struct huff_table *ht_AC_Y, 
 				struct huff_table *ht_DC_CbCr, struct huff_table *ht_AC_CbCr){
 	uint32_t i = 0;

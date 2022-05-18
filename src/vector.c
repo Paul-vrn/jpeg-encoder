@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include "qtables.h"
 #include "frequential_bloc.h"
+#include <math.h>
 
 /**
  * @brief structure to represent a vector

@@ -14,7 +14,7 @@
 #include <stdbool.h>
 
 
-struct bitstream1{
+struct bitstream{
 
     FILE *fg;
     uint32_t buff;
@@ -22,9 +22,9 @@ struct bitstream1{
 
 };
 
-struct bitstream1 *bitstream_create1(char *filename){
+struct bitstream *bitstream_create(char *filename){
 
-    struct bitstream1 *bitstream = calloc(1, sizeof(struct bitstream1));
+    struct bitstream *bitstream = calloc(1, sizeof(struct bitstream));
 
     bitstream->fg = fopen(filename, "ab");
 
@@ -36,7 +36,7 @@ struct bitstream1 *bitstream_create1(char *filename){
 }
 
 
-void bitstream_destroy1(struct bitstream1 *stream){
+void bitstream_destroy(struct bitstream *stream){
 
     fclose(stream->fg);
     free(stream);
@@ -46,7 +46,7 @@ void bitstream_destroy1(struct bitstream1 *stream){
 }
 
 
-void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb_bits, bool is_marker){
+void bitstream_write_bits(struct bitstream *stream, uint32_t value, uint8_t nb_bits){
 
     uint8_t trash = 0;
     value = value - ((value>>nb_bits)<<nb_bits); 
@@ -99,7 +99,7 @@ void bitstream_write_bits1(struct bitstream1 *stream, uint32_t value, uint8_t nb
 
 }
 
-void bitstream_flush1(struct bitstream1 *stream){
+void bitstream_flush(struct bitstream *stream){
 
     if (stream->nb_bit_buff != 0){
 
