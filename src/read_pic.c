@@ -15,11 +15,14 @@
 
 
 /**
- * @brief function to read the image
- * @test✔️
- * @param argc 
- * @param argv 
- * @return uint8_t*** 3 matrix for each composant of the image (R, G, B) 
+ * @brief Creat 3 matrixes from the input ppm pictures. If the picture is a ppm file the 3 matrixes are for R, G and B.
+ * If the picture is a pgm file the first matrixe is for gray level and the others two are NULL.
+ * 
+ * @param height 
+ * @param width 
+ * @param type 
+ * @param filename 
+ * @return uint8_t*** 
  */
 uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char **filename){
 
@@ -126,8 +129,8 @@ uint8_t ***creat_matrix(uint32_t *height, uint32_t *width, uint8_t *type, char *
 }
 
 /**
- * @brief function to free memory used to store the matrix
- * @test✔️
+ * @brief Free the memory allocated for the matrixes.
+ * 
  * @param matrix 
  */
 void free_matrix(uint8_t ***matrix){
