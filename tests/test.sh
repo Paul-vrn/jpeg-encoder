@@ -1,4 +1,5 @@
 #!/bin/bash
+# script qui va générer les .jpeg de tous les .ppm avec notre programme et celui des profs puis comparer les résultats avec compare et enfin supprimer les fichiers générés
 if ! test -f "../ppm2jpeg"; then 
     echo "generate ppm2jpeg"
     make -C ../

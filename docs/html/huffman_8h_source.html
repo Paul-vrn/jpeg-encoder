@@ -90,21 +90,12 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">bool</span> recursif(<span class="keyword">struct</span> <a class="code" href="structnode.html">node</a> *currentNode, uint32_t code, uint32_t depth, uint32_t *huffcode_table, uint32_t *index);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;uint32_t *huffcode_table_build(<span class="keyword">struct</span> <a class="code" href="structhuff__table.html">huff_table</a> *hufftable);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;uint32_t huffman_table_get_path(<span class="keyword">struct</span> <a class="code" href="structhuff__table.html">huff_table</a> *ht, uint8_t value, uint8_t *nb_bits);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">struct </span><a class="code" href="structhuff__table.html">huff_table</a> *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols){</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">struct </span><a class="code" href="structhuff__table.html">huff_table</a> *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;uint8_t *huffman_table_get_symbols(<span class="keyword">struct</span> <a class="code" href="structhuff__table.html">huff_table</a> *ht);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;uint8_t *huffman_table_get_length_vector(<span class="keyword">struct</span> <a class="code" href="structhuff__table.html">huff_table</a> *ht);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> huffman_table_destroy(<span class="keyword">struct</span> <a class="code" href="structhuff__table.html">huff_table</a> *ht);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//struct huff_table *huffman_table_build(uint8_t *nb_symb_per_lengths, uint8_t *symbols, uint8_t nb_symbols);</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//uint8_t *huffman_table_get_symbols(struct huff_table *ht);</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//uint8_t *huffman_table_get_length_vector(struct huff_table *ht);</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//void huffman_table_destroy(struct huff_table *ht);</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//uint32_t huffman_table_get_path(struct huff_table *ht, uint8_t value, uint8_t *nb_bits);</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* _HUFFMAN_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* _HUFFMAN_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="astructnode_html"><div class="ttname"><a href="structnode.html">node</a></div><div class="ttdoc">A struct to create the huffman tree that is used later to get the huffman codes of symbols.</div><div class="ttdef"><b>Definition:</b> huffman.c:33</div></div>
 <div class="ttc" id="astructhuff__table_html"><div class="ttname"><a href="structhuff__table.html">huff_table</a></div><div class="ttdoc">A struct to store the different usfull informations to build the huffman tree. The tree is then store...</div><div class="ttdef"><b>Definition:</b> huffman.c:21</div></div>

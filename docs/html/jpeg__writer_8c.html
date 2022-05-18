@@ -282,7 +282,7 @@ Functions</h2></td></tr>
 <p>Destroy and free a jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -308,7 +308,7 @@ Functions</h2></td></tr>
 <p>Creat a new bitstream from a jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -357,10 +357,10 @@ Functions</h2></td></tr>
 <p>Set the huffman table for a given color component and a given sample type to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">acdc</td><td></td></tr>
-    <tr><td class="paramname">cc</td><td></td></tr>
-    <tr><td class="paramname">htable</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acdc</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cc</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">htable</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -396,8 +396,8 @@ Functions</h2></td></tr>
 <p>Set the height of the image to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">image_height</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">image_height</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -433,8 +433,8 @@ Functions</h2></td></tr>
 <p>Set the width of the image to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">image_width</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">image_width</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -470,8 +470,8 @@ Functions</h2></td></tr>
 <p>Add the filename of the outpute jpeg file to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">jpeg_filename</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpeg_filename</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -507,8 +507,8 @@ Functions</h2></td></tr>
 <p>Set the number of color components to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">nb_components</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nb_components</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -544,7 +544,7 @@ Functions</h2></td></tr>
 <p>Add the filname of the inpute ppm file to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -586,9 +586,9 @@ Functions</h2></td></tr>
 <p>Set the quantization table for a given color component to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">cc</td><td></td></tr>
-    <tr><td class="paramname">qtable</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cc</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">qtable</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -636,10 +636,10 @@ Functions</h2></td></tr>
 <p>Set the sampling factor for a given color component and a given direction to the jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
-    <tr><td class="paramname">cc</td><td></td></tr>
-    <tr><td class="paramname">dir</td><td></td></tr>
-    <tr><td class="paramname">sampling_factor</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cc</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dir</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sampling_factor</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -665,7 +665,7 @@ Functions</h2></td></tr>
 <p>Write the footer in a .jpg file from a jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -691,7 +691,7 @@ Functions</h2></td></tr>
 <p>Write the header in a .jpg file from a jpeg structure. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jpg</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">jpg</td><td></td></tr>
   </table>
   </dd>
 </dl>
