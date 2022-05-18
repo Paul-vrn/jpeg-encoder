@@ -2,7 +2,7 @@
  * @file jpeg_writer.c
  * @author Axel Perrin (axel.perrin@grenoble-inp.org)
  * @brief File to write the header of the jpeg image
- * @version 1.0
+ * @version 
  * @date 2022-05-18
  * 
  * @copyright Copyright (c) 2022
@@ -36,7 +36,7 @@ enum direction{
 };
 
 
-struct jpeg{
+struct jpeg1{
 
     const char *filename;
     const char *out_filename;
@@ -44,74 +44,74 @@ struct jpeg{
     uint32_t width;
     uint8_t nb_component;
     uint8_t sample[3][2];
-    struct huff_table *huff[3][2];
+    struct huff_table1 *huff[3][2];
     uint8_t *qtable[3];
 
 };
 
-struct jpeg *jpeg_create(void){
+struct jpeg1 *jpeg_create1(void){
 
-    struct jpeg *jpeg = calloc(1, sizeof(struct jpeg));
-    return jpeg;
+    struct jpeg1 *jpeg1 = calloc(1, sizeof(struct jpeg1));
+    return jpeg1;
 
 }
 
-void jpeg_destroy(struct jpeg *jpg){
+void jpeg_destroy1(struct jpeg1 *jpg){
 
     free(jpg);
 
 }
 
-void jpeg_set_ppm_filename(struct jpeg *jpg, const char *ppm_filename){
+void jpeg_set_ppm_filename1(struct jpeg1 *jpg, const char *ppm_filename){
 
     jpg->filename = ppm_filename;
 
 }
 
-void jpeg_set_jpeg_filename(struct jpeg *jpg, const char *jpeg_filename){
+void jpeg_set_jpeg_filename1(struct jpeg1 *jpg, const char *jpeg1_filename){
 
-    jpg->out_filename = jpeg_filename;
+    jpg->out_filename = jpeg1_filename;
 
 }
 
-void jpeg_set_image_height(struct jpeg *jpg, uint32_t image_height){
+void jpeg_set_image_height1(struct jpeg1 *jpg, uint32_t image_height){
 
     jpg->height = image_height;
 
 }
 
-void jpeg_set_image_width(struct jpeg *jpg, uint32_t image_width){
+void jpeg_set_image_width1(struct jpeg1 *jpg, uint32_t image_width){
 
     jpg->width = image_width;
 
 }
 
-void jpeg_set_nb_components(struct jpeg *jpg, uint8_t nb_components){
+void jpeg_set_nb_components1(struct jpeg1 *jpg, uint8_t nb_components){
 
     jpg->nb_component = nb_components;
 
 }
 
-void jpeg_set_sampling_factor(struct jpeg *jpg, enum color_component cc, enum direction dir, uint8_t sampling_factor){
+void jpeg_set_sampling_factor1(struct jpeg1 *jpg, enum color_component cc, enum direction dir, uint8_t sampling_factor){
 
     jpg->sample[cc][dir] = sampling_factor;
 
 }
 
 
-void jpeg_set_huffman_table(struct jpeg *jpg, enum sample_type acdc, enum color_component cc, struct huff_table *htable){
+void jpeg_set_huffman_table1(struct jpeg1 *jpg, enum sample_type acdc, enum color_component cc, struct huff_table1 *htable){
 
     jpg->huff[cc][acdc] = htable;
 
 }
 
-void jpeg_set_quantization_table(struct jpeg *jpg, enum color_component cc, uint8_t *qtable){
+void jpeg_set_quantization_table1(struct jpeg1 *jpg, enum color_component cc, uint8_t *qtable){
 
     jpg->qtable[cc] = qtable;
 
 }
 
-void jpeg_write_header(struct jpeg *jpg){
+void jpeg_write_header1(struct jpeg1 *jpg){
 
 
     FILE *fg = fopen(jpg->out_filename, "wb");
@@ -257,7 +257,7 @@ void jpeg_write_header(struct jpeg *jpg){
 }
 
 
-void jpeg_write_footer(struct jpeg *jpg){
+void jpeg_write_footer1(struct jpeg1 *jpg){
 
     FILE *fg = fopen(jpg->out_filename, "ab");
 
@@ -268,9 +268,9 @@ void jpeg_write_footer(struct jpeg *jpg){
 
 }
 
-struct bitstream *jpeg_get_bitstream(struct jpeg *jpg){
+struct bitstream1 *jpeg_get_bitstream1(struct jpeg1 *jpg){
 
-    struct bitstream *bitstream = bitstream_create(jpg->out_filename);
+    struct bitstream1 *bitstream = bitstream_create1(jpg->out_filename);
     return bitstream;
 
 }

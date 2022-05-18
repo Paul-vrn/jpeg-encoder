@@ -38,11 +38,11 @@ struct mcu_t {
 
 
 /**
- * @brief get the i th mcu
- * 
- * @param mcu 
- * @param i index in the list of mcu
- * @return struct mcu_t* 
+ * @brief getter of the i th mcu in the chained list
+ * @test✔️
+ * @param head the head of the chained list
+ * @param i the index
+ * @return struct mcu_t* the i th mcu or the last mcu if i is too big 
  */
 struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
 {
@@ -63,7 +63,7 @@ struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
  * @param Y (bloc_t*) The Y bloc
  * @param Cb (bloc_t*) The Cb bloc
  * @param Cr (bloc_t*) The Cr bloc
- * @return struct mcu_t* 
+ * @return struct mcu_t* the mcu
  */
 struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr){
 	struct mcu_t *mcu = calloc(1, sizeof(struct mcu_t));
@@ -83,7 +83,7 @@ struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr)
 /**
  * @brief destroy a mcu
  * 
- * @param mcu 
+ * @param mcu the mcu
  */
 void mcu_destroy(struct mcu_t *mcu){
 	blocs_destroy(&mcu->Y);
@@ -101,7 +101,7 @@ void mcu_destroy(struct mcu_t *mcu){
 /**
  * @brief destroy a list of mcu
  * 
- * @param head first mcu of the list
+ * @param head the head of the list
  */
 void mcus_destroy(struct mcu_t **head){
 	struct mcu_t *current = *head;
@@ -118,7 +118,7 @@ void mcus_destroy(struct mcu_t **head){
 /**
  * @brief print a mcu
  * 
- * @param mcu 
+ * @param mcu the mcu
  */
 void mcu_print(struct mcu_t *mcu){
 	printf("MCU:\n");
@@ -166,7 +166,7 @@ void mcu_print(struct mcu_t *mcu){
 /**
  * @brief print a list of mcu
  * 
- * @param mcu 
+ * @param mcu the head of the list
  */
 void mcus_print(struct mcu_t *mcu){
 	while (mcu != NULL){
@@ -176,9 +176,9 @@ void mcus_print(struct mcu_t *mcu){
 }
 
 /**
- * @brief apply the subsampling to CB and Cr list of blocs if needed
- * 
- * @param mcu 
+ * @brief apply the downsampling to the mcu
+ * @test✔️
+ * @param mcu the mcu
  */
 void mcu_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
 	if (mcu->Cb == NULL)
@@ -191,6 +191,17 @@ void mcu_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, 
 	}
 }
 
+/**
+ * @brief apply the downsampling to the mcu
+ * @test✔️
+ * @param mcu the mcu
+ * @param H1 number of blocs Y horizontally
+ * @param V1 number of blocs Y vertically
+ * @param H2 number of blocs Cb horizontally
+ * @param V2 number of blocs Cb vertically
+ * @param H3 number of blocs Cr horizontally
+ * @param V3 number of blocs Cr vertically
+ */
 void mcus_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
 	while (mcu != NULL){
 		mcu_downsampling(mcu, H1, V1, H2, V2, H3, V3);
@@ -201,8 +212,8 @@ void mcus_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2,
 /**
  * @brief insert a mcu in a mcu list at the end
  * 
- * @param mcu 
- * @param next 
+ * @param mcu the mcu
+ * @param next the next mcu
  */
 void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
 	struct mcu_t *tmp = *mcu;
@@ -215,14 +226,15 @@ void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
 		tmp->next = next;
 	}
 }
+
 /**
  * @brief Create a list of mcu based on the mcu slicing parameters
  * @test✔️
  * @param pixels matrix of pixels
  * @param height height of the image
  * @param width width of the image
- * @param H1 number of bloc 8x8 horizontally
- * @param V1 number of bloc 8x8 vertically
+ * @param H1 number of blocs Y horizontally
+ * @param V1 number of blocs Y vertically
  * @return struct mcu_t* list of mcu
  */
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t V1){
@@ -315,8 +327,8 @@ void mcu_quantification(struct mcu_t *mcu){
 /**
  * @brief function that encode each mcu in the bitstream
  * @test✔️
- * @param stream 
- * @param mcu 
+ * @param stream the bitstream
+ * @param mcu head of the mcu list
  */
 void mcu_encode(struct bitstream *stream, struct mcu_t* mcu, 
 				struct huff_table *ht_DC_Y,    struct huff_table *ht_AC_Y, 

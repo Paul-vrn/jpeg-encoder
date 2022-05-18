@@ -1,9 +1,22 @@
+/**
+ * @file qtables.h
+ * @author Les enseignants de l'Ensimag
+ * @brief quantification tables from GIMP
+ * @version 0.1
+ * @date 2022-05-18
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef _QTABLES_H_
 #define _QTABLES_H_
 
 #include <stdint.h>
 
-/* Tables de "The GIMP" (cf sujet). */
+/**
+ * @brief quantification table for luminance
+ * 
+ */
 static uint8_t quantification_table_Y[] = {
     0x05, 0x03, 0x03, 0x05, 0x07, 0x0c, 0x0f, 0x12,
     0x04, 0x04, 0x04, 0x06, 0x08, 0x11, 0x12, 0x11,
@@ -15,6 +28,10 @@ static uint8_t quantification_table_Y[] = {
     0x16, 0x1c, 0x1d, 0x1d, 0x22, 0x1e, 0x1f, 0x1e
 };
 
+/**
+ * @brief quantification table for chrominance
+ * 
+ */
 static uint8_t quantification_table_CbCr[] = {
     0x05, 0x05, 0x07, 0x0e, 0x1e, 0x1e, 0x1e, 0x1e,
     0x05, 0x06, 0x08, 0x14, 0x1e, 0x1e, 0x1e, 0x1e,

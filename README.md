@@ -40,6 +40,10 @@ Documentation : [/docs/html/index.html](./team18/docs/html/index.html)
 
 ```javascript
 .
+├── config_doxygen
+├── Makefile
+├── README.md
+├── ppm2jpeg // executable to launch the program
 ├── src/ // contient tous les fichiers .c
 ├── include/ // contient tous les fichiers .h
 ├── obj/ // contient tous les fichiers compilés

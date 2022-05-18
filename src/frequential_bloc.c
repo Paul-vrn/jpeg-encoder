@@ -21,15 +21,15 @@
  * 
  */
 struct frequential_bloc_t {
-    struct frequential_bloc_t *next;
-    int16_t matrice[8][8];
+    struct frequential_bloc_t *next; /** pointer to the next frequential bloc*/
+    int16_t matrice[8][8]; /** matrix 8x8 containing the frequential value after the DCT*/
 };
 
 /**
  * @brief setter of the next freq bloc
  * 
- * @param frequential_bloc 
- * @param next 
+ * @param frequential_bloc the frequential bloc
+ * @param next pointer to the next freq bloc
  */
 void frequential_bloc_set_next(struct frequential_bloc_t *frequential_bloc, struct frequential_bloc_t *next)
 {

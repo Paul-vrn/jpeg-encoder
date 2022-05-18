@@ -1,0 +1,6 @@
+<map id="mcu_t" name="mcu_t">
+<area shape="rect" id="node1" title="structure to represent a MCU" alt="" coords="161,124,223,151"/>
+<area shape="rect" id="node2" href="$structvector__t.html" title="structure to represent a vector" alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" href="$structbloc__t.html" title="structure to represent a bloc containing values of pixels (YCbCr)" alt="" coords="161,5,223,32"/>
+<area shape="rect" id="node4" href="$structfrequential__bloc__t.html" title="structure to represent a bloc containing frequential values" alt="" coords="304,5,443,32"/>
+</map>

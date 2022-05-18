@@ -11,17 +11,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <stdbool.h>
 #include "read_param.h"
 #include "read_pic.h"
 #include "convert_RGB_to_YCbCr.h"
-#include "jpeg_writer.h"
 #include "mcu.h"
 #include "htables.h"
-#include "huffman.h"
 #include "qtables.h"
-#include "bitstream.h"
-// #include "huffman.h"
 
 
 int main(int argc, char *argv[])
