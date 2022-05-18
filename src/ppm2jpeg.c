@@ -133,11 +133,7 @@ int main(int argc, char *argv[])
 		huffman_table_destroy(ht_DC_Cb);
 	if (ht_AC_Cb != NULL)
 		huffman_table_destroy(ht_AC_Cb);
-	if (ht_DC_Cr != NULL)
-		huffman_table_destroy(ht_DC_Cr);
-	if (ht_AC_Cr != NULL)
-		huffman_table_destroy(ht_AC_Cr);
-
+	
 	if (ht_DC_Y1 != NULL)
 		huffman_table_destroy1(ht_DC_Y1);
 	if (ht_AC_Y1 != NULL)
