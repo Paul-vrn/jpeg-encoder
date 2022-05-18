@@ -40,8 +40,8 @@ struct mcu_t {
 /**
  * @brief getter of the i th mcu in the chained list
  * @test✔️
- * @param head the head of the chained list
- * @param i the index
+ * @param[in] head the head of the chained list
+ * @param[in] i the index
  * @return struct mcu_t* the i th mcu or the last mcu if i is too big 
  */
 struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
@@ -60,9 +60,9 @@ struct mcu_t *mcu_get_by_id(struct mcu_t *head, uint32_t i)
 /**
  * @brief Create a mcu
  * @test✔️
- * @param Y (bloc_t*) The Y bloc
- * @param Cb (bloc_t*) The Cb bloc
- * @param Cr (bloc_t*) The Cr bloc
+ * @param[in] Y (bloc_t*) The Y bloc
+ * @param[in] Cb (bloc_t*) The Cb bloc
+ * @param[in] Cr (bloc_t*) The Cr bloc
  * @return struct mcu_t* the mcu
  */
 struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr){
@@ -83,7 +83,7 @@ struct mcu_t *mcu_create(struct bloc_t *Y, struct bloc_t *Cb, struct bloc_t *Cr)
 /**
  * @brief destroy a mcu
  * 
- * @param mcu the mcu
+ * @param[in] mcu the mcu
  */
 void mcu_destroy(struct mcu_t *mcu){
 	blocs_destroy(&mcu->Y);
@@ -101,7 +101,7 @@ void mcu_destroy(struct mcu_t *mcu){
 /**
  * @brief destroy a list of mcu
  * 
- * @param head the head of the list
+ * @param[in] head the head of the list
  */
 void mcus_destroy(struct mcu_t **head){
 	struct mcu_t *current = *head;
@@ -118,7 +118,7 @@ void mcus_destroy(struct mcu_t **head){
 /**
  * @brief print a mcu
  * 
- * @param mcu the mcu
+ * @param[in] mcu the mcu
  */
 void mcu_print(struct mcu_t *mcu){
 	printf("MCU:\n");
@@ -166,7 +166,7 @@ void mcu_print(struct mcu_t *mcu){
 /**
  * @brief print a list of mcu
  * 
- * @param mcu the head of the list
+ * @param[in] mcu the head of the list
  */
 void mcus_print(struct mcu_t *mcu){
 	while (mcu != NULL){
@@ -178,7 +178,7 @@ void mcus_print(struct mcu_t *mcu){
 /**
  * @brief apply the downsampling to the mcu
  * @test✔️
- * @param mcu the mcu
+ * @param[in] mcu the mcu
  */
 void mcu_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
 	if (mcu->Cb == NULL)
@@ -194,13 +194,13 @@ void mcu_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, 
 /**
  * @brief apply the downsampling to the mcu
  * @test✔️
- * @param mcu the mcu
- * @param H1 number of blocs Y horizontally
- * @param V1 number of blocs Y vertically
- * @param H2 number of blocs Cb horizontally
- * @param V2 number of blocs Cb vertically
- * @param H3 number of blocs Cr horizontally
- * @param V3 number of blocs Cr vertically
+ * @param[in] mcu the mcu
+ * @param[in] H1 number of blocs Y horizontally
+ * @param[in] V1 number of blocs Y vertically
+ * @param[in] H2 number of blocs Cb horizontally
+ * @param[in] V2 number of blocs Cb vertically
+ * @param[in] H3 number of blocs Cr horizontally
+ * @param[in] V3 number of blocs Cr vertically
  */
 void mcus_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2, uint32_t H3, uint32_t V3){
 	while (mcu != NULL){
@@ -212,8 +212,8 @@ void mcus_downsampling(struct mcu_t *mcu, uint32_t H1, uint32_t V1, uint32_t H2,
 /**
  * @brief insert a mcu in a mcu list at the end
  * 
- * @param mcu the mcu
- * @param next the next mcu
+ * @param[in] mcu the mcu
+ * @param[in] next the next mcu
  */
 void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
 	struct mcu_t *tmp = *mcu;
@@ -230,11 +230,11 @@ void mcu_add(struct mcu_t **mcu, struct mcu_t *next){
 /**
  * @brief Create a list of mcu based on the mcu slicing parameters
  * @test✔️
- * @param pixels matrix of pixels
- * @param height height of the image
- * @param width width of the image
- * @param H1 number of blocs Y horizontally
- * @param V1 number of blocs Y vertically
+ * @param[in] pixels matrix of pixels
+ * @param[in] height height of the image
+ * @param[in] width width of the image
+ * @param[in] H1 number of blocs Y horizontally
+ * @param[in] V1 number of blocs Y vertically
  * @return struct mcu_t* list of mcu
  */
 struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width, uint32_t H1, uint32_t V1){
@@ -312,7 +312,7 @@ struct mcu_t* decoupage_mcu(uint8_t **pixels[3], uint32_t height, uint32_t width
 /**
  * @brief function that apply quantification on each mcu
  * @test✔️
- * @param mcu head of the mcu list
+ * @param[in] mcu head of the mcu list
  */
 void mcu_quantification(struct mcu_t *mcu){
 	struct mcu_t *current_mcu = mcu;
@@ -327,8 +327,8 @@ void mcu_quantification(struct mcu_t *mcu){
 /**
  * @brief function that encode each mcu in the bitstream
  * @test✔️
- * @param stream the bitstream
- * @param mcu head of the mcu list
+ * @param[in] stream the bitstream
+ * @param[in] mcu head of the mcu list
  */
 void mcu_encode(struct bitstream *stream, struct mcu_t* mcu, 
 				struct huff_table *ht_DC_Y,    struct huff_table *ht_AC_Y, 
@@ -359,7 +359,7 @@ void mcu_encode(struct bitstream *stream, struct mcu_t* mcu,
 /**
  * @brief function that transform each bloc of each mcu into frequential bloc by applying the DCT
  * @test✔️
- * @param mcu head of the mcu list
+ * @param[in] mcu head of the mcu list
  */
 void mcu_dct(struct mcu_t* mcu){
 	struct mcu_t *current = mcu;
@@ -396,7 +396,7 @@ void mcu_dct(struct mcu_t* mcu){
 /**
  * @brief function that transform each frequential bloc of each mcu into vector with the zigzag order
  * @test✔️
- * @param mcu head of the mcu list
+ * @param[in] mcu head of the mcu list
  */
 void mcu_zigzag(struct mcu_t* mcu){
 	struct mcu_t *current = mcu;

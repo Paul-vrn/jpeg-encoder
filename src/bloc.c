@@ -46,8 +46,8 @@ uint8_t bloc_get_matrice(struct bloc_t *bloc, uint32_t i, uint32_t j){
 /**
  * @brief add the bloc to the bloc list at the end
  * 
- * @param bloc 
- * @param next 
+ * @param[in] bloc 
+ * @param[in] next 
  */
 void bloc_add(struct bloc_t **bloc, struct bloc_t *next){
 	struct bloc_t *tmp = *bloc;
@@ -65,7 +65,7 @@ void bloc_add(struct bloc_t **bloc, struct bloc_t *next){
 /**
  * @brief Create a bloc
  * @test✔️
- * @param matrice The matrice of the bloc
+ * @param[in] matrice The matrice of the bloc
  * @return struct bloc_t* The bloc
  */
 struct bloc_t *bloc_create(uint8_t matrice[8][8]){
@@ -91,11 +91,11 @@ struct bloc_t *bloc_create(uint8_t matrice[8][8]){
 /**
  * @brief function to create a bloc from a set of pixels
  * @test✔️
- * @param pixels matrix containing ALL the pixels
- * @param start_x x coordinate of the first pixel
- * @param end_x x coordinate of the last pixel
- * @param start_y y coordinate of the first pixel
- * @param end_y y coordinate of the last pixel
+ * @param[in] pixels matrix containing ALL the pixels
+ * @param[in] start_x x coordinate of the first pixel
+ * @param[in] end_x x coordinate of the last pixel
+ * @param[in] start_y y coordinate of the first pixel
+ * @param[in] end_y y coordinate of the last pixel
  * @return struct bloc_t* pointer to the new bloc
  */
 struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint32_t end_x, uint32_t start_y, uint32_t end_y){
@@ -146,7 +146,7 @@ struct bloc_t* bloc_create_from_pixels(uint8_t **pixels, uint32_t start_x, uint3
 /**
  * @brief Destroy blocs in the list
  * @test✔️
- * @param blocs 
+ * @param[in] blocs 
  */
 void blocs_destroy(struct bloc_t **head){
 	struct bloc_t *current = *head;
@@ -160,7 +160,7 @@ void blocs_destroy(struct bloc_t **head){
 /**
  * @brief Print values of a bloc
  * @test✔️
- * @param bloc 
+ * @param[in] bloc 
  */
 void bloc_print(struct bloc_t *bloc){
 	for (int i = 0; i < 8; i++) {
@@ -174,7 +174,7 @@ void bloc_print(struct bloc_t *bloc){
 /**
  * @brief Print values of blocs in the list
  * @test✔️
- * @param blocs
+ * @param[in] blocs
  */
 void blocs_print(struct bloc_t *blocs){
 	struct bloc_t *bloc = blocs;
@@ -189,7 +189,7 @@ void blocs_print(struct bloc_t *blocs){
 /**
  * @brief function that merge blocs based on the sous echantillonage part,
  * @test✔️
- * @param blocs 
+ * @param[in] blocs 
  */
 void blocs_fusion(struct bloc_t **blocs, uint32_t H1, uint32_t V1, uint32_t H2, uint32_t V2){
 	uint8_t big_matrix[8*V1][8*H1];

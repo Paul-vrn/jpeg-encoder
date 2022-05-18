@@ -22,8 +22,8 @@
 /**
  * @brief main function of the program	
  * 
- * @param argc 
- * @param argv 
+ * @param[in] argc 
+ * @param[in] argv 
  * @return int exit code
  */
 int main(int argc, char *argv[])

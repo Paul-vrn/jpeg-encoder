@@ -28,8 +28,8 @@ struct frequential_bloc_t {
 /**
  * @brief setter of the next freq bloc
  * 
- * @param frequential_bloc the frequential bloc
- * @param next pointer to the next freq bloc
+ * @param[in] frequential_bloc the frequential bloc
+ * @param[in] next pointer to the next freq bloc
  */
 void frequential_bloc_set_next(struct frequential_bloc_t *frequential_bloc, struct frequential_bloc_t *next)
 {
@@ -39,7 +39,7 @@ void frequential_bloc_set_next(struct frequential_bloc_t *frequential_bloc, stru
 /**
  * @brief getter of the next freq bloc
  * 
- * @param bloc 
+ * @param[in] bloc 
  * @return struct frequential_bloc_t* 
  */
 struct frequential_bloc_t* frequential_bloc_get_next(struct frequential_bloc_t *bloc)
@@ -55,8 +55,8 @@ int16_t frequential_bloc_get_matrice(struct frequential_bloc_t *frequential_bloc
 /**
  * @brief insert bloc in the list at the end
  * 
- * @param bloc 
- * @param next 
+ * @param[in] bloc 
+ * @param[in] next 
  */
 void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_bloc_t *next){
     struct frequential_bloc_t *tmp = *bloc;
@@ -73,7 +73,7 @@ void frequential_bloc_add(struct frequential_bloc_t **bloc, struct frequential_b
 /**
  * @brief destroy a list of freq bloc
  * 
- * @param frequential_blocs 
+ * @param[in] frequential_blocs 
  */
 void frequential_blocs_destroy(struct frequential_bloc_t **head){
     struct frequential_bloc_t *current = *head;
@@ -88,7 +88,7 @@ void frequential_blocs_destroy(struct frequential_bloc_t **head){
 /**
  * @brief create a frequentiel bloc from a matrice or NULL
  * @test✔️
- * @param matrice 
+ * @param[in] matrice 
  * @return struct frequential_bloc_t* 
  */
 struct frequential_bloc_t *frequential_bloc_create(int16_t matrice[8][8]){
@@ -113,7 +113,7 @@ struct frequential_bloc_t *frequential_bloc_create(int16_t matrice[8][8]){
 /**
  * @brief print a frequential bloc
  * 
- * @param bloc 
+ * @param[in] bloc 
  */
 void frequential_bloc_print(struct frequential_bloc_t *bloc){
     for (int i = 0; i < 8; i++) {
@@ -127,7 +127,7 @@ void frequential_bloc_print(struct frequential_bloc_t *bloc){
 /**
  * @brief print a list of frequential bloc
  * 
- * @param frequential_blocs 
+ * @param[in] frequential_blocs 
  */
 void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
     struct frequential_bloc_t *tmp = frequential_blocs;
@@ -140,9 +140,9 @@ void frequential_blocs_print(struct frequential_bloc_t *frequential_blocs){
 /**
  * @brief calculate the coeficient for every value of the bloc
  * @test✔️
- * @param bloc_copy 
- * @param i 
- * @param j 
+ * @param[in] bloc_copy 
+ * @param[in] i 
+ * @param[in] j 
  * @return float 
  */
 float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
@@ -172,7 +172,7 @@ float coef_dct(int16_t bloc_copy[8][8], uint32_t i, uint32_t j){
 /**
  * @brief apply the DCT on a bloc and return the result as a frequential bloc
  * @test✔️
- * @param bloc 
+ * @param[in] bloc 
  * @return struct frequential_bloc_t* 
  */
 struct frequential_bloc_t *dct(struct bloc_t *bloc){

@@ -28,7 +28,7 @@ struct bitstream{
 /**
  * @brief Initialize a new bitstream, allowing us to write bits into the given input file
  * 
- * @param filename 
+ * @param[in] filename 
  * @return struct bitstream* 
  */
 struct bitstream *bitstream_create(char *filename){
@@ -47,7 +47,7 @@ struct bitstream *bitstream_create(char *filename){
 /**
  * @brief Free the memory allocated to the bitstream and close the file
  * 
- * @param stream 
+ * @param[in] stream 
  */
 void bitstream_destroy(struct bitstream *stream){
 
@@ -61,9 +61,9 @@ void bitstream_destroy(struct bitstream *stream){
 /**
  * @brief Write bits into the bitstream when they are 8 bits in the buffer
  * 
- * @param stream 
- * @param value 
- * @param nb_bits 
+ * @param[in] stream 
+ * @param[in] value 
+ * @param[in] nb_bits 
  */
 void bitstream_write_bits(struct bitstream *stream, uint32_t value, uint8_t nb_bits){
 
@@ -122,7 +122,7 @@ void bitstream_write_bits(struct bitstream *stream, uint32_t value, uint8_t nb_b
 /**
  * @brief Use a the end of the bitstream to write the last bits contained in the buffer.
  * 
- * @param stream 
+ * @param[in] stream 
  */
 void bitstream_flush(struct bitstream *stream){
 

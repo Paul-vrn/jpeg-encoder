@@ -19,7 +19,7 @@
 /**
  * @brief return the magnitude of the number
  * @test✔️
- * @param number the number
+ * @param[in] number the number
  */
 uint8_t get_magnitude(int16_t number){
     uint8_t bits_needed = 0;
@@ -37,8 +37,8 @@ uint8_t get_magnitude(int16_t number){
 /**
  * @brief return the indice of the magnitude of the number
  * @test✔️
- * @param number the number
- * @param magnitude the magnitude of the number
+ * @param[in] number the number
+ * @param[in] magnitude the magnitude of the number
  */
 uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
     uint32_t min_value = pow(2, magnitude-1);
@@ -53,10 +53,10 @@ uint32_t get_indice_magnitude(int16_t number, uint8_t magnitude){
 /**
  * @brief encode the DC value in the stream
  * @test✔️ 
- * @param stream the bitsream
- * @param vector the vector
- * @param prec_DC the previous DC value
- * @param ht the huffman table used to encode the DC values
+ * @param[in] stream the bitsream
+ * @param[in] vector the vector
+ * @param[in] prec_DC the previous DC value
+ * @param[in] ht the huffman table used to encode the DC values
  * @return int32_t the new DC value
  */
 uint32_t codage_DC(struct bitstream *stream, struct vector_t *vector, uint32_t prec_DC, struct huff_table *ht){
@@ -75,9 +75,9 @@ uint32_t codage_DC(struct bitstream *stream, struct vector_t *vector, uint32_t p
 /**
  * @brief encode the AC value in the stream
  * @test✔️ 
- * @param stream the stream
- * @param vector the vector
- * @param ht the huffman table used to encode the AC values
+ * @param[in] stream the stream
+ * @param[in] vector the vector
+ * @param[in] ht the huffman table used to encode the AC values
  */
 void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_table *ht )
 {
@@ -124,11 +124,11 @@ void codage_AC(struct bitstream *stream, struct vector_t *vector, struct huff_ta
 /**
  * @brief encode the chained list of vectors in the stream
  * @test✔️
- * @param stream the stream
- * @param vector the vector
- * @param prec_DC the previous DC value
- * @param htDC the huffman table used to encode the DC values
- * @param htAC the huffman table used to encode the AC values
+ * @param[in] stream the stream
+ * @param[in] vector the vector
+ * @param[in] prec_DC the previous DC value
+ * @param[in] htDC the huffman table used to encode the DC values
+ * @param[in] htAC the huffman table used to encode the AC values
  * @return int16_t the new DC value
  */
 int16_t encode_vectors(struct bitstream *stream, struct vector_t *vector, int16_t prec_DC, struct huff_table *htDC, struct huff_table *htAC){

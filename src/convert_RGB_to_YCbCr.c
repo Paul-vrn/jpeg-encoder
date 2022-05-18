@@ -15,9 +15,9 @@
 /**
  * @brief Convert an RGB matrix to YCbCr matrix
  * @test✔️ (valeurs approximatives)
- * @param matrice The RGB matrix
- * @param height The height of the matrix
- * @param width The width of the matrix
+ * @param[in] matrice The RGB matrix
+ * @param[in] height The height of the matrix
+ * @param[in] width The width of the matrix
  */
 void convert_RGB_to_YCbCr(uint8_t ***matrice, uint32_t height, uint32_t width){
     if (matrice[1] == NULL && matrice[2] == NULL){

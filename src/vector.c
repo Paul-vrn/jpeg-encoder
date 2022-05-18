@@ -28,8 +28,8 @@ struct vector_t {
 /**
  * @brief getter of the index value of the vector
  * 
- * @param vector the vector
- * @param index the index
+ * @param[in] vector the vector
+ * @param[in] index the index
  * @return int16_t the value of the index
  */
 int16_t vector_get(struct vector_t *vector, uint32_t index)
@@ -40,7 +40,7 @@ int16_t vector_get(struct vector_t *vector, uint32_t index)
 /**
  * @brief getter of the next vector
  * 
- * @param vector the vector
+ * @param[in] vector the vector
  * @return struct vector_t* 
  */
 struct vector_t *vector_get_next(struct vector_t *vector)
@@ -52,7 +52,7 @@ struct vector_t *vector_get_next(struct vector_t *vector)
 /**
  * @brief Create a vector object from an array of 64 values
  * 
- * @param tab the tab of values
+ * @param[in] tab the tab of values
  * @return struct vector_t* 
  */
 struct vector_t* create_vector(int16_t tab[64]){
@@ -69,8 +69,8 @@ struct vector_t* create_vector(int16_t tab[64]){
 /**
  * @brief insert vector in the list at the end
  * @test✔️
- * @param vector the vector
- * @param next the next vector
+ * @param[in] vector the vector
+ * @param[in] next the next vector
  */
 void vector_add(struct vector_t **vector, struct vector_t *next){
     struct vector_t *tmp = *vector;
@@ -87,7 +87,7 @@ void vector_add(struct vector_t **vector, struct vector_t *next){
 /**
  * @brief print vector
  * 
- * @param vector the vector
+ * @param[in] vector the vector
  */
 void vector_print(struct vector_t *vector){
     for (int i = 0; i < 64; i++){
@@ -100,7 +100,7 @@ void vector_print(struct vector_t *vector){
 /**
  * @brief print vectors
  * 
- * @param vector the first vector of the list
+ * @param[in] vector the first vector of the list
  */
 void vectors_print(struct vector_t *vectors){
     struct vector_t *tmp = vectors;
@@ -113,7 +113,7 @@ void vectors_print(struct vector_t *vectors){
 /**
  * @brief Create a vector from freq bloc by applying zigzag method
  * @test✔️
- * @param freq_bloc the frequential bloc
+ * @param[in] freq_bloc the frequential bloc
  * @return struct vector_t* the vector created
  */
 struct vector_t *create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){ 
@@ -141,7 +141,7 @@ struct vector_t *create_vector_from_bloc(struct frequential_bloc_t *freq_bloc){
 /**
  * @brief apply quantification to a vectors Y
  * @test✔️
- * @param vectors the first vector of the list
+ * @param[in] vectors the first vector of the list
  */
 void vectors_quantificationY(struct vector_t *vectors){
     struct vector_t *vector = vectors;
@@ -156,7 +156,7 @@ void vectors_quantificationY(struct vector_t *vectors){
 /**
  * @brief apply the quantification table for vectors of Cr or Cb in the list
  * @test✔️
- * @param vectors the first vector of the list
+ * @param[in] vectors the first vector of the list
  */
 void vectors_quantificationCbCr(struct vector_t *vectors){
     struct vector_t *vector = vectors;
@@ -171,7 +171,7 @@ void vectors_quantificationCbCr(struct vector_t *vectors){
 /**
  * @brief destroy vectors list
  * @test✔️
- * @param head the first vector of the list
+ * @param[in] head the first vector of the list
  */
 void vectors_destroy(struct vector_t **head){
     struct vector_t *current = *head;
