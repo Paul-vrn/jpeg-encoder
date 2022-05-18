@@ -183,7 +183,7 @@ void jpeg_write_header1(struct jpeg1 *jpg){
     for (uint16_t i = 1; i < jpg->nb_component + 1; i++){
         *pt = i;
         fwrite(pt, 1, 1, fg);
-        *pt = jpg->sample[i-1][0] + jpg->sample[i-1][1]*16;
+        *pt = jpg->sample[i-1][0]*16 + jpg->sample[i-1][1];
         fwrite(pt, 1, 1, fg);
         *pt = (i == 1) ? 0 : 1;
         fwrite(pt, 1, 1, fg);
