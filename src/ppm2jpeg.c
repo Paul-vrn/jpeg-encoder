@@ -21,7 +21,7 @@
 #include "huffman.h"
 #include "qtables.h"
 #include "bitstream.h"
-// #include "huffman.h"
+
 
 
 int main(int argc, char *argv[])
