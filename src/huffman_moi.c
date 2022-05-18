@@ -34,7 +34,7 @@ struct huffman_table *huffman_table_build_moi(uint8_t *nb_symb_per_lengths,
                                               uint8_t *symbols,
                                               uint8_t nb_symbols)
 {
-    struct huff_table *hufftable_ToReturn = calloc(1, sizeof(struct huffman_table));
+    struct huff_table *huffmantable_ToReturn = calloc(1, sizeof(struct huffman_table));
     huffmantable_ToReturn->nb_symb_per_lengths = nb_symb_per_lengths;
     huffmantable_ToReturn->symbols = symbols;
     huffmantable_ToReturn->nb_symbols = nb_symbols;
@@ -51,12 +51,18 @@ bool recursif_moi(struct node *currentNode, uint32_t code, uint32_t depth, uint3
             return 1;
         }
         return 0;
-}
+    }
+
+    if(currentNode->used==1){
+        return 0;                  // Le code de Huffman est préfixé 
+    }
+
+
     /*Test gauche*/
     if(currentNode->left==NULL){
         currentNode->left = createNode_moi();
     }
-    if(recursif_moi(currentNode->left, code<<1, depth-1, huffcode_table, index)){
+    if(recursif_moi(currentNode->left, code<<1, depth-1, huffcode_table, index)==1){
         return 1;
     }
 
@@ -64,7 +70,7 @@ bool recursif_moi(struct node *currentNode, uint32_t code, uint32_t depth, uint3
     if(currentNode->right==NULL){
         currentNode->right = createNode_moi();
     }
-    if(recursif_moi(currentNode->right, (code<<1)|1, depth-1, huffcode_table, index)){
+    if(recursif_moi(currentNode->right, (code<<1)+1, depth-1, huffcode_table, index)==1){
         return 1;
     }
 
@@ -79,7 +85,7 @@ uint32_t huffcode_table_build_moi(struct huffman_table *hufftable)
     struct node *root = createNode_moi();
     for(uint32_t i=0; i<16; i++){
         for(uint32_t j=0; j<hufftable->nb_symb_per_lengths; j++){
-            recursif_moi(root, 0, i+1, huffcode_table, &index)
+            recursif_moi(root, 0, i+1, huffcode_table, &index);
             
         }
     hufftable->huffcode_table = huffcode_table;
